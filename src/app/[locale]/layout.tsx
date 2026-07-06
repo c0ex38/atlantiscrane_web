@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import PremiumLoader from "../components/premium-loader";
 import {
   isLocale,
   localeDirections,
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       dir={localeDirections[currentLocale]}
       className="flex min-h-screen flex-col"
     >
+      <PremiumLoader />
       <Navbar locale={currentLocale} />
       <main className="flex-1">{children}</main>
       <Footer locale={currentLocale} />

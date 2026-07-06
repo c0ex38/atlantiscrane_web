@@ -77,30 +77,25 @@ export const translations = {
         "Atlantis Crane, gemi ve deniz platformları için vinçler tasarlar ve üretir. Hazır ürünlerin yanında müşteriye özel kaldırma çözümleri geliştirir; ürettiği ekipmanların testini, kalite kontrolünü ve sevkiyatını da üstlenir. Dayanıklılık, güvenlik ve sertifikasyon standartlarını merkeze alan bu yapı, uluslararası kurulum ve destek süreçlerinde de aktiftir.",
     },
     products: {
-      eyebrow: "Ürünler",
-      title: "Farklı operasyonlara uygun vinç aileleri",
+      eyebrow: "Ürün Gruplarımız",
+      title: "Endüstriyel Gücün Tanımı",
       description:
         "Ürün sayfası daha sonra teknik özellikler, sertifikalar ve model bazlı detaylarla genişletilebilir.",
       items: [
         {
-          title: "Katlanır Bomlu Vinçler",
+          title: "Portal Vinçler",
           description:
-            "Dar alanlarda esnek kullanım ve güvenli operasyon için kompakt çözümler.",
+            "Limanlar ve tersaneler için yüksek kapasiteli kaldırma çözümleri.",
         },
         {
-          title: "Teleskopik Vinçler",
+          title: "Köprülü Vinçler",
           description:
-            "Farklı erişim mesafeleri ve operasyon senaryoları için ayarlanabilir yapılar.",
+            "Fabrika içi verimliliği maksimize eden tavan vinç sistemleri.",
         },
         {
-          title: "Sabit Bomlu Vinçler",
+          title: "Pergel Vinçler",
           description:
-            "Sürekli çalışma ve yüksek dayanım gerektiren uygulamalar için sağlam tasarım.",
-        },
-        {
-          title: "Özel Kaldırma Sistemleri",
-          description:
-            "Proje gereksinimlerine göre tasarlanan, sertifikasyon odaklı mühendislik çözümleri.",
+            "Dar alanlarda esnek kullanım sunan ergonomik kaldırma sistemleri.",
         },
       ],
     },
@@ -161,6 +156,76 @@ export const translations = {
       description:
         "Gemi ve deniz platformları için vinç tasarlayan, üreten, test eden ve uluslararası kurulum desteği sağlayan mühendislik odaklı bir üretici.",
       quickLinks: "Hızlı Linkler",
+      rights: "Tüm hakları saklıdır.",
+      multilingual: "Çok dilli platform",
+    },
+    history: {
+      eyebrow: "Yılların Birikimi ve Çözüm Ağı",
+      title: "Üretim Kronolojimiz",
+      items: [
+        {
+          year: "2001",
+          title: "Tuzla'da Kuruluş",
+          description: "Yerel Tuzla tersanelerine ambar kapakları ve güverte teçhizatları üreten özel bir çelik imalat atölyesi olarak kuruldu."
+        },
+        {
+          year: "2008",
+          title: "İlk Deniz Güverte Vinçleri",
+          description: "DNV sertifikalı ilk hidrolik teleskopik deniz vincini üretti. Mühendislik ve Ar-Ge ekibi tamamen kaldırma çözümlerine odaklanacak şekilde genişletildi."
+        },
+        {
+          year: "2015",
+          title: "İhracat Ağı ve Dubai Ofisi",
+          description: "Uluslararası satış kanalları oluşturuldu. Birleşik Arap Emirlikleri, Abu Dabi ve Dubai limanlarında çalışan açık deniz destek gemileri (OSV) için ilk büyük vinç siparişleri teslim edildi."
+        },
+        {
+          year: "2026",
+          title: "Küresel Vinç Üreticisi",
+          description: "Dünya çapında ağır hizmet vinçleri teslimatı. Akıllı uzaktan izleme sistemleri, özel katlanır bom tasarımları ve 7/24 liman teknik destek ağının devreye alınması."
+        }
+      ]
+    },
+    standards: {
+      eyebrow: "Zorlu Deniz Şartları İçin Tasarlandı",
+      title: "Atlantis Mühendislik Standartları",
+      items: [
+        {
+          title: "Küresel Sertifikasyon",
+          description: "Tüm deniz vinçleri; Lloyd's Register, DNV, Bureau Veritas ve ABS gibi önde gelen uluslararası loyd kuruluşlarının kurallarına uygun olarak tasarlanır, kaynaklanır ve test edilir."
+        },
+        {
+          title: "C5-M Deniz Tipi Boya",
+          description: "Yüksek tuzluluk oranına, neme ve UV ışınlarına karşı koruma sağlayan aşırı korozif sınıf kumlama ve çok katmanlı epoksi deniz tipi boyama teknolojisi uygulanır."
+        },
+        {
+          title: "Sonlu Elemanlar Analizi (FEM)",
+          description: "Maksimum güvenlik marjını garanti etmek için her kaynak dikişi, silindir bağlantısı ve dönüş çemberi, açık deniz dalga yükleri altında ANSYS sistemleriyle analiz edilir."
+        }
+      ]
+    },
+    exportNetwork: {
+      eyebrow: "Küresel Varlık",
+      title: "Global İhracat Ağımız",
+      subtitle: "Beş kıtada sertifikalı deniz kaldırma çözümleri sunuyoruz. Sol taraftaki listeden veya doğrudan haritadan etkileşimli olarak ihracat pazarlarımızı inceleyebilirsiniz.",
+      listTitle: "İHRACAT PAZARLARI",
+      craneLabel: "Vinç",
+      activeOperation: "Aktif Operasyon:",
+      items: [
+        { country: "Birleşik Arap Emirlikleri", count: 120 },
+        { country: "Türkiye", count: 85 },
+        { country: "Suudi Arabistan", count: 45 },
+        { country: "Amerika Birleşik Devletleri", count: 25 },
+        { country: "Katar", count: 22 },
+        { country: "Norveç", count: 20 },
+        { country: "Azerbaycan", count: 18 },
+      ]
+    },
+    ctaSection: {
+      eyebrow: "Denizcilik projelerinizi güçlendirmeye hazır mısınız?",
+      title: "Teknik Detayları\nMühendislerimizle Görüşün",
+      description: "Gemi güverte yerleşiminiz ve klas kuruluşu gereksinimleriniz doğrultusunda özel olarak hazırlanmış 3D CAD mühendislik modelleri, yük diyagramları ve sertifikalı teklifler hazırlıyoruz.",
+      primaryBtn: "TEKLİF AL",
+      secondaryBtn: "İLETİŞİM",
     },
   },
   en: {
@@ -205,30 +270,25 @@ export const translations = {
         "Atlantis Crane designs and manufactures cranes for ships and marine platforms. Alongside ready-made products, it develops custom lifting solutions, handling testing, quality control, and shipping. The company emphasizes durability, safety, and certification, while also supporting international installation and service.",
     },
     products: {
-      eyebrow: "Products",
-      title: "Crane families for different operations",
-      description:
-        "This page can later be expanded with technical specs, certifications, and model-level details.",
+      eyebrow: "Catalog",
+      title: "Products",
+      exploreAll: "Explore the full catalog",
+      viewDetail: "View details",
       items: [
         {
-          title: "Folding Boom Cranes",
+          title: "Gantry Cranes",
           description:
-            "Compact solutions for flexible use and safe operations in tight spaces.",
+            "High-capacity lifting solutions for ports and shipyards.",
         },
         {
-          title: "Telescopic Cranes",
+          title: "Overhead Cranes",
           description:
-            "Adjustable structures for different reach requirements and operational scenarios.",
+            "Ceiling crane systems that maximize in-factory efficiency.",
         },
         {
-          title: "Fixed Boom Cranes",
+          title: "Jib Cranes",
           description:
-            "Robust designs for continuous operation and demanding applications.",
-        },
-        {
-          title: "Custom Lifting Systems",
-          description:
-            "Engineering solutions designed around project-specific requirements and certification needs.",
+            "Ergonomic lifting systems offering flexible use in tight spaces.",
         },
       ],
     },
@@ -289,6 +349,76 @@ export const translations = {
       description:
         "An engineering-focused manufacturer that designs, produces, tests, and supports cranes for ships and marine platforms.",
       quickLinks: "Quick Links",
+      rights: "All rights reserved.",
+      multilingual: "Multilingual platform",
+    },
+    history: {
+      eyebrow: "Years of Experience & Solution Network",
+      title: "Production Chronology",
+      items: [
+        {
+          year: "2001",
+          title: "Establishment in Tuzla",
+          description: "Founded as a specialized steel fabrication workshop producing hatch covers and deck equipment for local Tuzla shipyards."
+        },
+        {
+          year: "2008",
+          title: "First Marine Deck Cranes",
+          description: "Manufactured the first DNV certified hydraulic telescopic marine crane. The engineering and R&D team was expanded to focus entirely on lifting solutions."
+        },
+        {
+          year: "2015",
+          title: "Export Network and Dubai Office",
+          description: "International sales channels were established. First major crane orders were delivered for offshore support vessels (OSV) operating in UAE, Abu Dhabi, and Dubai ports."
+        },
+        {
+          year: "2026",
+          title: "Global Crane Manufacturer",
+          description: "Worldwide delivery of heavy-duty cranes. Deployment of smart remote monitoring systems, custom folding boom designs, and a 24/7 port technical support network."
+        }
+      ]
+    },
+    standards: {
+      eyebrow: "Designed for Harsh Marine Environments",
+      title: "Atlantis Engineering Standards",
+      items: [
+        {
+          title: "Global Certification",
+          description: "All marine cranes are designed, welded, and tested in compliance with the rules of leading international classification societies such as Lloyd's Register, DNV, Bureau Veritas, and ABS."
+        },
+        {
+          title: "C5-M Marine Grade Paint",
+          description: "Extremely corrosive class sandblasting and multi-layer epoxy marine painting technology is applied to provide protection against high salinity, moisture, and UV rays."
+        },
+        {
+          title: "Finite Element Analysis (FEM)",
+          description: "To guarantee maximum safety margins, every weld seam, cylinder connection, and slewing ring is analyzed with ANSYS systems under offshore wave loads."
+        }
+      ]
+    },
+    exportNetwork: {
+      eyebrow: "Global Presence",
+      title: "Our Global Export Network",
+      subtitle: "We provide certified marine lifting solutions across five continents. You can interactively explore our export markets from the list on the left or directly on the map.",
+      listTitle: "EXPORT MARKETS",
+      craneLabel: "Cranes",
+      activeOperation: "Active Operation:",
+      items: [
+        { country: "United Arab Emirates", count: 120 },
+        { country: "Turkey", count: 85 },
+        { country: "Saudi Arabia", count: 45 },
+        { country: "United States of America", count: 25 },
+        { country: "Qatar", count: 22 },
+        { country: "Norway", count: 20 },
+        { country: "Azerbaycan", count: 18 },
+      ]
+    },
+    ctaSection: {
+      eyebrow: "Ready to empower your marine projects?",
+      title: "Discuss Technical Details\nwith Our Engineers",
+      description: "We prepare custom 3D CAD engineering models, load diagrams, and certified proposals tailored to your ship's deck layout and classification society requirements.",
+      primaryBtn: "GET A QUOTE",
+      secondaryBtn: "CONTACT US",
     },
   },
   ar: {
@@ -333,30 +463,25 @@ export const translations = {
         "تصمم Atlantis Crane وتنتج الرافعات للسفن والمنصات البحرية. وبجانب المنتجات الجاهزة، تطور حلول رفع مخصصة وتتكفل بالاختبار وضبط الجودة والشحن. وتركز الشركة على المتانة والسلامة واعتماد المعايير، مع دعم للتركيب والخدمة الدولية.",
     },
     products: {
-      eyebrow: "المنتجات",
-      title: "عائلات رافعات لعمليات مختلفة",
-      description:
-        "يمكن توسيع هذه الصفحة لاحقًا بالمواصفات الفنية والشهادات والتفاصيل حسب كل طراز.",
+      eyebrow: "فهرس",
+      title: "المنتجات",
+      exploreAll: "استكشف الكتالوج الكامل",
+      viewDetail: "عرض التفاصيل",
       items: [
         {
-          title: "رافعات الذراع القابلة للطي",
+          title: "رافعات جسرية",
           description:
-            "حلول مدمجة للاستخدام المرن والعمليات الآمنة في المساحات الضيقة.",
+            "حلول رفع عالية القدرة للموانئ وأحواض بناء السفن.",
         },
         {
-          title: "الرافعات التلسكوبية",
+          title: "رافعات علوية",
           description:
-            "هياكل قابلة للتعديل لتناسب متطلبات الوصول المختلفة والسيناريوهات التشغيلية.",
+            "أنظمة رافعات السقف التي تزيد من كفاءة المصنع.",
         },
         {
-          title: "الرافعات ذات الذراع الثابت",
+          title: "رافعات جيب",
           description:
-            "تصاميم متينة للتشغيل المستمر والتطبيقات عالية المتطلبات.",
-        },
-        {
-          title: "أنظمة الرفع المخصصة",
-          description:
-            "حلول هندسية مصممة وفق متطلبات المشروع واحتياجات الاعتماد.",
+            "أنظمة رفع مريحة توفر استخدامًا مرنًا في المساحات الضيقة.",
         },
       ],
     },
@@ -417,6 +542,76 @@ export const translations = {
       description:
         "شركة تصنيع هندسية تصمم وتنتج وتختبر وتدعم الرافعات للسفن والمنصات البحرية.",
       quickLinks: "روابط سريعة",
+      rights: "جميع الحقوق محفوظة.",
+      multilingual: "منصة متعددة اللغات",
+    },
+    history: {
+      eyebrow: "سنوات من الخبرة وشبكة الحلول",
+      title: "التسلسل الزمني للإنتاج",
+      items: [
+        {
+          year: "2001",
+          title: "التأسيس في توزلا",
+          description: "تأسست كورشة متخصصة في تصنيع الصلب لإنتاج أغطية العنابر ومعدات سطح السفن لأحواض بناء السفن المحلية في توزلا."
+        },
+        {
+          year: "2008",
+          title: "أول رافعات سطح السفينة",
+          description: "تصنيع أول رافعة بحرية تلسكوبية هيدروليكية معتمدة من DNV. تم توسيع فريق الهندسة والبحث والتطوير للتركيز كليًا على حلول الرفع."
+        },
+        {
+          year: "2015",
+          title: "شبكة التصدير ومكتب دبي",
+          description: "تم إنشاء قنوات بيع دولية. تسليم أول طلبات الرافعات الكبيرة لسفن الدعم البحري (OSV) العاملة في موانئ الإمارات وأبو ظبي ودبي."
+        },
+        {
+          year: "2026",
+          title: "مُصنّع رافعات عالمي",
+          description: "تسليم رافعات للخدمة الشاقة في جميع أنحاء العالم. نشر أنظمة مراقبة ذكية عن بعد، وتصميمات أذرع طي مخصصة، وشبكة دعم فني للموانئ تعمل على مدار الساعة طوال أيام الأسبوع."
+        }
+      ]
+    },
+    standards: {
+      eyebrow: "مصمم لبيئات بحرية قاسية",
+      title: "معايير هندسة أتلانتس",
+      items: [
+        {
+          title: "شهادة عالمية",
+          description: "تم تصميم ولحام واختبار جميع الرافعات البحرية وفقًا لقواعد هيئات التصنيف الدولية الرائدة مثل Lloyd's Register و DNV و Bureau Veritas و ABS."
+        },
+        {
+          title: "طلاء بحري فئة C5-M",
+          description: "يتم تطبيق تقنية السفع الرملي شديدة التآكل وطلاء الإيبوكسي البحري متعدد الطبقات لتوفير حماية ضد الملوحة العالية والرطوبة والأشعة فوق البنفسجية."
+        },
+        {
+          title: "تحليل العناصر المحدودة (FEM)",
+          description: "لضمان أقصى هوامش الأمان، يتم تحليل كل وصلة لحام، ووصلة أسطوانة، وحلقة دوران باستخدام أنظمة ANSYS تحت أحمال أمواج البحر المفتوح."
+        }
+      ]
+    },
+    exportNetwork: {
+      eyebrow: "الوجود العالمي",
+      title: "شبكة التصدير العالمية",
+      subtitle: "نقدم حلول رفع بحرية معتمدة عبر خمس قارات. يمكنك استكشاف أسواق التصدير الخاصة بنا بشكل تفاعلي من القائمة الموجودة على اليسار أو مباشرة على الخريطة.",
+      listTitle: "أسواق التصدير",
+      craneLabel: "رافعة",
+      activeOperation: "العمليات النشطة:",
+      items: [
+        { country: "الإمارات العربية المتحدة", count: 120 },
+        { country: "تركيا", count: 85 },
+        { country: "المملكة العربية السعودية", count: 45 },
+        { country: "الولايات المتحدة الأمريكية", count: 25 },
+        { country: "قطر", count: 22 },
+        { country: "النرويج", count: 20 },
+        { country: "أذربيجان", count: 18 },
+      ]
+    },
+    ctaSection: {
+      eyebrow: "هل أنت مستعد لتعزيز مشاريعك البحرية؟",
+      title: "ناقش التفاصيل الفنية\nمع مهندسينا",
+      description: "نقوم بإعداد نماذج هندسية ثلاثية الأبعاد (3D CAD) مخصصة، ومخططات تحميل، ومقترحات معتمدة تتناسب مع تخطيط سطح سفينتك ومتطلبات هيئة التصنيف.",
+      primaryBtn: "احصل على عرض سعر",
+      secondaryBtn: "اتصل بنا",
     },
   },
 } as const;
