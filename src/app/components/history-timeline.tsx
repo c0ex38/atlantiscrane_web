@@ -33,7 +33,10 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
           className="text-center mb-20 space-y-4"
         >
-          <p className="text-sm font-semibold text-[color:var(--cta)] tracking-wider">
+          <p 
+            className="text-lg md:text-xl font-medium italic text-[color:var(--cta)]"
+            style={{ fontFamily: "var(--font-serif), serif" }}
+          >
             {eyebrow}
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[color:var(--text)] tracking-tight">

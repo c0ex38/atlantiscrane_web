@@ -13,9 +13,8 @@ export default function CtaSection({ locale }: CtaSectionProps) {
   const { eyebrow, title, description, primaryBtn, secondaryBtn } = t.ctaSection;
 
   return (
-    <section className="relative overflow-hidden border-b border-white/10 bg-[linear-gradient(180deg,#20203e_0%,#1b1b36_100%)] py-24 sm:py-32">
+    <section className="bg-[#FFD700] py-24 sm:py-32 relative overflow-hidden">
       {/* Alt sınır CTA ile footer arasında net bir ayrım oluşturur. */}
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-[#141429]/45 pointer-events-none" />
       
       <div className="container-shell relative z-10">
         <div className="max-w-4xl mx-auto text-center">
@@ -25,7 +24,7 @@ export default function CtaSection({ locale }: CtaSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-lg md:text-xl text-[color:var(--cta)] font-medium mb-6"
+            className="text-lg md:text-xl text-slate-800 font-semibold mb-6 italic"
             style={{ fontFamily: "var(--font-serif), serif" }}
           >
             {eyebrow}
@@ -36,7 +35,7 @@ export default function CtaSection({ locale }: CtaSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-8"
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-8"
           >
             {title.split("\n").map((line, i) => (
               <span key={i} className="block">{line}</span>
@@ -48,7 +47,7 @@ export default function CtaSection({ locale }: CtaSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-300 leading-relaxed max-w-3xl mx-auto mb-12"
+            className="text-slate-800 leading-relaxed max-w-3xl mx-auto mb-12 font-medium"
           >
             {description}
           </motion.p>
@@ -62,13 +61,13 @@ export default function CtaSection({ locale }: CtaSectionProps) {
           >
             <Link 
               href={`/${locale}#${sectionIds.contact}`}
-              className="w-full sm:w-auto px-10 py-4 bg-[color:var(--cta)] text-slate-950 font-black text-sm tracking-wider hover:bg-yellow-400 transition-colors uppercase"
+              className="w-full sm:w-auto px-10 py-4 bg-slate-900 text-white font-black text-sm tracking-wider hover:bg-black transition-colors uppercase"
             >
               {primaryBtn}
             </Link>
             <Link 
               href={`/${locale}#${sectionIds.contact}`}
-              className="w-full sm:w-auto px-10 py-4 bg-transparent border border-slate-600 text-white font-black text-sm tracking-wider hover:border-white hover:bg-white/5 transition-colors uppercase"
+              className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-slate-900 text-slate-900 font-black text-sm tracking-wider hover:bg-slate-900 hover:text-white transition-colors uppercase"
             >
               {secondaryBtn}
             </Link>

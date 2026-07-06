@@ -71,10 +71,14 @@ export const translations = {
       ],
     },
     about: {
-      eyebrow: "Hakkımızda",
-      title: "Mühendislik odaklı üretim yaklaşımı",
+      eyebrow: "Temel Felsefemiz",
+      title: "Uluslararası standartlarda modern mühendislik.",
+      subtitleHighlight: "Mühendislik,",
+      subtitle: "kaldırdığımız her şeyin temelindedir.",
       description:
-        "Atlantis Crane, gemi ve deniz platformları için vinçler tasarlar ve üretir. Hazır ürünlerin yanında müşteriye özel kaldırma çözümleri geliştirir; ürettiği ekipmanların testini, kalite kontrolünü ve sevkiyatını da üstlenir. Dayanıklılık, güvenlik ve sertifikasyon standartlarını merkeze alan bu yapı, uluslararası kurulum ve destek süreçlerinde de aktiftir.",
+        "Atlantis Crane, Türk gemi inşa sanayinin kalbi olan İstanbul Tuzla'da, en zorlu deniz koşullarına dayanacak şekilde son teknoloji ekipmanlar tasarlayan mühendislik odaklı bir Türk üreticidir. Birleşik Arap Emirlikleri ve Körfez tersanelerinde yaygın servis ağımızla hizmetinizdeyiz.",
+      primaryBtn: "HİKAYEMİZ",
+      secondaryBtn: "ÜRETİM TESİSİMİZ",
     },
     products: {
       eyebrow: "Ürün Gruplarımız",
@@ -265,10 +269,14 @@ export const translations = {
       ],
     },
     about: {
-      eyebrow: "About",
-      title: "Engineering-led manufacturing approach",
+      eyebrow: "Our Core Philosophy",
+      title: "Modern engineering at international standards.",
+      subtitleHighlight: "Engineering",
+      subtitle: "is at the core of everything we lift.",
       description:
-        "Atlantis Crane designs and manufactures cranes for ships and marine platforms. Alongside ready-made products, it develops custom lifting solutions, handling testing, quality control, and shipping. The company emphasizes durability, safety, and certification, while also supporting international installation and service.",
+        "Atlantis Crane is an engineering-focused Turkish manufacturer based in Istanbul Tuzla, the heart of the Turkish shipbuilding industry, designing state-of-the-art equipment to withstand the harshest marine conditions. We are at your service with our extensive service network in the United Arab Emirates and Gulf shipyards.",
+      primaryBtn: "OUR STORY",
+      secondaryBtn: "PRODUCTION FACILITY",
     },
     products: {
       eyebrow: "Catalog",
@@ -458,10 +466,14 @@ export const translations = {
       ],
     },
     about: {
-      eyebrow: "من نحن",
-      title: "تصنيع قائم على الهندسة",
+      eyebrow: "فلسفتنا الأساسية",
+      title: "هندسة حديثة بمعايير دولية.",
+      subtitleHighlight: "الهندسة",
+      subtitle: "هي جوهر كل ما نرفعه.",
       description:
-        "تصمم Atlantis Crane وتنتج الرافعات للسفن والمنصات البحرية. وبجانب المنتجات الجاهزة، تطور حلول رفع مخصصة وتتكفل بالاختبار وضبط الجودة والشحن. وتركز الشركة على المتانة والسلامة واعتماد المعايير، مع دعم للتركيب والخدمة الدولية.",
+        "شركة Atlantis Crane هي شركة تركية مصنعة تركز على الهندسة، ومقرها في إسطنبول توزلا، قلب صناعة بناء السفن التركية، وتقوم بتصميم أحدث المعدات لتحمل أقسى الظروف البحرية. نحن في خدمتكم من خلال شبكة خدماتنا الواسعة في الإمارات العربية المتحدة وأحواض بناء السفن في الخليج.",
+      primaryBtn: "قصتنا",
+      secondaryBtn: "منشأة الإنتاج",
     },
     products: {
       eyebrow: "فهرس",

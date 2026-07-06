@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import PremiumLoader from "../components/premium-loader";
+import WhatsAppButton from "../components/whatsapp-button";
 import {
   isLocale,
   localeDirections,
@@ -37,6 +38,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <Navbar locale={currentLocale} />
       <main className="flex-1">{children}</main>
       <Footer locale={currentLocale} />
+      <WhatsAppButton locale={currentLocale} />
     </div>
   );
 }

@@ -28,7 +28,8 @@ export default function EngineeringStandards({ locale }: EngineeringStandardsPro
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-sm font-semibold text-[color:var(--cta)] tracking-wider mb-4"
+            className="text-lg md:text-xl font-medium italic text-[color:var(--cta)] mb-4"
+            style={{ fontFamily: "var(--font-serif), serif" }}
           >
             {eyebrow}
           </motion.p>

@@ -65,6 +65,8 @@ export default function Navbar({ locale }: NavbarProps) {
               alt="Atlantis Crane Logo"
               width={166}
               height={40}
+              quality={100}
+              unoptimized
               className="h-8 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
               priority
             />

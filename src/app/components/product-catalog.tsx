@@ -18,7 +18,10 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
           <div className="space-y-4">
             <div className="inline-flex items-center gap-3">
               <span className="h-px w-10 bg-[color:var(--cta)]" />
-              <p className="text-xs font-bold uppercase tracking-[0.35em] text-slate-900">
+              <p 
+                className="text-lg md:text-xl font-medium italic text-[color:var(--cta)]"
+                style={{ fontFamily: "var(--font-serif), serif", textTransform: "none", letterSpacing: "normal" }}
+              >
                 {t.products.eyebrow}
               </p>
             </div>
@@ -63,6 +66,8 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
                   src={bgImage}
                   alt={item.title}
                   fill
+                  quality={100}
+                  unoptimized
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] grayscale group-hover:scale-110 group-hover:grayscale-0"
                 />

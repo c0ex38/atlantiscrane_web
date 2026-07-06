@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Hero from "../components/hero";
+import AboutSection from "../components/about-section";
 import ProductCatalog from "../components/product-catalog";
 import HistoryTimeline from "../components/history-timeline";
 import EngineeringStandards from "../components/engineering-standards";
@@ -25,6 +26,7 @@ export default async function LocaleHome({ params }: PageProps) {
   return (
     <main>
       <Hero locale={locale as Locale} />
+      <AboutSection locale={locale as Locale} />
       <ProductCatalog locale={locale as Locale} />
       <HistoryTimeline locale={locale as Locale} />
       <EngineeringStandards locale={locale as Locale} />

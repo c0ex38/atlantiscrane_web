@@ -44,6 +44,8 @@ export default function Footer({ locale }: FooterProps) {
                 alt="Atlantis Crane Logo"
                 width={200}
                 height={48}
+                quality={100}
+                unoptimized
                 className="h-12 w-auto brightness-0 invert opacity-90 transition-opacity group-hover:opacity-100"
               />
               <span className="block text-sm text-[color:var(--cta)] font-bold tracking-wider pl-1 mt-1">
