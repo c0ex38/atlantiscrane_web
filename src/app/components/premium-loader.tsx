@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { startTransition, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,8 +11,10 @@ export default function PremiumLoader() {
 
   useEffect(() => {
     // Reset states on pathname change
-    setIsLoading(true);
-    setCounter(0);
+    startTransition(() => {
+      setIsLoading(true);
+      setCounter(0);
+    });
 
     document.body.style.overflow = "hidden";
 

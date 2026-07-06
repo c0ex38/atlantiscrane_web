@@ -79,6 +79,8 @@ export const translations = {
     products: {
       eyebrow: "Ürün Gruplarımız",
       title: "Endüstriyel Gücün Tanımı",
+      exploreAll: "Tüm ürünleri incele",
+      viewDetail: "Detayları gör",
       description:
         "Ürün sayfası daha sonra teknik özellikler, sertifikalar ve model bazlı detaylarla genişletilebilir.",
       items: [
@@ -98,8 +100,7 @@ export const translations = {
             "Dar alanlarda esnek kullanım sunan ergonomik kaldırma sistemleri.",
         },
       ],
-    },
-    sectors: {
+    },    sectors: {
       eyebrow: "Sektörler / Kullanım Alanları",
       title: "Denizcilik, offshore ve kıyı projelerinde kullanım",
       items: [
@@ -619,3 +620,4 @@ export const translations = {
 export function isLocale(value: string): value is Locale {
   return locales.includes(value as Locale);
 }
+
