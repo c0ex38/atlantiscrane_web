@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { translations, type Locale } from "../lib/site-content";
 
 type HistoryTimelineProps = {
@@ -13,102 +13,189 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
   const { items, eyebrow, title } = t.history;
   
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // We can animate the vertical line drawing down as you scroll
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [scrollRange, setScrollRange] = useState(0);
+
+  // Measure the width of the scroll container to determine horizontal translation range
+  useEffect(() => {
+    const calculateRange = () => {
+      if (scrollRef.current) {
+        const range = scrollRef.current.scrollWidth - window.innerWidth;
+        setScrollRange(range > 0 ? range : 0);
+      }
+    };
+
+    // Calculate after rendering
+    const timer = setTimeout(calculateRange, 100);
+
+    window.addEventListener("resize", calculateRange);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", calculateRange);
+    };
+  }, [items]);
+
+  // Track the vertical scroll of the section container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end end"]
   });
-  
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  // Smooth out the scroll progress using spring for premium feel
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 20,
+    restDelta: 0.001
+  });
+
+  // Map scroll progress to horizontal translation (translateX)
+  const x = useTransform(smoothProgress, [0, 1], ["0px", `-${scrollRange}px`]);
 
   return (
-    <section className="bg-[color:var(--bg)] py-24 sm:py-32 overflow-hidden">
-      <div className="container-shell">
-        {/* Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-          className="text-center mb-20 space-y-4"
-        >
-          <p 
-            className="text-lg md:text-xl font-medium italic text-[color:var(--cta)]"
-            style={{ fontFamily: "var(--font-serif), serif" }}
-          >
-            {eyebrow}
-          </p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[color:var(--text)] tracking-tight">
-            {title}
-          </h2>
-        </motion.div>
+    <section 
+      ref={containerRef} 
+      className="relative bg-[color:var(--bg)] min-h-[110vh] md:h-[220vh] overflow-visible border-t border-slate-100"
+    >
+      {/* Pinned Sticky container for desktop - offset top to prevent overlapping with floating navbar */}
+      <div className="md:sticky md:top-[96px] md:h-[calc(100vh-96px)] md:overflow-hidden flex flex-col justify-center py-20 md:py-0 z-10">
+        
+        {/* Header container */}
+        <div className="container-shell mb-8 md:mb-12">
+          <div className="max-w-3xl mx-auto text-center">
+            <motion.p 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-lg md:text-xl font-medium italic text-[color:var(--cta)] mb-3"
+              style={{ fontFamily: "var(--font-serif), serif" }}
+            >
+              {eyebrow}
+            </motion.p>
+            <motion.h2 
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[color:var(--text)] tracking-tight"
+            >
+              {title}
+            </motion.h2>
+          </div>
+        </div>
 
-        {/* Timeline Container */}
-        <div ref={containerRef} className="relative max-w-4xl mx-auto">
-          {/* Central Line Background */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 transform -translate-x-1/2 md:block hidden" />
+        {/* Desktop Horizontal Pinned Scroll View */}
+        <div className="hidden md:block relative w-full overflow-hidden">
+          {/* Main Horizontal Timeline Line */}
+          <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-slate-200 -translate-y-1/2 z-0" />
           
-          {/* Animated Central Line */}
+          {/* Animated Main Horizontal Line (Scroll progress) */}
           <motion.div 
-            className="absolute left-1/2 top-0 bottom-0 w-[2px] bg-[color:var(--cta)] transform -translate-x-1/2 origin-top md:block hidden"
-            style={{ scaleY }}
+            className="absolute top-1/2 left-0 h-[2px] bg-[color:var(--cta)] -translate-y-1/2 origin-left z-10"
+            style={{ scaleX: smoothProgress }}
           />
 
-          <div className="space-y-12 md:space-y-0">
+          {/* Scrolling content container */}
+          <motion.div 
+            ref={scrollRef}
+            style={{ x }} 
+            className="flex items-center gap-16 px-[15vw] py-10 w-max relative z-20"
+          >
             {items.map((item, index) => {
-              const isEven = index % 2 === 0; // 0, 2 are left. 1, 3 are right.
-              
+              const isEven = index % 2 === 0;
+
               return (
-                <div key={item.year} className="relative flex items-center justify-between md:justify-normal md:even:flex-row-reverse group">
-                  
-                  {/* Mobile Line (hidden on desktop) */}
-                  <div className="absolute left-4 top-0 bottom-0 w-px bg-slate-200 md:hidden" />
-                  
-                  {/* Icon/Dot */}
-                  <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-[color:var(--cta)] border-4 border-[color:var(--bg)] transform -translate-x-1/2 md:shadow-[0_0_0_4px_rgba(253,197,32,0.2)] z-10 transition-transform duration-500 group-hover:scale-150" />
-                  
-                  {/* Content Box */}
-                  <motion.div 
-                    initial={{ 
-                      opacity: 0, 
-                      x: isEven ? -50 : 50,
-                      y: 30
-                    }}
-                    whileInView={{ 
-                      opacity: 1, 
-                      x: 0,
-                      y: 0
-                    }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      duration: 0.8, 
-                      delay: 0.1,
-                      ease: [0.25, 1, 0.5, 1] 
-                    }}
-                    className={`w-full pl-12 md:pl-0 md:w-1/2 ${
-                      isEven ? "md:pr-16 lg:pr-24" : "md:pl-16 lg:pl-24"
-                    }`}
-                  >
-                    <div className="bg-white border border-slate-100 p-8 sm:p-10 shadow-[0_20px_50px_rgba(27,27,54,0.04)] transition-all duration-500 hover:shadow-[0_30px_60px_rgba(27,27,54,0.08)] hover:-translate-y-1">
-                      <div className="text-center space-y-3">
-                        <span className="block text-[color:var(--cta)] font-black text-2xl tracking-wider">
-                          {item.year}
-                        </span>
-                        <h3 className="text-xl font-bold text-slate-900 leading-tight">
-                          {item.title}
-                        </h3>
-                        <p className="text-slate-600 text-sm leading-relaxed max-w-sm mx-auto">
-                          {item.description}
-                        </p>
-                      </div>
+                <div 
+                  key={item.year} 
+                  className="w-[360px] h-[480px] relative shrink-0 flex items-center justify-center"
+                >
+                  {/* Connection Dot on the horizontal line - Centered inside wrapper */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-4 border-[color:var(--cta)] z-30 shadow-sm" />
+
+                  {isEven ? (
+                    /* Card below the line - Compact dynamic container centered horizontally */
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 flex flex-col items-center justify-start pt-2 w-[320px]">
+                      {/* Shortened vertical line going down for better spacing */}
+                      <div className="w-[1px] h-8 bg-slate-300 shrink-0" />
+                      
+                      {/* Card */}
+                      <motion.div 
+                        initial={{ opacity: 0, y: 15 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+                        className="bg-white border border-slate-200 rounded-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-300 w-full"
+                      >
+                        <div className="space-y-2">
+                          <span className="block text-xl font-black text-[color:var(--cta)]">
+                            {item.year}
+                          </span>
+                          <h3 className="text-base font-bold text-slate-900 leading-snug">
+                            {item.title}
+                          </h3>
+                          <p className="text-slate-600 text-xs leading-relaxed">
+                            {item.description}
+                          </p>
+                        </div>
+                      </motion.div>
                     </div>
-                  </motion.div>
+                  ) : (
+                    /* Card above the line - Compact dynamic container centered horizontally */
+                    <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 flex flex-col-reverse items-center justify-start pb-2 w-[320px]">
+                      {/* Shortened vertical line going up for better spacing */}
+                      <div className="w-[1px] h-8 bg-slate-300 shrink-0" />
+
+                      {/* Card */}
+                      <motion.div 
+                        initial={{ opacity: 0, y: -15 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+                        className="bg-white border border-slate-200 rounded-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-300 w-full"
+                      >
+                        <div className="space-y-2">
+                          <span className="block text-xl font-black text-[color:var(--cta)]">
+                            {item.year}
+                          </span>
+                          <h3 className="text-base font-bold text-slate-900 leading-snug">
+                            {item.title}
+                          </h3>
+                          <p className="text-slate-600 text-xs leading-relaxed">
+                            {item.description}
+                          </p>
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
                 </div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
+
+        {/* Mobile Horizontal Touch-swipe Carousel */}
+        <div className="md:hidden w-full overflow-x-auto snap-x snap-mandatory scrollbar-none py-6 px-6 flex gap-6 scroll-smooth">
+          {items.map((item) => {
+            return (
+              <div 
+                key={item.year} 
+                className="snap-center shrink-0 w-[85vw] max-w-[320px] bg-white border border-slate-200 rounded-xl p-6 shadow-[0_8px_20px_rgba(0,0,0,0.02)] relative overflow-hidden"
+              >
+                <div className="space-y-3">
+                  <span className="block text-xl font-black text-[color:var(--cta)]">
+                    {item.year}
+                  </span>
+                  <h3 className="text-base font-bold text-slate-900 leading-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-600 text-xs leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

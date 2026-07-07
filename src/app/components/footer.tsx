@@ -18,7 +18,7 @@ export default function Footer({ locale }: FooterProps) {
 
   const footerLinks = [
     { label: t.nav.about, href: `/${locale}#${sectionIds.about}` },
-    { label: t.nav.products, href: `/${locale}#${sectionIds.products}` },
+    { label: t.nav.products, href: `/${locale}/products` },
     { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` },
     { label: t.nav.contact, href: `/${locale}#${sectionIds.contact}` },
   ];
@@ -32,7 +32,7 @@ export default function Footer({ locale }: FooterProps) {
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#1b1b36]/55 to-transparent pointer-events-none" />
       <div className="container-shell relative z-10">
         <div className="grid gap-12 lg:grid-cols-[2fr_1fr_1fr] mb-20">
-          
+
           {/* Brand Info */}
           <div className="space-y-6">
             <Link
@@ -103,13 +103,25 @@ export default function Footer({ locale }: FooterProps) {
 
         </div>
 
+        {/* Spacer to make room for the Huge Background Text in the flow to prevent overlapping */}
+        <div className="h-[10vw] min-h-[80px] max-h-[140px] pointer-events-none" />
+
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-800 gap-6">
           <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-            © {new Date().getFullYear()} Atlantis Crane. {t.footer.rights}
+            © 2026 ATLANTİS CRANE. TÜM HAKLARI SAKLIDIR. | Desıgned by{" "}
+            <a
+              href="https://kncdesign.com.tr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-80 transition-opacity"
+              style={{ color: "#ff2700" }}
+            >
+              KNC CREATIVE
+            </a>
           </p>
-          
-            <button 
+
+          <button
             onClick={scrollToTop}
             className="flex h-12 w-12 items-center justify-center rounded-full bg-white/8 text-[color:var(--cta)] hover:bg-[color:var(--cta)] hover:text-slate-900 transition-colors z-20"
             aria-label="Scroll to top"
@@ -123,9 +135,9 @@ export default function Footer({ locale }: FooterProps) {
           </p>
         </div>
       </div>
-      
-      {/* Huge Background Text */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden flex justify-center items-end pointer-events-none opacity-[0.03] select-none">
+
+      {/* Huge Background Text - Positioned above the bottom bar */}
+      <div className="absolute bottom-[120px] left-0 right-0 overflow-hidden flex justify-center items-end pointer-events-none opacity-[0.03] select-none">
         <h1 className="text-[18vw] font-black leading-none text-white whitespace-nowrap mb-[-4%]">
           ATLANTIS
         </h1>

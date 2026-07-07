@@ -79,6 +79,16 @@ export const translations = {
         "Atlantis Crane, Türk gemi inşa sanayinin kalbi olan İstanbul Tuzla'da, en zorlu deniz koşullarına dayanacak şekilde son teknoloji ekipmanlar tasarlayan mühendislik odaklı bir Türk üreticidir. Birleşik Arap Emirlikleri ve Körfez tersanelerinde yaygın servis ağımızla hizmetinizdeyiz.",
       primaryBtn: "HİKAYEMİZ",
       secondaryBtn: "ÜRETİM TESİSİMİZ",
+      stats: [
+        { value: "2001", label: "Kuruluş Yılı", suffix: "" },
+        { value: "300", label: "Teslim Edilen Vinç", suffix: "+" },
+        { value: "7", label: "Aktif Pazar", suffix: "+ Ülke" },
+      ],
+      values: [
+        { icon: "shield", title: "Küresel Sertifikasyon", description: "DNV, Lloyd's, Bureau Veritas ve ABS standartlarında tasarım ve test." },
+        { icon: "gear", title: "Özel Mühendislik", description: "Her proje için müşteriye özel tasarım, hesaplama ve 3D CAD modelleme." },
+        { icon: "globe", title: "Uluslararası Kurulum", description: "İstanbul'dan Dubai'ye uzanan saha destek ve kurulum ağı." },
+      ],
     },
     products: {
       eyebrow: "Ürün Gruplarımız",
@@ -89,19 +99,52 @@ export const translations = {
         "Ürün sayfası daha sonra teknik özellikler, sertifikalar ve model bazlı detaylarla genişletilebilir.",
       items: [
         {
-          title: "Portal Vinçler",
-          description:
-            "Limanlar ve tersaneler için yüksek kapasiteli kaldırma çözümleri.",
+          title: "Katlanır Bomlu Deniz Vinçleri",
+          description: "Dar güvertelerde ve kısıtlı alanlarda maksimum esneklik ve depolama kolaylığı sağlayan hidrolik katlanır tasarımlar.",
+          capacity: "1.5 - 25 Ton",
+          outreach: "6 - 24 Metre",
         },
         {
-          title: "Köprülü Vinçler",
-          description:
-            "Fabrika içi verimliliği maksimize eden tavan vinç sistemleri.",
+          title: "Teleskopik Bomlu Deniz Vinçleri",
+          description: "Uzun erişim mesafesi ve hassas yük konumlandırma gerektiren operasyonlar için tasarlanmış uzayabilir bomlu vinçler.",
+          capacity: "2 - 40 Ton",
+          outreach: "8 - 32 Metre",
         },
         {
-          title: "Pergel Vinçler",
-          description:
-            "Dar alanlarda esnek kullanım sunan ergonomik kaldırma sistemleri.",
+          title: "Sabit Bomlu Deniz Vinçleri",
+          description: "Güverte üstü genel yük, servis ve malzeme transfer operasyonları için yüksek dayanımlı, minimum bakım gerektiren sabit çözümler.",
+          capacity: "1 - 15 Ton",
+          outreach: "5 - 20 Metre",
+        },
+        {
+          title: "Katlanır Teleskopik Deniz Vinçleri",
+          description: "Katlanma fonksiyonu ile teleskopik uzama özelliğini birleştiren, çok amaçlı ve yüksek erişimli hibrit kaldırma sistemleri.",
+          capacity: "2 - 30 Ton",
+          outreach: "7 - 28 Metre",
+        },
+        {
+          title: "Offshore (Açık Deniz) Vinçleri",
+          description: "Derin deniz platformları ve sondaj gemileri için dalga sönümleme (AHC) ve patlama korumalı (ATEX) ağır hizmet vinçleri.",
+          capacity: "5 - 120 Ton",
+          outreach: "12 - 45 Metre",
+        },
+        {
+          title: "Kumanya ve Servis Vinçleri",
+          description: "Gemi personelinin günlük malzeme, yedek parça ve kumanya transferi için tasarlanmış kompakt, hızlı ve güvenli kreynler.",
+          capacity: "0.5 - 5 Ton",
+          outreach: "4 - 15 Metre",
+        },
+        {
+          title: "Filika ve Kurtarma Davitleri",
+          description: "Acil durumlarda can kurtarma botlarının ve hızlı kurtarma botlarının (FRC) denize güvenli ve hızlı indirilmesini sağlayan davit sistemleri.",
+          capacity: "1.5 - 8 Ton",
+          outreach: "3 - 8 Metre",
+        },
+        {
+          title: "A-Frame Kaldırma Sistemleri",
+          description: "Araştırma gemileri ve offshore operasyonlarında denizaltı cihazları (ROV), sonarlar ve kablo serim sistemleri için kıç kaldırma çerçeveleri.",
+          capacity: "5 - 60 Ton",
+          outreach: "4 - 12 Metre",
         },
       ],
     },    sectors: {
@@ -277,6 +320,16 @@ export const translations = {
         "Atlantis Crane is an engineering-focused Turkish manufacturer based in Istanbul Tuzla, the heart of the Turkish shipbuilding industry, designing state-of-the-art equipment to withstand the harshest marine conditions. We are at your service with our extensive service network in the United Arab Emirates and Gulf shipyards.",
       primaryBtn: "OUR STORY",
       secondaryBtn: "PRODUCTION FACILITY",
+      stats: [
+        { value: "2001", label: "Founded", suffix: "" },
+        { value: "300", label: "Cranes Delivered", suffix: "+" },
+        { value: "7", label: "Active Markets", suffix: "+ Countries" },
+      ],
+      values: [
+        { icon: "shield", title: "Global Certification", description: "Designed and tested under DNV, Lloyd's, Bureau Veritas and ABS standards." },
+        { icon: "gear", title: "Custom Engineering", description: "Tailored design, load calculations and 3D CAD modeling for every project." },
+        { icon: "globe", title: "International Deployment", description: "Field support and installation network from Istanbul to Dubai." },
+      ],
     },
     products: {
       eyebrow: "Catalog",
@@ -285,19 +338,52 @@ export const translations = {
       viewDetail: "View details",
       items: [
         {
-          title: "Gantry Cranes",
-          description:
-            "High-capacity lifting solutions for ports and shipyards.",
+          title: "Knuckle Boom Marine Cranes",
+          description: "Hydraulic folding designs providing maximum flexibility and ease of storage on tight decks and restricted spaces.",
+          capacity: "1.5 - 25 Tons",
+          outreach: "6 - 24 Meters",
         },
         {
-          title: "Overhead Cranes",
-          description:
-            "Ceiling crane systems that maximize in-factory efficiency.",
+          title: "Telescopic Boom Marine Cranes",
+          description: "Extendable boom cranes designed for operations requiring long outreach and high-precision load positioning.",
+          capacity: "2 - 40 Tons",
+          outreach: "8 - 32 Meters",
         },
         {
-          title: "Jib Cranes",
-          description:
-            "Ergonomic lifting systems offering flexible use in tight spaces.",
+          title: "Stiff Boom Marine Cranes",
+          description: "High-durability, minimum maintenance fixed boom solutions for general cargo, service, and supply transfer operations.",
+          capacity: "1 - 15 Tons",
+          outreach: "5 - 20 Meters",
+        },
+        {
+          title: "Knuckle Telescopic Cranes",
+          description: "Hybrid multi-purpose lifting systems combining knuckle folding functionality with telescopic outreach.",
+          capacity: "2 - 30 Tons",
+          outreach: "7 - 28 Meters",
+        },
+        {
+          title: "Offshore Heavy Lift Cranes",
+          description: "Heavy-duty cranes equipped with Active Heave Compensation (AHC) and explosion protection (ATEX) for platforms and drillships.",
+          capacity: "5 - 120 Tons",
+          outreach: "12 - 45 Meters",
+        },
+        {
+          title: "Provision & Service Cranes",
+          description: "Compact, fast, and safe deck cranes designed for daily supplies, spare parts, and provision transfer for vessel crew.",
+          capacity: "0.5 - 5 Tons",
+          outreach: "4 - 15 Meters",
+        },
+        {
+          title: "Lifeboat & Rescue Davits",
+          description: "Davit systems ensuring safe, rapid launch and recovery of lifeboats and Fast Rescue Crafts (FRC) in critical conditions.",
+          capacity: "1.5 - 8 Tons",
+          outreach: "3 - 8 Meters",
+        },
+        {
+          title: "A-Frame Launch Systems",
+          description: "Stern-mounted launch and recovery frames for marine research equipment, underwater ROVs, sonars, and cable laying systems.",
+          capacity: "5 - 60 Tons",
+          outreach: "4 - 12 Meters",
         },
       ],
     },
@@ -474,6 +560,16 @@ export const translations = {
         "شركة Atlantis Crane هي شركة تركية مصنعة تركز على الهندسة، ومقرها في إسطنبول توزلا، قلب صناعة بناء السفن التركية، وتقوم بتصميم أحدث المعدات لتحمل أقسى الظروف البحرية. نحن في خدمتكم من خلال شبكة خدماتنا الواسعة في الإمارات العربية المتحدة وأحواض بناء السفن في الخليج.",
       primaryBtn: "قصتنا",
       secondaryBtn: "منشأة الإنتاج",
+      stats: [
+        { value: "2001", label: "تأسست", suffix: "" },
+        { value: "300", label: "رافعات مسلّمة", suffix: "+" },
+        { value: "7", label: "أسواق نشطة", suffix: "+ دول" },
+      ],
+      values: [
+        { icon: "shield", title: "شهادة عالمية", description: "مصممة ومختبرة وفق معايير DNV وLloyd's وBureau Veritas وABS." },
+        { icon: "gear", title: "هندسة مخصصة", description: "تصميم مخصص وحسابات التحميل ونمذجة CAD ثلاثية الأبعاد لكل مشروع." },
+        { icon: "globe", title: "النشر الدولي", description: "شبكة دعم ميداني وتركيب من إسطنبول إلى دبي." },
+      ],
     },
     products: {
       eyebrow: "فهرس",
@@ -482,19 +578,52 @@ export const translations = {
       viewDetail: "عرض التفاصيل",
       items: [
         {
-          title: "رافعات جسرية",
-          description:
-            "حلول رفع عالية القدرة للموانئ وأحواض بناء السفن.",
+          title: "رافعات بحرية ذات ذراع مفصلي",
+          description: "تصميمات هيدروليكية قابلة للطي توفر مرونة قصوى وسهولة في التخزين على الأسطح الضيقة والمساحات المحدودة.",
+          capacity: "1.5 - 25 طن",
+          outreach: "6 - 24 متر",
         },
         {
-          title: "رافعات علوية",
-          description:
-            "أنظمة رافعات السقف التي تزيد من كفاءة المصنع.",
+          title: "رافعات بحرية ذات ذراع تلسكوبي",
+          description: "رافعات ذات أذرع قابلة للتمدد مصممة للعمليات التي تتطلب مدى وصول طويلاً وتحديدًا دقيقًا لموقع الحمولة.",
+          capacity: "2 - 40 طن",
+          outreach: "8 - 32 متر",
         },
         {
-          title: "رافعات جيب",
-          description:
-            "أنظمة رفع مريحة توفر استخدامًا مرنًا في المساحات الضيقة.",
+          title: "رافعات بحرية ذات ذراع ثابت",
+          description: "حلول ذراع ثابتة عالية المتانة وبأقل قدر من الصيانة لعمليات البضائع العامة والخدمات ونقل الإمدادات.",
+          capacity: "1 - 15 طن",
+          outreach: "5 - 20 متر",
+        },
+        {
+          title: "رافعات مفصلية تلسكوبية",
+          description: "أنظمة رفع هجينة متعددة الأغراض تجمع بين وظيفة الطي المفصلي والمد التلسكوبي.",
+          capacity: "2 - 30 طن",
+          outreach: "7 - 28 متر",
+        },
+        {
+          title: "رافعات المنصات البحرية (Offshore)",
+          description: "رافعات للخدمات الشاقة مخصصة للمنصات البحرية العميقة، مجهزة بنظام تعويض الأمواج النشط وحماية من الانفجار للمنصات وسفن الحفر.",
+          capacity: "5 - 120 طن",
+          outreach: "12 - 45 متر",
+        },
+        {
+          title: "رافعات المؤن والخدمة",
+          description: "رافعات سطح مدمجة وسريعة وآمنة مصممة لنقل الإمدادات اليومية وقطع الغيار والمؤن لطاقم السفينة.",
+          capacity: "0.5 - 5 طن",
+          outreach: "4 - 15 متر",
+        },
+        {
+          title: "رافعات قوارب النجاة والإنقاذ",
+          description: "أنظمة دافت تضمن إطلاقًا واستعادة آمنة وسريعة لقوارب النجاة وقوارب الإنقاذ السريعة في الظروف الحرجة.",
+          capacity: "1.5 - 8 طن",
+          outreach: "3 - 8 متر",
+        },
+        {
+          title: "أنظمة الرفع على شكل A-Frame",
+          description: "إطارات إطلاق واستعادة مثبتة في المؤخرة لمعدات الأبحاث البحرية، ومركبات ROV تحت الماء، والسونار.",
+          capacity: "5 - 60 طن",
+          outreach: "4 - 12 متر",
         },
       ],
     },

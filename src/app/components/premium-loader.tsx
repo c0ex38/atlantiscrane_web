@@ -10,6 +10,11 @@ export default function PremiumLoader() {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
+    // Scroll to top immediately if no hash is present in the URL
+    if (typeof window !== "undefined" && !window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+
     startTransition(() => {
       setIsLoading(true);
       setCounter(0);
@@ -32,6 +37,10 @@ export default function PremiumLoader() {
     const timer = setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = "";
+      // Ensure page is scrolled to the top when the intro animation finishes (combating async browser scroll restoration)
+      if (typeof window !== "undefined" && !window.location.hash) {
+        window.scrollTo(0, 0);
+      }
     }, 1800);
 
     return () => {

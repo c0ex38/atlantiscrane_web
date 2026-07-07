@@ -51,30 +51,70 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
       });
   }, []);
 
+  // Zoom-in effect on the clicked country
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
+    const svg = mapContainerRef.current.querySelector("svg");
+    if (!svg) return;
+
+    // Apply high-performance CSS transition directly to the SVG
+    svg.style.transition = "transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform-origin 1.2s cubic-bezier(0.25, 1, 0.5, 1)";
+
+    if (clickedCountry) {
+      const path = svg.querySelector(`#${clickedCountry}`) as SVGGraphicsElement | null;
+      if (path) {
+        try {
+          // Get the bounding box of the clicked country path in the SVG grid space
+          const bbox = path.getBBox();
+          const centerX = bbox.x + bbox.width / 2;
+          const centerY = bbox.y + bbox.height / 2;
+          
+          // Set transform origin of SVG to the center of the country and scale up
+          svg.style.transformOrigin = `${centerX}px ${centerY}px`;
+          svg.style.transform = "scale(1.4)";
+        } catch (e) {
+          console.error("getBBox failed or unsupported", e);
+          // Fallback zoom on center
+          svg.style.transformOrigin = "center center";
+          svg.style.transform = "scale(1.2)";
+        }
+      }
+    } else {
+      // Reset zoom state
+      svg.style.transformOrigin = "center center";
+      svg.style.transform = "scale(1)";
+    }
+  }, [clickedCountry, svgContent]);
+
   // Sync hovered state with SVG elements
   useEffect(() => {
     if (!mapContainerRef.current) return;
     const svg = mapContainerRef.current.querySelector("svg");
     if (!svg) return;
 
-    // Reset all
+    // Reset all active countries styles
     items.forEach((item) => {
       const code = countryCodes[item.country as keyof typeof countryCodes];
       if (!code) return;
       const path = svg.querySelector(`#${code}`);
       if (path) {
-        // Base color for active countries: Yellow #fdc520
         const isHovered = hoveredCountry === code;
         const isClicked = clickedCountry === code;
         
-        (path as HTMLElement).style.fill = isHovered || isClicked ? "#e0aa00" : "#fdc520";
+        if (isClicked) {
+          (path as HTMLElement).style.fill = "#1b1b36"; // Selected country: Corporate deep navy
+        } else if (isHovered) {
+          (path as HTMLElement).style.fill = "#e0aa00"; // Hover: Dark gold
+        } else {
+          (path as HTMLElement).style.fill = "#fdc520"; // Default active: Brand gold
+        }
         (path as HTMLElement).style.transition = "fill 0.3s ease";
         (path as HTMLElement).style.cursor = "pointer";
         
-        // Add event listeners for map hover -> list highlight
+        // Add event listeners for map interactions
         path.addEventListener("mouseenter", () => setHoveredCountry(code));
         path.addEventListener("mouseleave", () => setHoveredCountry(null));
-        path.addEventListener("click", () => setClickedCountry(code));
+        path.addEventListener("click", () => setClickedCountry(isClicked ? null : code));
       }
     });
 
@@ -184,30 +224,31 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
             </div>
 
             {/* Right Column: Interactive SVG Map */}
-            <div className="w-full lg:w-2/3 relative flex items-center justify-center overflow-hidden min-h-[300px] md:min-h-[500px]">
+            <div className="w-full lg:w-2/3 relative flex items-center justify-center overflow-hidden min-h-[300px] md:min-h-[500px] rounded-2xl bg-slate-50/50 border border-slate-100/50">
               
-              {/* Clicked Country Info Popup */}
+              {/* Clicked Country Info Popup - Moved to Bottom Right & made highly responsive */}
               <AnimatePresence>
                 {selectedItem && (
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.9, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                    className="absolute top-4 left-4 z-20 bg-white border border-slate-200 shadow-xl rounded-2xl p-6 min-w-[200px]"
+                    className="absolute bottom-4 right-4 z-20 bg-white border border-slate-200 shadow-xl rounded-2xl p-6 min-w-[200px] max-w-[calc(100%-32px)] md:max-w-[240px]"
                   >
                     <button 
                       onClick={() => setClickedCountry(null)}
                       className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors"
+                      aria-label="Close details"
                     >
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
-                    <span className="text-xs font-black text-[color:var(--cta)] uppercase tracking-wider mb-2 block">
+                    <span className="text-[10px] font-black text-[color:var(--cta)] uppercase tracking-wider mb-1.5 block">
                       {listTitle}
                     </span>
-                    <h4 className="text-2xl font-black text-slate-900 mb-1">
+                    <h4 className="text-xl font-black text-slate-900 mb-1">
                       {selectedItem.country}
                     </h4>
-                    <p className="text-sm font-medium text-slate-600">
+                    <p className="text-xs font-semibold text-slate-600">
                       {t.exportNetwork.activeOperation} <strong className="text-[color:var(--text)]">{selectedItem.count} {craneLabel}</strong>
                     </p>
                   </motion.div>
@@ -216,7 +257,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
 
               <div 
                 ref={mapContainerRef}
-                className="w-full h-full transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.03] [&>svg]:w-full [&>svg]:h-auto [&>svg]:max-h-[500px]"
+                className="w-full h-full transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.01] [&>svg]:w-full [&>svg]:h-auto [&>svg]:max-h-[500px]"
                 dangerouslySetInnerHTML={{ __html: svgContent }}
               />
             </div>

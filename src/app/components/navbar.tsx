@@ -43,8 +43,8 @@ export default function Navbar({ locale }: NavbarProps) {
 
   const navigation = [
     { label: t.nav.home, href: `/${locale}#${sectionIds.hero}` },
-    { label: t.nav.about, href: `/${locale}#${sectionIds.about}` },
-    { label: t.nav.products, href: `/${locale}#${sectionIds.products}` },
+    { label: t.nav.about, href: `/${locale}/about` },
+    { label: t.nav.products, href: `/${locale}/products` },
     { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` },
     { label: t.nav.contact, href: `/${locale}#${sectionIds.contact}` },
   ];
