@@ -19,11 +19,10 @@ export default function AboutSection({ locale }: AboutSectionProps) {
     primaryBtn, 
     secondaryBtn 
   } = t.about;
-
   return (
     <section id={sectionIds.about} className="bg-white py-24 sm:py-32 relative overflow-hidden">
-      <div className="container-shell relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="relative z-10 mx-auto w-full max-w-none px-4 sm:px-6 lg:px-10 xl:px-16 2xl:px-24">
+        <div className="mx-auto max-w-[1600px] text-center">
           
           {/* Eyebrow */}
           <motion.p 
@@ -43,13 +42,15 @@ export default function AboutSection({ locale }: AboutSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-[4rem] leading-tight md:leading-tight lg:leading-[1.1] font-black text-slate-900 tracking-tight mb-10"
+            className="mx-auto mb-10 w-full max-w-none text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-5xl lg:text-[4.1rem]"
           >
-            <h2 className="block mb-2">{title}</h2>
-            <div className="block">
-              <span className="text-[color:var(--cta)]">{subtitleHighlight}</span>{" "}
-              {subtitle}
-            </div>
+            <h2 className="w-full text-center">
+              <span className="block">{title}</span>
+              <span className="block">
+                <span className="text-[color:var(--cta)]">{subtitleHighlight}</span>
+                {subtitle}
+              </span>
+            </h2>
           </motion.div>
 
           {/* Description */}
@@ -58,7 +59,7 @@ export default function AboutSection({ locale }: AboutSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base md:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto mb-14"
+            className="mx-auto mb-14 max-w-6xl text-base leading-relaxed text-slate-600 md:text-lg"
           >
             {description}
           </motion.p>

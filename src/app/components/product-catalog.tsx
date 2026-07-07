@@ -13,7 +13,7 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
 
   return (
     <section id={sectionIds.products} className="bg-white py-20 sm:py-24">
-      <div className="container-shell">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-3">
@@ -59,7 +59,7 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
             return (
               <article
                 key={item.title}
-                className="group relative h-[450px] flex-1 overflow-hidden transition-all duration-700 ease-in-out sm:h-[600px] md:hover:flex-[1.75] lg:h-[700px] lg:hover:flex-[2]"
+                className="group relative h-[380px] flex-1 overflow-hidden transition-all duration-700 ease-in-out sm:h-[500px] md:hover:flex-[1.6] lg:h-[580px] lg:hover:flex-[1.8]"
               >
                 {/* Background Image */}
                 <Image
@@ -79,7 +79,7 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
                 {/* Giant Number Background */}
                 <div className="absolute -bottom-10 right-4 z-0 pointer-events-none transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-8 group-hover:scale-110 md:-bottom-20 md:-right-10">
                   <span 
-                    className="text-[12rem] font-black leading-none text-transparent md:text-[20rem] lg:text-[24rem]"
+                    className="text-[10rem] font-black leading-none text-transparent md:text-[16rem] lg:text-[18rem]"
                     style={{ WebkitTextStroke: "2px rgba(255,255,255,0.06)" }}
                   >
                     0{index + 1}
@@ -87,22 +87,22 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
                 </div>
 
                 {/* Content Container */}
-                <div className="absolute inset-x-0 bottom-0 flex h-full flex-col justify-end p-8 sm:p-10 lg:p-12">
-                  <div className="relative z-10 w-full md:w-[350px]">
-                    <h3 className="text-3xl font-black uppercase leading-[0.95] tracking-tight text-white drop-shadow-xl sm:text-4xl transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-2">
+                <div className="absolute inset-x-0 bottom-0 flex h-full flex-col justify-end p-7 sm:p-8 lg:p-10">
+                  <div className="relative z-10 w-full md:w-[320px]">
+                    <h3 className="text-2xl font-black uppercase leading-[0.95] tracking-tight text-white drop-shadow-xl sm:text-3xl transition-transform duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:-translate-y-2">
                       {item.title}
                     </h3>
-                    <div className="mt-6 h-1.5 w-12 bg-[color:var(--cta)] transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-24 group-hover:-translate-y-2" />
+                    <div className="mt-5 h-1.5 w-10 bg-[color:var(--cta)] transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:w-20 group-hover:-translate-y-2" />
 
                     <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:grid-rows-[1fr]">
                       <div className="overflow-hidden">
-                        <div className="transform translate-y-8 pt-8 opacity-0 transition-all delay-150 duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 group-hover:opacity-100">
-                          <p className="max-w-[95%] text-sm font-medium leading-relaxed text-slate-200">
+                        <div className="transform translate-y-6 pt-6 opacity-0 transition-all delay-150 duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:translate-y-0 group-hover:opacity-100">
+                          <p className="max-w-[95%] text-xs font-medium leading-relaxed text-slate-200 sm:text-sm">
                             {item.description}
                           </p>
                           <Link
                             href={`/${locale}#${sectionIds.products}`}
-                            className="group/link mt-8 inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-[color:var(--cta)] transition-colors hover:text-white"
+                            className="group/link mt-6 inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-[color:var(--cta)] transition-colors hover:text-white sm:text-xs"
                           >
                             {t.products.viewDetail}
                             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[color:var(--cta)] transition-all group-hover/link:bg-[color:var(--cta)] group-hover/link:text-slate-900 group-hover/link:translate-x-1">
