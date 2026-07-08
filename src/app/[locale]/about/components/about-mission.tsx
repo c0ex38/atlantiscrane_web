@@ -2,7 +2,18 @@
 
 import { motion } from "framer-motion";
 
-export default function AboutMission() {
+type AboutMissionProps = {
+  content: {
+    eyebrow: string;
+    title1: string;
+    titleHighlight: string;
+    title2: string;
+    description: string;
+    certs: readonly string[];
+  };
+};
+
+export default function AboutMission({ content }: AboutMissionProps) {
   return (
     <section className="relative bg-[#0a0a14] py-32 overflow-hidden">
       {/* Background: huge quote mark */}
@@ -26,7 +37,7 @@ export default function AboutMission() {
           className="text-xs font-mono tracking-[0.3em] text-[color:var(--cta)] uppercase mb-12 flex items-center gap-3"
         >
           <span className="w-6 h-px bg-[color:var(--cta)]" />
-          Misyonumuz
+          {content.eyebrow}
           <span className="w-6 h-px bg-[color:var(--cta)]" />
         </motion.p>
 
@@ -38,9 +49,9 @@ export default function AboutMission() {
           className="font-black text-white leading-[0.92] tracking-tight max-w-5xl"
           style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
         >
-          Denizin en zorlu koşullarında bile{" "}
-          <span className="text-[color:var(--cta)]">durmayan güç</span>{" "}
-          üretmek.
+          {content.title1}{" "}
+          <span className="text-[color:var(--cta)]">{content.titleHighlight}</span>{" "}
+          {content.title2}
         </motion.h2>
 
         <motion.div
@@ -58,7 +69,7 @@ export default function AboutMission() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-8 text-slate-500 max-w-2xl text-sm md:text-base leading-relaxed"
         >
-          Atlantis Crane, küresel tersanelerin en kritik yük kaldırma ihtiyaçlarını karşılamak için mühendislik ve üretim süreçlerini sürekli geliştirir. Her ürün bu misyonun somutlaşmış halidir.
+          {content.description}
         </motion.p>
 
         {/* Credential badges */}
@@ -69,7 +80,7 @@ export default function AboutMission() {
           transition={{ duration: 0.6, delay: 0.65 }}
           className="mt-14 flex flex-wrap items-center justify-center gap-3"
         >
-          {["DNV GL", "Lloyd's Register", "Bureau Veritas", "ABS"].map((cert) => (
+          {content.certs.map((cert) => (
             <span
               key={cert}
               className="px-4 py-2 rounded-full border border-white/10 text-slate-400 text-xs font-semibold tracking-wider uppercase bg-white/5 backdrop-blur-sm"

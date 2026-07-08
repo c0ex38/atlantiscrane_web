@@ -12,9 +12,14 @@ type Milestone = {
 type AboutMilestonesProps = {
   items: readonly Milestone[];
   eyebrow: string;
+  content: {
+    title1: string;
+    titleHighlight: string;
+    title2: string;
+  };
 };
 
-export default function AboutMilestones({ items, eyebrow }: AboutMilestonesProps) {
+export default function AboutMilestones({ items, eyebrow, content }: AboutMilestonesProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -40,9 +45,10 @@ export default function AboutMilestones({ items, eyebrow }: AboutMilestonesProps
               transition={{ duration: 0.65, delay: 0.08 }}
               className="text-5xl md:text-6xl font-black tracking-tight leading-[0.92] text-[color:var(--text)]"
             >
-              Kilometre
-              <br />
-              <span className="text-[color:var(--cta)]">Taşları.</span>
+              {content.title1}
+              <br className="hidden sm:block" />
+              <span className="text-[color:var(--cta)]">{content.titleHighlight}</span>
+              {content.title2}
             </motion.h2>
           </div>
 

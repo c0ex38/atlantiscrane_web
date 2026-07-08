@@ -25,29 +25,34 @@ export default async function AboutPage({ params }: PageProps) {
 
   const currentLocale = locale as Locale;
   const t = translations[currentLocale];
-  const { about, history } = t;
+  const { about, history, aboutPage } = t;
 
   return (
     <main className="min-h-screen">
       {/* 1. Cinematic hero with diagonal split */}
       <AboutHero
         description={about.description}
+        content={aboutPage.hero}
       />
 
       {/* 2. Gold marquee certifications strip */}
-      <AboutMarquee />
+      <AboutMarquee items={aboutPage.marquee} />
 
       {/* 3. Split-screen story + facility image */}
-      <AboutStory />
+      <AboutStory content={aboutPage.story} />
 
       {/* 4. Minimalist dark numbers */}
       <AboutNumbers stats={about.stats} />
 
       {/* 5. Accordion milestones */}
-      <AboutMilestones items={history.items} eyebrow={history.eyebrow} />
+      <AboutMilestones 
+        items={history.items} 
+        eyebrow={history.eyebrow} 
+        content={aboutPage.milestones}
+      />
 
       {/* 6. Full-screen mission quote */}
-      <AboutMission />
+      <AboutMission content={aboutPage.mission} />
 
       {/* 7. About-specific contact CTA card */}
       <CtaSection locale={currentLocale} />

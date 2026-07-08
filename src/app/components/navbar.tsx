@@ -46,7 +46,7 @@ export default function Navbar({ locale }: NavbarProps) {
     { label: t.nav.about, href: `/${locale}/about` },
     { label: t.nav.products, href: `/${locale}/products` },
     { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` },
-    { label: t.nav.contact, href: `/${locale}#${sectionIds.contact}` },
+    { label: t.nav.contact, href: `/${locale}/contact` },
   ];
 
   return (
@@ -137,7 +137,7 @@ export default function Navbar({ locale }: NavbarProps) {
             </div>
 
             <Link
-              href={`/${locale}#${sectionIds.contact}`}
+              href={`/${locale}/contact`}
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-[color:var(--cta)] to-[#fdd14a] px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)]"
             >
               <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

@@ -4,7 +4,21 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function AboutStory() {
+type AboutStoryProps = {
+  content: {
+    eyebrow: string;
+    title1: string;
+    titleHighlight: string;
+    title2: string;
+    p1: string;
+    p2: string;
+    p3: string;
+    badgeTitle: string;
+    badgeSubtitle: string;
+  };
+};
+
+export default function AboutStory({ content }: AboutStoryProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -27,7 +41,7 @@ export default function AboutStory() {
           className="text-xs font-mono tracking-[0.3em] text-[color:var(--cta)] uppercase mb-8 flex items-center justify-center gap-4 w-full"
         >
           <span className="w-8 sm:w-12 h-px bg-[color:var(--cta)]/50" />
-          Kim Olduğumuz
+          {content.eyebrow}
           <span className="w-8 sm:w-12 h-px bg-[color:var(--cta)]/50" />
         </motion.p>
 
@@ -40,7 +54,7 @@ export default function AboutStory() {
           className="font-black tracking-tight leading-[0.95] text-[color:var(--text)] mb-10 max-w-4xl"
           style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
         >
-          Tersanenin <span className="text-[color:var(--cta)]">kalbinden</span> gelen güç.
+          {content.title1} <span className="text-[color:var(--cta)]">{content.titleHighlight}</span> {content.title2}
         </motion.h2>
 
         {/* Text columns */}
@@ -52,7 +66,7 @@ export default function AboutStory() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium">
-              2001 yılında İstanbul Tuzla&apos;da, Türk gemi inşa sanayisinin tam merkezinde kurulan Atlantis Crane, yirmi yılı aşkın süredir deniz vinçlerinin tasarımında ve üretiminde küresel standartların öncüsüdür.
+              {content.p1}
             </p>
           </motion.div>
           <motion.div
@@ -63,10 +77,10 @@ export default function AboutStory() {
             className="space-y-6"
           >
             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-              Her projede mühendislik önce gelir: DNV, Lloyd&apos;s Register ve Bureau Veritas sertifikasyonuyla desteklenen ürünlerimiz, en zorlu deniz koşullarına karşı güvenle çalışır.
+              {content.p2}
             </p>
             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-              İstanbul&apos;dan Dubai&apos;ye uzanan servis ağımızla kurulum sonrası desteği de aynı kararlılıkla sürdürüyoruz.
+              {content.p3}
             </p>
           </motion.div>
         </div>
@@ -80,7 +94,7 @@ export default function AboutStory() {
         <motion.div style={{ y }} className="absolute inset-[-20%] w-[140%] h-[140%]">
           <Image
             src="/about-facility.png"
-            alt="Atlantis Crane Tuzla Üretim Tesisi"
+            alt="Atlantis Crane"
             fill
             sizes="100vw"
             className="object-cover object-center"
@@ -106,8 +120,8 @@ export default function AboutStory() {
               <span className="relative inline-flex rounded-full h-3 w-3 sm:h-4 sm:w-4 bg-[color:var(--cta)]"></span>
             </div>
             <div>
-              <p className="text-white font-black tracking-wide text-sm sm:text-base uppercase">Tuzla, İstanbul</p>
-              <p className="text-white/60 text-xs sm:text-sm mt-0.5 tracking-wider">Ana Üretim Tesisi</p>
+              <p className="text-white font-black tracking-wide text-sm sm:text-base uppercase">{content.badgeTitle}</p>
+              <p className="text-white/60 text-xs sm:text-sm mt-0.5 tracking-wider">{content.badgeSubtitle}</p>
             </div>
           </div>
         </motion.div>

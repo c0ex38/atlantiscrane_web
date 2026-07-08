@@ -5,11 +5,16 @@ import { motion } from "framer-motion";
 
 type AboutHeroProps = {
   description: string;
+  content: {
+    title1: string;
+    titleHighlight: string;
+    title2: string;
+  };
 };
 
 
 
-export default function AboutHero({ description }: AboutHeroProps) {
+export default function AboutHero({ description, content }: AboutHeroProps) {
   return (
     <section className="relative -mt-24 overflow-hidden bg-white pt-44 pb-0">
 
@@ -38,10 +43,10 @@ export default function AboutHero({ description }: AboutHeroProps) {
           className="font-black tracking-tight leading-[0.92] text-[color:var(--text)] mb-6"
           style={{ fontSize: "clamp(3.2rem, 9vw, 8.5rem)" }}
         >
-          Denizcilik Sektörünü
-          <br />
-          <span className="text-[color:var(--cta)]">Geleceğe&nbsp;</span>
-          Taşıyoruz
+          {content.title1}
+          <br className="hidden sm:block" />
+          <span className="text-[color:var(--cta)]">{content.titleHighlight}</span>
+          {content.title2}
         </motion.h1>
 
         {/* Description */}

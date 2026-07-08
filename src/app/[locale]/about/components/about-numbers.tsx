@@ -13,7 +13,7 @@ type AboutNumbersProps = {
   stats: readonly Stat[];
 };
 
-function Counter({ value, suffix }: { value: string; suffix: string }) {
+function Counter({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: false, margin: "-50px" });
   const isNumeric = /^\d+$/.test(value);
@@ -34,8 +34,8 @@ function Counter({ value, suffix }: { value: string; suffix: string }) {
     return () => controls.stop();
   }, [isInView, isNumeric, numericTarget]);
 
-  if (!isNumeric) return <span className="tabular-nums">{value}{suffix}</span>;
-  return <span ref={ref} className="tabular-nums">{displayed}{suffix}</span>;
+  if (!isNumeric) return <span className="tabular-nums">{value}</span>;
+  return <span ref={ref} className="tabular-nums">{displayed}</span>;
 }
 
 export default function AboutNumbers({ stats }: AboutNumbersProps) {
@@ -58,10 +58,15 @@ export default function AboutNumbers({ stats }: AboutNumbersProps) {
               className="flex flex-col items-center text-center py-12 sm:py-16 px-6 border-b sm:border-b-0 sm:border-r border-white/5 last:border-0 group"
             >
               <div
-                className="font-black leading-none text-white mb-4 tracking-tight"
+                className="font-black leading-none text-white mb-4 tracking-tight flex items-baseline justify-center"
                 style={{ fontSize: "clamp(3.5rem, 7vw, 6rem)" }}
               >
-                <Counter value={stat.value} suffix={stat.suffix} />
+                <Counter value={stat.value} />
+                {stat.suffix && (
+                  <span className="text-[0.6em] font-bold text-[color:var(--cta)] ml-1 select-none">
+                    {stat.suffix}
+                  </span>
+                )}
               </div>
               <div className="w-8 h-px bg-[color:var(--cta)] mb-4 transition-all duration-500 group-hover:w-16" />
               <p className="text-slate-500 text-xs font-semibold uppercase tracking-[0.2em]">

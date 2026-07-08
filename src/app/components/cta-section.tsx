@@ -58,13 +58,13 @@ export default function CtaSection({ locale }: CtaSectionProps) {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
           >
             <Link
-              href={`/${locale}#${sectionIds.contact}`}
+              href={`/${locale}/contact`}
               className="w-full sm:w-auto px-10 py-4 bg-slate-900 text-white font-black text-sm tracking-wider hover:bg-black transition-colors uppercase"
             >
               {primaryBtn}
             </Link>
             <Link
-              href={`/${locale}#${sectionIds.contact}`}
+              href={`/${locale}/contact`}
               className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-slate-900 text-slate-900 font-black text-sm tracking-wider hover:bg-slate-900 hover:text-white transition-colors uppercase"
             >
               {secondaryBtn}
