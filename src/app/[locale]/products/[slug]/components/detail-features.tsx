@@ -29,9 +29,9 @@ export default function DetailFeatures({
     <section id="section-features" className="relative py-24 mb-8">
       <FadeIn>
         <div className="flex items-center gap-4 mb-20">
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-          <span className="text-[8px] font-mono tracking-[0.4em] text-slate-700 uppercase">Section 02</span>
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+          <span className="text-[8px] font-mono tracking-[0.4em] text-slate-400 uppercase">Section 02</span>
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
         </div>
       </FadeIn>
 
@@ -42,7 +42,7 @@ export default function DetailFeatures({
               <span className="text-[9px] font-mono text-[color:var(--cta)]">02</span>
             </div>
           </ScaleIn>
-          <span className="text-[10px] font-mono tracking-[0.35em] text-[color:var(--cta)]/70 uppercase">{featuresTitle}</span>
+          <span className="text-[10px] font-mono tracking-[0.35em] text-blue-600 uppercase">{featuresTitle}</span>
         </div>
       </FadeUp>
 
@@ -52,22 +52,22 @@ export default function DetailFeatures({
           return (
             <StaggerItem key={index}>
               <div
-                className={`group relative overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0c1220]/60 p-6 md:p-7 hover:-translate-y-1 hover:border-[color:var(--cta)]/25 hover:bg-[#0c1220]/90 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-all duration-400 flex gap-5 ${
+                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 md:p-7 hover:-translate-y-1 hover:border-[color:var(--cta)]/40 hover:bg-slate-50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.05)] transition-all duration-400 flex gap-5 ${
                   isRtl ? "flex-row-reverse text-right" : "text-left"
                 }`}
               >
                 <div className={`absolute top-0 left-6 right-6 h-[1px] bg-[color:var(--cta)] opacity-0 group-hover:opacity-60 transition-opacity duration-400`} />
-                <div className="shrink-0 w-11 h-11 rounded-2xl bg-[color:var(--cta)]/8 border border-[color:var(--cta)]/15 flex items-center justify-center text-[color:var(--cta)]/70 group-hover:bg-[color:var(--cta)]/15 group-hover:border-[color:var(--cta)]/30 group-hover:text-[color:var(--cta)] transition-all duration-400 mt-0.5">
+                <div className="shrink-0 w-11 h-11 rounded-2xl bg-[color:var(--cta)]/10 border border-[color:var(--cta)]/20 flex items-center justify-center text-[color:var(--cta)]/80 group-hover:bg-[color:var(--cta)]/15 group-hover:border-[color:var(--cta)]/40 group-hover:text-[color:var(--cta)] transition-all duration-400 mt-0.5">
                   {icon}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[9px] font-mono text-slate-700 group-hover:text-[color:var(--cta)]/60 transition-colors duration-300">
+                    <span className="text-[9px] font-mono text-slate-400 group-hover:text-[color:var(--cta)]/80 transition-colors duration-300">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <div className="h-[1px] flex-1 bg-white/5 group-hover:bg-[color:var(--cta)]/20 transition-colors duration-300" />
+                    <div className="h-[1px] flex-1 bg-slate-200 group-hover:bg-[color:var(--cta)]/30 transition-colors duration-300" />
                   </div>
-                  <p className="text-slate-400 text-sm md:text-[15px] leading-relaxed group-hover:text-slate-200 transition-colors duration-400">
+                  <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed group-hover:text-slate-900 transition-colors duration-400">
                     {feature}
                   </p>
                 </div>

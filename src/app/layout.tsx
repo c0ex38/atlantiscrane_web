@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Outfit, Lora, Noto_Sans_Arabic } from "next/font/google";
+import { Outfit, Lora, Noto_Sans_Arabic, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -32,7 +35,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${lora.variable} ${notoArabic.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", outfit.variable, lora.variable, notoArabic.variable, "font-sans", geist.variable)}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>

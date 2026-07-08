@@ -13,7 +13,7 @@ export default function ProductsSliderWrapper({ slides }: ProductsSliderWrapperP
 
   // Enable global scroll snapping for this page so the wrapper snaps perfectly to the top
   useEffect(() => {
-    document.documentElement.style.scrollSnapType = "y proximity";
+    document.documentElement.style.scrollSnapType = "y mandatory";
     return () => {
       document.documentElement.style.scrollSnapType = "";
     };
@@ -68,15 +68,14 @@ export default function ProductsSliderWrapper({ slides }: ProductsSliderWrapperP
       <div 
         ref={containerRef}
         onScroll={handleScroll}
-        className={`w-full h-full snap-y snap-mandatory hide-scrollbar ${
+        className={`w-full h-full snap-y snap-mandatory scroll-smooth hide-scrollbar ${
           isSnapped ? "overflow-y-auto" : "overflow-y-hidden"
         }`}
       >
         {slides.map((slide, index) => (
-          // snap-always ensures that fast scrolling stops at every single slide
           <div 
             key={index} 
-            className="w-full h-[100svh] relative shrink-0 snap-start snap-always"
+            className="w-full h-[100svh] relative shrink-0 snap-start"
           >
             {slide}
           </div>

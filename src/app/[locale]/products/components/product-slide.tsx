@@ -51,10 +51,10 @@ export default function ProductSlide({
       {/* Content */}
       <div className="container-shell relative z-10 w-full px-4">
         <motion.div
-          initial={{ opacity: 0, x: isRight ? 30 : -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, amount: 0.4 }}
-          transition={{ duration: 0.7 }}
+          initial={{ opacity: 0, x: isRight ? 15 : -15, y: 15 }}
+          whileInView={{ opacity: 1, x: 0, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className={`flex flex-col max-w-3xl w-full ${
             isRight ? "ml-auto items-end text-right" : "mr-auto items-start text-left"
           }`}

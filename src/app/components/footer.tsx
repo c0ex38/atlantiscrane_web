@@ -108,8 +108,8 @@ export default function Footer({ locale }: FooterProps) {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-800 gap-6">
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-            © 2026 ATLANTİS CRANE. TÜM HAKLARI SAKLIDIR. | Desıgned by{" "}
+          <p className="text-slate-400 text-sm">
+            {t.footer.allRightsReserved} | {t.footer.designedBy}{" "}
             <a
               href="https://kncdesign.com.tr"
               target="_blank"

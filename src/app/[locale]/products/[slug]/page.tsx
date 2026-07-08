@@ -131,7 +131,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="min-h-screen bg-[#070b14] text-white -mt-24 pt-44 pb-0 overflow-hidden relative">
+    <main className="min-h-screen bg-[#070b14] text-white -mt-24 pt-32 pb-0 overflow-hidden relative">
       {/* Page-level background glows */}
       <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-blue-900/8 rounded-full blur-[200px] pointer-events-none -z-0" />
       <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-[color:var(--cta)]/4 rounded-full blur-[180px] pointer-events-none -z-0" />
@@ -152,26 +152,34 @@ export default async function ProductDetailPage({ params }: PageProps) {
           locale={locale}
           isRtl={isRtl}
         />
+      </div>
 
-        {/* 2. Overview */}
-        {(product.description || product.usage) && (
-          <DetailOverview
-            descTitle={uiLabels.descTitle}
-            description={product.description || ""}
-            usageTitle={uiLabels.usageTitle}
-            usage={product.usage || ""}
-            isRtl={isRtl}
-          />
-        )}
+      <div className="w-full bg-[#f0f3f8] text-slate-900 relative z-10 py-12">
+        <div className="container-shell px-4 md:px-8">
+          {/* 2. Overview */}
+          {(product.description || product.usage) && (
+            <DetailOverview
+              descTitle={uiLabels.descTitle}
+              description={product.description || ""}
+              usageTitle={uiLabels.usageTitle}
+              usage={product.usage || ""}
+              tags={currentLocale === "tr" ? ["Denizcilik", "Offshore", "Tersane", "Liman"] : currentLocale === "en" ? ["Marine", "Offshore", "Shipyard", "Port"] : ["البحرية", "البحر", "حوض بناء السفن", "الميناء"]}
+              isRtl={isRtl}
+            />
+          )}
 
-        {/* 3. Features */}
-        {product.features && product.features.length > 0 && (
-          <DetailFeatures
-            featuresTitle={uiLabels.featuresTitle}
-            features={product.features}
-            isRtl={isRtl}
-          />
-        )}
+          {/* 3. Features */}
+          {product.features && product.features.length > 0 && (
+            <DetailFeatures
+              featuresTitle={uiLabels.featuresTitle}
+              features={product.features}
+              isRtl={isRtl}
+            />
+          )}
+        </div>
+      </div>
+
+      <div className="container-shell relative z-10 px-4 md:px-8 py-12">
 
         {/* 4. Load Chart */}
         {product.loadChart && product.loadChart.length > 0 && (
@@ -182,6 +190,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
             capacityCol={uiLabels.capacityCol}
             loadChart={product.loadChart}
             isRtl={isRtl}
+            loadEnvelope={detail.loadEnvelope}
+            capacityUpper={detail.capacityUpper}
+            outreachUpper={detail.outreachUpper}
+            gridLabel={detail.gridLabel}
           />
         )}
 
@@ -200,6 +212,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
           optionalTitle={detail.optionalEquipTitle}
           standardItems={detail.equipments.standard}
           optionalItems={detail.equipments.optional}
+          standardLabel={detail.standardLabel}
+          optionalLabel={detail.optionalLabel}
+          classCertLabel={detail.classCertLabel}
         />
       </div>
 

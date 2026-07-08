@@ -361,6 +361,8 @@ const en = {
     description:
       "An engineering-focused manufacturer that designs, produces, tests, and supports cranes for ships and marine platforms.",
     quickLinks: "Quick Links",
+    designedBy: "Designed by",
+    allRightsReserved: "© 2026 ATLANTIS CRANE. ALL RIGHTS RESERVED.",
     rights: "All rights reserved.",
     multilingual: "Multilingual platform",
   },
@@ -484,6 +486,14 @@ const en = {
       temp: "-20°C to +45°C Operational Range",
       cert: "DNV, Lloyd's Register, BV, RINA Class Approvals",
     },
+    
+    standardLabel: "Standard",
+    optionalLabel: "Optional",
+    classCertLabel: "Class Certifications",
+    loadEnvelope: "Load Envelope Curve",
+    capacityUpper: "CAPACITY",
+    outreachUpper: "OUTREACH (m)",
+    gridLabel: "Grid",
     equipments: {
       standard: [
         "Overload Limit Switch",

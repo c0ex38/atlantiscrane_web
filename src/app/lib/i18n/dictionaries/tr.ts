@@ -365,6 +365,8 @@ const tr = {
     description:
       "Gemi ve deniz platformları için vinç tasarlayan, üreten, test eden ve uluslararası kurulum desteği sağlayan mühendislik odaklı bir üretici.",
     quickLinks: "Hızlı Linkler",
+    designedBy: "Tasarım",
+    allRightsReserved: "© 2026 ATLANTİS CRANE. TÜM HAKLARI SAKLIDIR.",
     rights: "Tüm hakları saklıdır.",
     multilingual: "Çok dilli platform",
   },
@@ -488,6 +490,14 @@ const tr = {
       temp: "-20°C ila +45°C Çalışma Aralığı",
       cert: "DNV, Lloyd's Register, BV, RINA Sınıf Onayları",
     },
+    
+    standardLabel: "Standart",
+    optionalLabel: "Opsiyonel",
+    classCertLabel: "Klas Sertifikaları",
+    loadEnvelope: "Yük Eğrisi (Load Envelope)",
+    capacityUpper: "KAPASİTE",
+    outreachUpper: "ERİŞİM (m)",
+    gridLabel: "Izgara",
     equipments: {
       standard: [
         "Aşırı Yük Sınır Anahtarı (Overload Limit Switch)",

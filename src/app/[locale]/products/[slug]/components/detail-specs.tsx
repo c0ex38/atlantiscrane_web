@@ -1,6 +1,7 @@
 "use client";
 
 import { FadeUp, FadeIn, StaggerContainer, StaggerItem, SlideLeft, SlideRight, ScaleIn } from "./animations";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
 
 type DetailSpecsProps = {
   title: string;
@@ -55,9 +56,8 @@ export default function DetailSpecs({
       </div>
 
       <FadeUp delay={0.2}>
-        <div className="rounded-3xl border border-white/[0.06] bg-[#0c1220]/80 backdrop-blur-sm overflow-hidden">
-          {/* Panel title bar */}
-          <div className="flex items-center justify-between px-6 py-3.5 bg-white/[0.02] border-b border-white/[0.05]">
+        <Card className="rounded-3xl border-white/[0.06] bg-[#0c1220]/80 backdrop-blur-sm overflow-hidden p-0 gap-0 ring-0">
+          <CardHeader className="flex flex-row items-center justify-between px-6 py-3.5 bg-white/[0.02] border-b border-white/[0.05] rounded-none">
             <div className="flex items-center gap-2">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
@@ -70,33 +70,33 @@ export default function DetailSpecs({
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-[9px] font-mono text-slate-700">LIVE</span>
             </div>
-          </div>
-
-          {/* Two-column spec grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/[0.04]">
-            {[col1, col2].map((col, ci) => (
-              <StaggerContainer key={ci} className="divide-y divide-white/[0.04]" staggerDelay={0.06}>
-                {col.map((key, i) => (
-                  <StaggerItem key={key}>
-                    <div
-                      className={`flex items-center gap-4 px-6 py-4 group hover:bg-white/[0.02] transition-colors duration-200 ${isRtl ? "flex-row-reverse" : ""}`}
-                    >
-                      <span className="shrink-0 text-[9px] font-mono text-slate-800 w-5">
-                        {String((ci === 0 ? i : half + i) + 1).padStart(2, "0")}
-                      </span>
-                      <span className={`flex-1 text-[11px] md:text-xs text-blue-400/70 font-mono ${isRtl ? "text-right" : "text-left"}`}>
-                        {specKeys[key]}
-                      </span>
-                      <span className={`shrink-0 text-[11px] md:text-xs font-bold text-white/80 group-hover:text-[color:var(--cta)] transition-colors duration-200 ${isRtl ? "text-left" : "text-right"} max-w-[45%]`}>
-                        {specValues[key]}
-                      </span>
-                    </div>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
-            ))}
-          </div>
-        </div>
+          </CardHeader>
+          <CardContent className="p-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/[0.04]">
+              {[col1, col2].map((col, ci) => (
+                <StaggerContainer key={ci} className="divide-y divide-white/[0.04]" staggerDelay={0.06}>
+                  {col.map((key, i) => (
+                    <StaggerItem key={key}>
+                      <div
+                        className={`flex items-center gap-4 px-6 py-4 group hover:bg-white/[0.02] transition-colors duration-200 ${isRtl ? "flex-row-reverse" : ""}`}
+                      >
+                        <span className="shrink-0 text-[9px] font-mono text-slate-800 w-5">
+                          {String((ci === 0 ? i : half + i) + 1).padStart(2, "0")}
+                        </span>
+                        <span className={`flex-1 text-[11px] md:text-xs text-blue-400/70 font-mono ${isRtl ? "text-right" : "text-left"}`}>
+                          {specKeys[key]}
+                        </span>
+                        <span className={`shrink-0 text-[11px] md:text-xs font-bold text-white/80 group-hover:text-[color:var(--cta)] transition-colors duration-200 ${isRtl ? "text-left" : "text-right"} max-w-[45%]`}>
+                          {specValues[key]}
+                        </span>
+                      </div>
+                    </StaggerItem>
+                  ))}
+                </StaggerContainer>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </FadeUp>
     </section>
   );

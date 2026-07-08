@@ -361,6 +361,8 @@ const ar = {
     description:
       "شركة تصنيع هندسية تصمم وتنتج وتختبر وتدعم الرافعات للسفن والمنصات البحرية.",
     quickLinks: "روابط سريعة",
+    designedBy: "تصميم بواسطة",
+    allRightsReserved: "© 2026 ATLANTIS CRANE. جميع الحقوق محفوظة.",
     rights: "جميع الحقوق محفوظة.",
     multilingual: "منصة متعددة اللغات",
   },
@@ -484,6 +486,14 @@ const ar = {
       temp: "-20 درجة مئوية إلى +45 درجة مئوية نطاق التشغيل",
       cert: "اعتمادات DNV و Lloyd's Register و BV و RINA",
     },
+    
+    standardLabel: "قياسي",
+    optionalLabel: "اختياري",
+    classCertLabel: "شهادات التصنيف",
+    loadEnvelope: "منحنى حمولة الرفع",
+    capacityUpper: "السعة",
+    outreachUpper: "المدى (م)",
+    gridLabel: "شبكة",
     equipments: {
       standard: [
         "مفتاح حد الحمل الزائد (Overload)",

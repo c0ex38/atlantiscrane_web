@@ -45,8 +45,7 @@ export default function Navbar({ locale }: NavbarProps) {
     { label: t.nav.home, href: `/${locale}#${sectionIds.hero}` },
     { label: t.nav.about, href: `/${locale}/about` },
     { label: t.nav.products, href: `/${locale}/products` },
-    { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` },
-    { label: t.nav.contact, href: `/${locale}/contact` },
+    { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` }
   ];
 
   return (
@@ -54,7 +53,7 @@ export default function Navbar({ locale }: NavbarProps) {
       <div className="w-full max-w-5xl">
         <div className="relative flex items-center justify-between rounded-full border border-white/40 bg-white/50 px-3 py-2.5 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(15,23,42,0.12)] hover:bg-white/60">
           <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/60 to-transparent" />
-          
+
           <Link
             href={`/${locale}#${sectionIds.hero}`}
             className="group flex shrink-0 items-center pl-4 py-2"
@@ -77,10 +76,17 @@ export default function Navbar({ locale }: NavbarProps) {
               <Link
                 key={item.label}
                 href={item.href}
-                className="group relative px-4 py-2 text-sm font-medium text-slate-600 transition-colors duration-300 hover:text-[color:var(--accent-strong)]"
+                className="group relative px-4 py-2 text-sm font-semibold text-slate-600 transition-colors duration-500"
               >
-                <span className="relative z-10">{item.label}</span>
-                <span className="absolute inset-0 z-0 scale-75 rounded-full bg-[color:var(--accent)]/10 opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
+                <div className="relative z-10 overflow-hidden h-[20px]">
+                  <span className="block leading-[20px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                    {item.label}
+                  </span>
+                  <span className="absolute top-0 left-0 block leading-[20px] text-[color:var(--accent-strong)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
+                    {item.label}
+                  </span>
+                </div>
+                <span className="absolute inset-0 z-0 scale-75 rounded-full bg-[color:var(--accent)]/10 opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100" />
               </Link>
             ))}
           </nav>
@@ -112,20 +118,18 @@ export default function Navbar({ locale }: NavbarProps) {
               </button>
 
               <div
-                className={`absolute right-0 top-full mt-2 w-40 origin-top-right rounded-2xl border border-white/60 bg-white/90 p-1.5 shadow-[0_10px_40px_rgba(15,23,42,0.1)] backdrop-blur-xl transition-all duration-300 ${
-                  isLanguageOpen
-                    ? "visible translate-y-0 opacity-100 scale-100"
-                    : "invisible -translate-y-2 opacity-0 scale-95"
-                }`}
+                className={`absolute right-0 top-full mt-2 w-40 origin-top-right rounded-2xl border border-white/60 bg-white/90 p-1.5 shadow-[0_10px_40px_rgba(15,23,42,0.1)] backdrop-blur-xl transition-all duration-300 ${isLanguageOpen
+                  ? "visible translate-y-0 opacity-100 scale-100"
+                  : "invisible -translate-y-2 opacity-0 scale-95"
+                  }`}
               >
                 {languageOrder.map((language) => (
                   <Link
                     key={language}
                     href={languageHref(language)}
                     onClick={() => setIsLanguageOpen(false)}
-                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm transition-all duration-200 hover:bg-[color:var(--accent)]/10 ${
-                      language === locale ? "text-[color:var(--accent-strong)] font-semibold" : "text-slate-600 hover:text-[color:var(--accent-strong)]"
-                    }`}
+                    className={`flex items-center justify-between rounded-xl px-3 py-2.5 text-sm transition-all duration-200 hover:bg-[color:var(--accent)]/10 ${language === locale ? "text-[color:var(--accent-strong)] font-semibold" : "text-slate-600 hover:text-[color:var(--accent-strong)]"
+                      }`}
                   >
                     <span>{localeLabels[language]}</span>
                     <span className="text-[10px] uppercase tracking-[0.2em] opacity-60">
@@ -138,10 +142,17 @@ export default function Navbar({ locale }: NavbarProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-[color:var(--cta)] to-[#fdd14a] px-6 py-2.5 text-sm font-semibold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)]"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-[color:var(--cta)] to-[#fdd14a] px-6 py-2.5 text-sm font-bold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)]"
             >
               <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="relative z-10">{t.nav.contact}</span>
+              <div className="relative z-10 overflow-hidden h-[20px]">
+                <span className="block leading-[20px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                  {t.nav.contact}
+                </span>
+                <span className="absolute top-0 left-0 block leading-[20px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
+                  {t.nav.contact}
+                </span>
+              </div>
             </Link>
           </div>
         </div>

@@ -2,7 +2,16 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { FadeUp, FadeIn, SlideLeft, SlideRight, ScaleIn } from "./animations";
+import { FadeUp, SlideLeft, SlideRight, FadeIn, ScaleIn } from "./animations";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Card } from "@/components/ui/card";
 
 type LoadChartItem = {
   outreach: string;
@@ -16,6 +25,10 @@ type DetailLoadChartProps = {
   capacityCol: string;
   loadChart: readonly LoadChartItem[];
   isRtl: boolean;
+  loadEnvelope: string;
+  capacityUpper: string;
+  outreachUpper: string;
+  gridLabel: string;
 };
 
 // Parse numeric value from strings like "3200 kg" → 3200
@@ -26,7 +39,7 @@ function parseNum(s: string) {
 // ────────────────────────────────────────────────────────────
 // Load Curve SVG — classic crane capacity envelope chart
 // ────────────────────────────────────────────────────────────
-function LoadCurve({ loadChart }: { loadChart: readonly LoadChartItem[] }) {
+function LoadCurve({ loadChart, loadEnvelope, capacityUpper, outreachUpper, gridLabel }: { loadChart: readonly LoadChartItem[], loadEnvelope: string, capacityUpper: string, outreachUpper: string, gridLabel: string }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -226,7 +239,7 @@ function LoadCurve({ loadChart }: { loadChart: readonly LoadChartItem[] }) {
         fontFamily="monospace"
         fill="rgba(100,116,139,0.7)"
       >
-        Outreach (m)
+        {outreachUpper}
       </text>
       <text
         x={10}
@@ -237,7 +250,7 @@ function LoadCurve({ loadChart }: { loadChart: readonly LoadChartItem[] }) {
         fill="rgba(100,116,139,0.7)"
         transform={`rotate(-90, 10, ${padT + chartH / 2})`}
       >
-        Capacity
+        {capacityUpper}
       </text>
     </svg>
   );
@@ -253,6 +266,10 @@ export default function DetailLoadChart({
   capacityCol,
   loadChart,
   isRtl,
+  loadEnvelope,
+  capacityUpper,
+  outreachUpper,
+  gridLabel,
 }: DetailLoadChartProps) {
   if (!loadChart || loadChart.length === 0) return null;
 
@@ -265,7 +282,7 @@ export default function DetailLoadChart({
       <FadeIn>
         <div className="flex items-center gap-4 mb-20">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-          <span className="text-[8px] font-mono tracking-[0.4em] text-slate-700 uppercase">Section 03</span>
+          <span className="text-[10px] font-mono tracking-widest text-[color:var(--cta)] uppercase">{loadEnvelope}</span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
         </div>
       </FadeIn>
@@ -304,64 +321,44 @@ export default function DetailLoadChart({
 
           {/* LEFT: Data rows */}
           <SlideLeft delay={0.2}>
-            <div>
-              {/* Column headers */}
-              <div className={`grid grid-cols-2 items-center px-6 py-3.5 border-b border-white/[0.05] bg-gradient-to-r from-blue-500/5 to-transparent ${isRtl ? "direction-rtl" : ""}`}>
-                <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-slate-500">{outreachCol}</span>
-                <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[color:var(--cta)]/70">{capacityCol}</span>
-              </div>
-
-              {/* Rows */}
-              <div className="divide-y divide-white/[0.04]">
+              <Table>
+                <TableHeader>
+                  <TableRow className="border-white/10 hover:bg-transparent">
+                    <TableHead className="w-[100px] text-[9px] font-bold uppercase tracking-[0.25em] text-slate-500">{outreachCol}</TableHead>
+                    <TableHead className="text-[9px] font-bold uppercase tracking-[0.25em] text-[color:var(--cta)]/70">{capacityCol}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
                 {loadChart.map((row, index) => {
                   const capVal = parseNum(row.capacity);
                   const pct = maxCap > 0 ? (capVal / maxCap) * 100 : 0;
                   return (
-                    <motion.div
-                      key={index}
-                      className={`relative grid grid-cols-2 items-center px-6 py-5 group hover:bg-white/[0.02] transition-colors duration-200 ${isRtl ? "direction-rtl" : ""}`}
-                      initial={{ opacity: 0, x: -16 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: 0.3 + index * 0.09 }}
-                    >
-                      {/* Capacity bar — behind content */}
-                      <motion.div
-                        className="absolute inset-y-0 left-0 bg-[color:var(--cta)]/[0.04]"
-                        initial={{ width: "0%" }}
-                        whileInView={{ width: `${(pct / 100) * 50}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.0, delay: 0.5 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                      />
-
-                      {/* Outreach */}
-                      <div className="relative flex items-center gap-3">
-                        <span className="text-[9px] font-mono text-slate-700 w-4">{String(index + 1).padStart(2, "0")}</span>
-                        <span className="font-mono text-sm text-slate-400 group-hover:text-slate-200 transition-colors">
-                          {row.outreach}
-                        </span>
-                      </div>
-
-                      {/* Capacity + mini bar */}
-                      <div className="relative flex flex-col gap-1.5">
-                        <span className="font-black text-xl text-[color:var(--cta)] group-hover:text-white transition-colors leading-none">
-                          {row.capacity}
-                        </span>
-                        {/* Inline mini bar */}
-                        <div className="h-[2px] w-full max-w-[120px] bg-white/5 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-[color:var(--cta)] to-[color:var(--cta)]/50 rounded-full"
-                            initial={{ width: "0%" }}
-                            whileInView={{ width: `${pct}%` }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.9, delay: 0.6 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                          />
+                    <TableRow key={index} className="border-white/5 hover:bg-white/[0.02] transition-colors relative group">
+                      <TableCell className="font-mono text-sm text-slate-400 group-hover:text-slate-200 transition-colors py-4 px-2">
+                        <span className="text-[9px] font-mono text-slate-700 w-4 inline-block mr-3">{String(index + 1).padStart(2, "0")}</span>
+                        {row.outreach}
+                      </TableCell>
+                      <TableCell className="py-4">
+                        <div className="relative flex flex-col gap-1.5">
+                          <span className="font-black text-xl text-[color:var(--cta)] group-hover:text-white transition-colors leading-none">
+                            {row.capacity}
+                          </span>
+                          <div className="h-[2px] w-full max-w-[120px] bg-white/5 rounded-full overflow-hidden">
+                            <motion.div
+                              className="h-full bg-gradient-to-r from-[color:var(--cta)] to-[color:var(--cta)]/50 rounded-full"
+                              initial={{ width: "0%" }}
+                              whileInView={{ width: `${pct}%` }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 0.9, delay: 0.2 + index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </motion.div>
+                      </TableCell>
+                    </TableRow>
                   );
                 })}
-              </div>
+              </TableBody>
+            </Table>
 
               {/* FEM note */}
               <div className="px-6 py-3.5 border-t border-white/[0.04]">
@@ -369,7 +366,6 @@ export default function DetailLoadChart({
                   ISO 4301 — Marine Grade Certified
                 </p>
               </div>
-            </div>
           </SlideLeft>
 
           {/* RIGHT: Load curve chart */}
@@ -384,12 +380,12 @@ export default function DetailLoadChart({
                   </div>
                   <div className="flex items-center gap-1.5">
                     <div className="w-5 h-[1px] border-t border-dashed border-slate-700" />
-                    <span className="text-[8px] font-mono text-slate-600">Grid</span>
+                    <span className="text-[8px] font-mono text-slate-600">{gridLabel}</span>
                   </div>
                 </div>
               </div>
               <div className="flex-1">
-                <LoadCurve loadChart={loadChart} />
+                <LoadCurve loadChart={loadChart} loadEnvelope={loadEnvelope} capacityUpper={capacityUpper} outreachUpper={outreachUpper} gridLabel={gridLabel} />
               </div>
             </div>
           </SlideRight>

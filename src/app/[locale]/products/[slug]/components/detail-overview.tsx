@@ -2,12 +2,14 @@
 
 import React from "react";
 import { FadeUp, SlideLeft, SlideRight, ScaleIn, FadeIn } from "./animations";
+import { Badge } from "@/components/ui/badge";
 
 type DetailOverviewProps = {
   descTitle: string;
   description: string;
   usageTitle: string;
   usage: string;
+  tags: readonly string[];
   isRtl: boolean;
 };
 
@@ -16,6 +18,7 @@ export default function DetailOverview({
   description,
   usageTitle,
   usage,
+  tags,
   isRtl,
 }: DetailOverviewProps) {
   const sentences = description.split(/\.\s+/);
@@ -26,9 +29,9 @@ export default function DetailOverview({
     <section id="section-overview" className="relative py-24 mb-8">
       <FadeIn>
         <div className="flex items-center gap-4 mb-20">
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-          <span className="text-[8px] font-mono tracking-[0.4em] text-slate-700 uppercase">Section 01</span>
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
+          <span className="text-[8px] font-mono tracking-[0.4em] text-slate-400 uppercase">Section 01</span>
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
         </div>
       </FadeIn>
 
@@ -39,7 +42,7 @@ export default function DetailOverview({
               <span className="text-[9px] font-mono text-[color:var(--cta)]">01</span>
             </div>
           </ScaleIn>
-          <span className="text-[10px] font-mono tracking-[0.35em] text-[color:var(--cta)]/70 uppercase">{descTitle}</span>
+          <span className="text-[10px] font-mono tracking-[0.35em] text-blue-600 uppercase">{descTitle}</span>
         </div>
       </FadeUp>
 
@@ -47,15 +50,15 @@ export default function DetailOverview({
         {/* Left */}
         <SlideLeft delay={0.2} className={`${isRtl ? "text-right pl-0 lg:pl-16" : "text-left pr-0 lg:pr-16"} pb-12 lg:pb-0`}>
           <blockquote className={`relative mb-8 ${isRtl ? "pr-6 border-r-4 border-[color:var(--cta)]" : "pl-6 border-l-4 border-[color:var(--cta)]"}`}>
-            <p className="text-xl md:text-2xl font-bold text-white leading-snug">{pullQuote}</p>
+            <p className="text-xl md:text-2xl font-bold text-slate-900 leading-snug">{pullQuote}</p>
           </blockquote>
           {restText && (
-            <p className="text-slate-400 text-base leading-[1.9] whitespace-pre-wrap">{restText}</p>
+            <p className="text-slate-600 text-base leading-[1.9] whitespace-pre-wrap">{restText}</p>
           )}
         </SlideLeft>
 
         {/* Vertical divider */}
-        <div className="hidden lg:block w-[1px] bg-gradient-to-b from-transparent via-white/8 to-transparent" />
+        <div className="hidden lg:block w-[1px] bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
 
         {/* Right */}
         <SlideRight delay={0.25} className={`${isRtl ? "text-right pr-0 lg:pr-16" : "text-left pl-0 lg:pl-16"} pt-12 lg:pt-0`}>
@@ -67,19 +70,19 @@ export default function DetailOverview({
                 </svg>
               </div>
             </ScaleIn>
-            <h3 className="text-lg font-black text-white">{usageTitle}</h3>
+            <h3 className="text-lg font-black text-slate-900">{usageTitle}</h3>
           </div>
 
           <div className={`relative ${isRtl ? "pr-5 border-r border-blue-500/20" : "pl-5 border-l border-blue-500/20"}`}>
-            <p className="text-slate-300 text-base leading-[1.9]">{usage}</p>
+            <p className="text-slate-600 text-base leading-[1.9]">{usage}</p>
           </div>
 
           <div className={`flex flex-wrap gap-2 mt-8 ${isRtl ? "justify-end" : ""}`}>
-            {["Denizcilik", "Offshore", "Tersane", "Liman"].map((tag, i) => (
+            {tags.map((tag, i) => (
               <ScaleIn key={tag} delay={0.4 + i * 0.06}>
-                <span className="px-3 py-1 rounded-full border border-white/8 bg-white/[0.02] text-[10px] font-bold text-slate-500 uppercase tracking-wider hover:border-[color:var(--cta)]/30 hover:text-[color:var(--cta)]/80 transition-colors duration-300 cursor-default">
+                <Badge variant="outline" className="border-slate-200 bg-white text-[10px] font-bold text-slate-500 uppercase tracking-wider hover:border-blue-500 hover:text-blue-600 transition-colors duration-300 rounded-full cursor-default px-3 py-1">
                   {tag}
-                </span>
+                </Badge>
               </ScaleIn>
             ))}
           </div>

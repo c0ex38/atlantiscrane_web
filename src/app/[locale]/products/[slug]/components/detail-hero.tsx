@@ -194,34 +194,35 @@ export default function DetailHero({
             <div className="absolute inset-1/4 bg-[color:var(--cta)]/8 rounded-full blur-3xl" />
 
             <motion.div
-              className="relative w-full h-full"
+              className="relative w-full h-full rounded-[2rem] bg-white shadow-[0_20px_80px_rgba(0,0,0,0.4)] overflow-hidden border border-slate-200"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-slate-200" />
               <Image
                 src={productImage}
                 alt={title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-contain p-6 md:p-10 drop-shadow-2xl"
+                className="object-contain p-6 md:p-12 relative z-10 mix-blend-multiply"
                 priority
               />
             </motion.div>
 
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-blue-400/8" />
-              <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-blue-400/8" />
-              <div className="absolute top-4 left-4 w-10 h-10 border-t border-l border-[color:var(--cta)]/30 rounded-tl-lg" />
-              <div className="absolute top-4 right-4 w-10 h-10 border-t border-r border-[color:var(--cta)]/30 rounded-tr-lg" />
-              <div className="absolute bottom-4 left-4 w-10 h-10 border-b border-l border-[color:var(--cta)]/30 rounded-bl-lg" />
-              <div className="absolute bottom-4 right-4 w-10 h-10 border-b border-r border-[color:var(--cta)]/30 rounded-br-lg" />
+              <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-slate-200" />
+              <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-slate-200" />
+              <div className="absolute top-4 left-4 w-10 h-10 border-t-2 border-l-2 border-slate-300 rounded-tl-xl" />
+              <div className="absolute top-4 right-4 w-10 h-10 border-t-2 border-r-2 border-slate-300 rounded-tr-xl" />
+              <div className="absolute bottom-4 left-4 w-10 h-10 border-b-2 border-l-2 border-slate-300 rounded-bl-xl" />
+              <div className="absolute bottom-4 right-4 w-10 h-10 border-b-2 border-r-2 border-slate-300 rounded-br-xl" />
               <motion.div
-                className="absolute top-6 right-6 px-3 py-1.5 rounded-lg bg-[#070b14]/80 border border-white/8 backdrop-blur-sm"
+                className="absolute top-6 right-6 px-3 py-1.5 rounded-lg bg-white/90 shadow-sm border border-slate-200 backdrop-blur-md"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.4 }}
               >
-                <span className="text-[9px] font-mono text-[color:var(--cta)]/80 uppercase tracking-widest">Marine Grade</span>
+                <span className="text-[9px] font-mono text-slate-800 font-bold uppercase tracking-widest">Marine Grade</span>
               </motion.div>
             </div>
           </div>
