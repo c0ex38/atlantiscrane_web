@@ -1,3 +1,8 @@
+"use client";
+
+import Image from "next/image";
+import { motion } from "framer-motion";
+
 export type ProductsHeroProps = {
   title: string;
   description: string;
@@ -5,22 +10,53 @@ export type ProductsHeroProps = {
 
 export default function ProductsHero({ title, description }: ProductsHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-[#111122] pt-32 pb-20 text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(253,197,32,0.08),transparent_50%)]" />
-      {/* Subtle grid pattern overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]" />
-      
-      <div className="container-shell relative z-10 text-center max-w-3xl mx-auto space-y-6">
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono tracking-widest text-[color:var(--cta)] uppercase">
-          <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--cta)] animate-pulse" />
-          Atlantis Crane // Marine Lifting Engineering
-        </span>
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase leading-none">
+    <section className="relative -mt-24 overflow-hidden bg-white pt-44 pb-20 md:pb-32">
+      {/* Background image — very faint */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1541535881962-e6d8615b3746?q=80&w=2000"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-center opacity-[0.06]"
+          priority
+          aria-hidden
+        />
+        {/* Light overlay so image stays barely visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/95" />
+      </div>
+
+      <div className="container-shell relative z-10">
+        <motion.p
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-3 text-[10px] font-mono tracking-[0.35em] text-[color:var(--cta)] uppercase mb-6"
+        >
+          <span className="w-8 h-px bg-[color:var(--cta)]" />
+          Atlantis Crane — Ürün Portföyü
+        </motion.p>
+
+        {/* Big headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.85, 0, 0.15, 1] }}
+          className="font-black tracking-tight leading-[0.95] text-[color:var(--text)] mb-8"
+          style={{ fontSize: "clamp(3.2rem, 9vw, 8rem)" }}
+        >
           {title}
-        </h1>
-        <p className="text-slate-400 text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+        </motion.h1>
+
+        {/* Description */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.65, delay: 0.2 }}
+          className="text-slate-600 text-base md:text-lg leading-relaxed max-w-xl"
+        >
           {description}
-        </p>
+        </motion.p>
       </div>
     </section>
   );

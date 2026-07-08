@@ -6,10 +6,13 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function PremiumLoader() {
   const pathname = usePathname();
-  const [isLoading, setIsLoading] = useState(true);
+  const isHomePage = pathname === '/' || pathname === '/tr' || pathname === '/en' || pathname === '/ar';
+  const [isLoading, setIsLoading] = useState(isHomePage);
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
+    if (!isHomePage) return;
+
     // Scroll to top immediately if no hash is present in the URL
     if (typeof window !== "undefined" && !window.location.hash) {
       window.scrollTo(0, 0);
@@ -48,7 +51,7 @@ export default function PremiumLoader() {
       clearTimeout(timer);
       document.body.style.overflow = "";
     };
-  }, [pathname]);
+  }, [pathname, isHomePage]);
 
   const columns = 5;
 

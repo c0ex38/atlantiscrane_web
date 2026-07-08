@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import type { Locale } from "../../../lib/site-content";
 
 type AboutHeroProps = {
   description: string;
@@ -54,11 +53,6 @@ export default function AboutHero({ description }: AboutHeroProps) {
         >
           {description}
         </motion.p>
-
-
-
-
-
       </div>
     </section>
   );

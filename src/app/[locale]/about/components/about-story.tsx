@@ -52,7 +52,7 @@ export default function AboutStory() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <p className="text-slate-600 text-base md:text-lg leading-relaxed font-medium">
-              2001 yılında İstanbul Tuzla'da, Türk gemi inşa sanayisinin tam merkezinde kurulan Atlantis Crane, yirmi yılı aşkın süredir deniz vinçlerinin tasarımında ve üretiminde küresel standartların öncüsüdür.
+              2001 yılında İstanbul Tuzla&apos;da, Türk gemi inşa sanayisinin tam merkezinde kurulan Atlantis Crane, yirmi yılı aşkın süredir deniz vinçlerinin tasarımında ve üretiminde küresel standartların öncüsüdür.
             </p>
           </motion.div>
           <motion.div
@@ -63,10 +63,10 @@ export default function AboutStory() {
             className="space-y-6"
           >
             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-              Her projede mühendislik önce gelir: DNV, Lloyd's Register ve Bureau Veritas sertifikasyonuyla desteklenen ürünlerimiz, en zorlu deniz koşullarına karşı güvenle çalışır.
+              Her projede mühendislik önce gelir: DNV, Lloyd&apos;s Register ve Bureau Veritas sertifikasyonuyla desteklenen ürünlerimiz, en zorlu deniz koşullarına karşı güvenle çalışır.
             </p>
             <p className="text-slate-500 text-sm md:text-base leading-relaxed">
-              İstanbul'dan Dubai'ye uzanan servis ağımızla kurulum sonrası desteği de aynı kararlılıkla sürdürüyoruz.
+              İstanbul&apos;dan Dubai&apos;ye uzanan servis ağımızla kurulum sonrası desteği de aynı kararlılıkla sürdürüyoruz.
             </p>
           </motion.div>
         </div>
