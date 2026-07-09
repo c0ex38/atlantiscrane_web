@@ -8,6 +8,10 @@ const ar = {
     projects: "المشاريع",
     contact: "اتصل بنا",
   },
+  seo: {
+    title: "Atlantis Crane - أتلانتس كرين",
+    description: "تصميم وتصنيع رافعات هندسية وخدمات دعم عالمية للسفن والمنصات البحرية.",
+  },
   hero: {
     eyebrow: "Marine lifting engineering",
     title: "حلول رافعات آمنة ومعتمدة للسفن والمنصات البحرية.",

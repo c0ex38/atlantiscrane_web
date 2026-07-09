@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   localeLabels,
   localeNames,
@@ -20,6 +21,7 @@ const languageOrder: Locale[] = ["tr", "en", "ar"];
 export default function Navbar({ locale }: NavbarProps) {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const languageMenuRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
   const t = translations[locale];
 
   useEffect(() => {
@@ -42,7 +44,7 @@ export default function Navbar({ locale }: NavbarProps) {
   const languageHref = (targetLocale: Locale) => `/${targetLocale}`;
 
   const navigation = [
-    { label: t.nav.home, href: `/${locale}#${sectionIds.hero}` },
+    { label: t.nav.home, href: `/${locale}` },
     { label: t.nav.about, href: `/${locale}/about` },
     { label: t.nav.products, href: `/${locale}/products` },
     { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` }
@@ -55,7 +57,7 @@ export default function Navbar({ locale }: NavbarProps) {
           <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/60 to-transparent" />
 
           <Link
-            href={`/${locale}#${sectionIds.hero}`}
+            href={`/${locale}`}
             className="group flex shrink-0 items-center pl-4 py-2"
             aria-label="Atlantis Crane"
           >
@@ -72,23 +74,35 @@ export default function Navbar({ locale }: NavbarProps) {
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex px-4">
-            {navigation.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="group relative px-4 py-2 text-sm font-semibold text-slate-600 transition-colors duration-500"
-              >
-                <div className="relative z-10 overflow-hidden h-[20px]">
-                  <span className="block leading-[20px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
-                    {item.label}
-                  </span>
-                  <span className="absolute top-0 left-0 block leading-[20px] text-[color:var(--accent-strong)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
-                    {item.label}
-                  </span>
-                </div>
-                <span className="absolute inset-0 z-0 scale-75 rounded-full bg-[color:var(--accent)]/10 opacity-0 transition-all duration-500 group-hover:scale-100 group-hover:opacity-100" />
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const isHome = item.href === `/${locale}`;
+              const hasHash = item.href.includes('#');
+              
+              let isActive = false;
+              if (isHome) {
+                isActive = pathname === item.href;
+              } else if (!hasHash) {
+                isActive = pathname.startsWith(item.href);
+              }
+
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`group relative px-4 py-2 text-sm font-semibold transition-colors duration-300 ${isActive ? "text-slate-900" : "text-slate-600"}`}
+                >
+                  <div className="relative z-10 overflow-hidden h-[20px]">
+                    <span className={`block leading-[20px] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? "-translate-y-full" : "group-hover:-translate-y-full"}`}>
+                      {item.label}
+                    </span>
+                    <span className={`absolute top-0 left-0 block leading-[20px] text-slate-900 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? "translate-y-0" : "translate-y-full group-hover:translate-y-0"}`} aria-hidden="true">
+                      {item.label}
+                    </span>
+                  </div>
+                  <span className={`absolute inset-0 z-0 rounded-full bg-cta/20 transition-all duration-300 ${isActive ? "scale-100 opacity-100" : "scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100"}`} />
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2 sm:gap-3 pr-1">
@@ -142,14 +156,14 @@ export default function Navbar({ locale }: NavbarProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-[color:var(--cta)] to-[#fdd14a] px-6 py-2.5 text-sm font-bold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)]"
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-cta to-[#fdd14a] px-6 py-2.5 text-sm font-bold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)]"
             >
               <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="relative z-10 overflow-hidden h-[20px]">
-                <span className="block leading-[20px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                <span className="block leading-[20px] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
                   {t.nav.contact}
                 </span>
-                <span className="absolute top-0 left-0 block leading-[20px] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
+                <span className="absolute top-0 left-0 block leading-[20px] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
                   {t.nav.contact}
                 </span>
               </div>

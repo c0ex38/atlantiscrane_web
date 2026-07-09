@@ -69,7 +69,7 @@ export default function AboutStats({ stats }: AboutStatsProps) {
               <div className="text-5xl md:text-6xl font-black text-[color:var(--text)] tracking-tight mb-3 leading-none">
                 <Counter value={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="h-px w-10 bg-[color:var(--cta)] mb-3 transition-all duration-500 group-hover:w-20" />
+              <div className="h-px w-10 bg-cta mb-3 transition-all duration-500 group-hover:w-20" />
               <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest">
                 {stat.label}
               </p>

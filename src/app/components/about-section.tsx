@@ -30,7 +30,7 @@ export default function AboutSection({ locale }: AboutSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-lg md:text-xl text-[color:var(--cta)] font-medium mb-6 italic"
+            className="text-lg md:text-xl text-cta font-medium mb-6 italic"
             style={{ fontFamily: "var(--font-serif), serif" }}
           >
             {eyebrow}
@@ -47,7 +47,7 @@ export default function AboutSection({ locale }: AboutSectionProps) {
             <h2 className="w-full text-center">
               <span className="block">{title}</span>
               <span className="block">
-                <span className="text-[color:var(--cta)]">{subtitleHighlight}</span>
+                <span className="text-cta">{subtitleHighlight}</span>
                 {subtitle}
               </span>
             </h2>

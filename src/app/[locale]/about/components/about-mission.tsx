@@ -26,7 +26,7 @@ export default function AboutMission({ content }: AboutMissionProps) {
       </div>
 
       {/* Gold decorative top bar */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-[color:var(--cta)]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-cta" />
 
       <div className="container-shell relative z-10 flex flex-col items-center text-center">
         <motion.p
@@ -34,11 +34,11 @@ export default function AboutMission({ content }: AboutMissionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="text-xs font-mono tracking-[0.3em] text-[color:var(--cta)] uppercase mb-12 flex items-center gap-3"
+          className="text-xs font-mono tracking-[0.3em] text-cta uppercase mb-12 flex items-center gap-3"
         >
-          <span className="w-6 h-px bg-[color:var(--cta)]" />
+          <span className="w-6 h-px bg-cta" />
           {content.eyebrow}
-          <span className="w-6 h-px bg-[color:var(--cta)]" />
+          <span className="w-6 h-px bg-cta" />
         </motion.p>
 
         <motion.h2
@@ -50,7 +50,7 @@ export default function AboutMission({ content }: AboutMissionProps) {
           style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
         >
           {content.title1}{" "}
-          <span className="text-[color:var(--cta)]">{content.titleHighlight}</span>{" "}
+          <span className="text-cta">{content.titleHighlight}</span>{" "}
           {content.title2}
         </motion.h2>
 
@@ -92,7 +92,7 @@ export default function AboutMission({ content }: AboutMissionProps) {
       </div>
 
       {/* Gold decorative bottom bar */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-[color:var(--cta)]" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-cta" />
     </section>
   );
 }

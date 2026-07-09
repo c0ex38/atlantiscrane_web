@@ -66,7 +66,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-lg md:text-xl font-medium italic text-[color:var(--cta)] mb-3"
+              className="text-lg md:text-xl font-medium italic text-cta mb-3"
               style={{ fontFamily: "var(--font-serif), serif" }}
             >
               {eyebrow}
@@ -90,7 +90,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
           
           {/* Animated Main Horizontal Line (Scroll progress) */}
           <motion.div 
-            className="absolute top-1/2 left-0 h-[2px] bg-[color:var(--cta)] -translate-y-1/2 origin-left z-10"
+            className="absolute top-1/2 left-0 h-[2px] bg-cta -translate-y-1/2 origin-left z-10"
             style={{ scaleX: smoothProgress }}
           />
 
@@ -109,7 +109,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
                   className="w-[360px] h-[480px] relative shrink-0 flex items-center justify-center"
                 >
                   {/* Connection Dot on the horizontal line - Centered inside wrapper */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-4 border-[color:var(--cta)] z-30 shadow-sm" />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-4 border-cta z-30 shadow-sm" />
 
                   {isEven ? (
                     /* Card below the line - Compact dynamic container centered horizontally */
@@ -126,7 +126,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
                         className="bg-white border border-slate-200 rounded-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-300 w-full"
                       >
                         <div className="space-y-2">
-                          <span className="block text-xl font-black text-[color:var(--cta)]">
+                          <span className="block text-xl font-black text-cta">
                             {item.year}
                           </span>
                           <h3 className="text-base font-bold text-slate-900 leading-snug">
@@ -153,7 +153,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
                         className="bg-white border border-slate-200 rounded-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-300 w-full"
                       >
                         <div className="space-y-2">
-                          <span className="block text-xl font-black text-[color:var(--cta)]">
+                          <span className="block text-xl font-black text-cta">
                             {item.year}
                           </span>
                           <h3 className="text-base font-bold text-slate-900 leading-snug">
@@ -181,7 +181,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
                 className="snap-center shrink-0 w-[85vw] max-w-[320px] bg-white border border-slate-200 rounded-xl p-6 shadow-[0_8px_20px_rgba(0,0,0,0.02)] relative overflow-hidden"
               >
                 <div className="space-y-3">
-                  <span className="block text-xl font-black text-[color:var(--cta)]">
+                  <span className="block text-xl font-black text-cta">
                     {item.year}
                   </span>
                   <h3 className="text-base font-bold text-slate-900 leading-tight">

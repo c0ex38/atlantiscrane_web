@@ -31,9 +31,9 @@ export default function ProductsHero({ title, description }: ProductsHeroProps) 
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-3 text-[10px] font-mono tracking-[0.35em] text-[color:var(--cta)] uppercase mb-6"
+          className="inline-flex items-center gap-3 text-[10px] font-mono tracking-[0.35em] text-cta uppercase mb-6"
         >
-          <span className="w-8 h-px bg-[color:var(--cta)]" />
+          <span className="w-8 h-px bg-cta" />
           Atlantis Crane — Ürün Portföyü
         </motion.p>
 

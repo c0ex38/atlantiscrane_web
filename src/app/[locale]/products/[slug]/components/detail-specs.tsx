@@ -38,14 +38,14 @@ export default function DetailSpecs({
           <div className={`${isRtl ? "text-right" : "text-left"}`}>
             <div className={`flex items-center gap-3 mb-4 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
               <ScaleIn delay={0.15}>
-                <div className="w-6 h-6 rounded-lg bg-[color:var(--cta)]/10 border border-[color:var(--cta)]/20 flex items-center justify-center shrink-0">
-                  <span className="text-[9px] font-mono text-[color:var(--cta)]">04</span>
+                <div className="w-6 h-6 rounded-lg bg-cta/10 border border-cta/20 flex items-center justify-center shrink-0">
+                  <span className="text-[9px] font-mono text-cta">04</span>
                 </div>
               </ScaleIn>
-              <span className="text-[10px] font-mono tracking-[0.35em] text-[color:var(--cta)]/70 uppercase">Technical Data</span>
+              <span className="text-[10px] font-mono tracking-[0.35em] text-cta/70 uppercase">Technical Data</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-2 max-w-xs">{title}</h2>
-            <div className={`h-[3px] w-10 bg-[color:var(--cta)] rounded-full mt-4 ${isRtl ? "ml-auto" : ""}`} />
+            <div className={`h-[3px] w-10 bg-cta rounded-full mt-4 ${isRtl ? "ml-auto" : ""}`} />
           </div>
         </SlideLeft>
         <SlideRight delay={0.15}>
@@ -86,7 +86,7 @@ export default function DetailSpecs({
                         <span className={`flex-1 text-[11px] md:text-xs text-blue-400/70 font-mono ${isRtl ? "text-right" : "text-left"}`}>
                           {specKeys[key]}
                         </span>
-                        <span className={`shrink-0 text-[11px] md:text-xs font-bold text-white/80 group-hover:text-[color:var(--cta)] transition-colors duration-200 ${isRtl ? "text-left" : "text-right"} max-w-[45%]`}>
+                        <span className={`shrink-0 text-[11px] md:text-xs font-bold text-white/80 group-hover:text-cta transition-colors duration-200 ${isRtl ? "text-left" : "text-right"} max-w-[45%]`}>
                           {specValues[key]}
                         </span>
                       </div>

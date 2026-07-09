@@ -38,8 +38,8 @@ export default function DetailFeatures({
       <FadeUp delay={0.1}>
         <div className={`flex items-center gap-3 mb-12 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
           <ScaleIn delay={0.15}>
-            <div className="w-6 h-6 rounded-lg bg-[color:var(--cta)]/10 border border-[color:var(--cta)]/20 flex items-center justify-center shrink-0">
-              <span className="text-[9px] font-mono text-[color:var(--cta)]">02</span>
+            <div className="w-6 h-6 rounded-lg bg-cta/10 border border-cta/20 flex items-center justify-center shrink-0">
+              <span className="text-[9px] font-mono text-cta">02</span>
             </div>
           </ScaleIn>
           <span className="text-[10px] font-mono tracking-[0.35em] text-blue-600 uppercase">{featuresTitle}</span>
@@ -52,20 +52,20 @@ export default function DetailFeatures({
           return (
             <StaggerItem key={index}>
               <div
-                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 md:p-7 hover:-translate-y-1 hover:border-[color:var(--cta)]/40 hover:bg-slate-50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.05)] transition-all duration-400 flex gap-5 ${
+                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 md:p-7 hover:-translate-y-1 hover:border-cta/40 hover:bg-slate-50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.05)] transition-all duration-400 flex gap-5 ${
                   isRtl ? "flex-row-reverse text-right" : "text-left"
                 }`}
               >
-                <div className={`absolute top-0 left-6 right-6 h-[1px] bg-[color:var(--cta)] opacity-0 group-hover:opacity-60 transition-opacity duration-400`} />
-                <div className="shrink-0 w-11 h-11 rounded-2xl bg-[color:var(--cta)]/10 border border-[color:var(--cta)]/20 flex items-center justify-center text-[color:var(--cta)]/80 group-hover:bg-[color:var(--cta)]/15 group-hover:border-[color:var(--cta)]/40 group-hover:text-[color:var(--cta)] transition-all duration-400 mt-0.5">
+                <div className={`absolute top-0 left-6 right-6 h-[1px] bg-cta opacity-0 group-hover:opacity-60 transition-opacity duration-400`} />
+                <div className="shrink-0 w-11 h-11 rounded-2xl bg-cta/10 border border-cta/20 flex items-center justify-center text-cta/80 group-hover:bg-cta/15 group-hover:border-cta/40 group-hover:text-cta transition-all duration-400 mt-0.5">
                   {icon}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[9px] font-mono text-slate-400 group-hover:text-[color:var(--cta)]/80 transition-colors duration-300">
+                    <span className="text-[9px] font-mono text-slate-400 group-hover:text-cta/80 transition-colors duration-300">
                       {String(index + 1).padStart(2, "0")}
                     </span>
-                    <div className="h-[1px] flex-1 bg-slate-200 group-hover:bg-[color:var(--cta)]/30 transition-colors duration-300" />
+                    <div className="h-[1px] flex-1 bg-slate-200 group-hover:bg-cta/30 transition-colors duration-300" />
                   </div>
                   <p className="text-slate-600 text-sm md:text-[15px] leading-relaxed group-hover:text-slate-900 transition-colors duration-400">
                     {feature}

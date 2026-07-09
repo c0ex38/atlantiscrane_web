@@ -8,6 +8,10 @@ const en = {
     projects: "Projects",
     contact: "Contact",
   },
+  seo: {
+    title: "Atlantis Crane",
+    description: "Engineering-driven crane design, manufacturing, and global support services for vessels and offshore platforms.",
+  },
   hero: {
     eyebrow: "Marine lifting engineering",
     title: "Safe, certified crane solutions for ships and marine platforms.",

@@ -50,7 +50,7 @@ export default function DetailHero({
       </div>
 
       <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-blue-600/8 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-[color:var(--cta)]/6 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-cta/6 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Back link */}
       <motion.div
@@ -63,12 +63,12 @@ export default function DetailHero({
           href={`/${locale}/products`}
           className="inline-flex items-center gap-2.5 group py-2"
         >
-          <span className={`w-8 h-8 rounded-full border border-white/10 bg-white/[0.04] flex items-center justify-center text-slate-500 group-hover:border-[color:var(--cta)]/50 group-hover:text-[color:var(--cta)] transition-all duration-300 ${isRtl ? "rotate-180" : ""}`}>
+          <span className={`w-8 h-8 rounded-full border border-white/10 bg-white/[0.04] flex items-center justify-center text-slate-500 group-hover:border-cta/50 group-hover:text-cta transition-all duration-300 ${isRtl ? "rotate-180" : ""}`}>
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </span>
-          <span className="text-[10px] font-mono tracking-[0.25em] text-slate-500 group-hover:text-[color:var(--cta)] transition-colors duration-300 uppercase">
+          <span className="text-[10px] font-mono tracking-[0.25em] text-slate-500 group-hover:text-cta transition-colors duration-300 uppercase">
             {backToListText}
           </span>
         </Link>
@@ -85,10 +85,10 @@ export default function DetailHero({
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <div className="flex gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--cta)] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-cta animate-pulse" />
               <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" style={{animationDelay: "0.3s"}} />
             </div>
-            <span className="text-[10px] font-mono tracking-[0.3em] text-[color:var(--cta)]/80 uppercase">
+            <span className="text-[10px] font-mono tracking-[0.3em] text-cta/80 uppercase">
               Atlantis Crane — {modelNumber}
             </span>
           </motion.div>
@@ -109,7 +109,7 @@ export default function DetailHero({
             transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
             style={{ originX: isRtl ? 1 : 0 }}
           >
-            <div className="h-[3px] w-12 bg-[color:var(--cta)] rounded-full" />
+            <div className="h-[3px] w-12 bg-cta rounded-full" />
             <div className="h-[1px] w-20 bg-white/15 rounded-full" />
           </motion.div>
 
@@ -132,7 +132,7 @@ export default function DetailHero({
                 key={stat.label}
                 className={`relative overflow-hidden rounded-2xl border ${
                   stat.color === "cta"
-                    ? "border-[color:var(--cta)]/20 bg-[color:var(--cta)]/[0.04]"
+                    ? "border-cta/20 bg-cta/[0.04]"
                     : "border-blue-500/20 bg-blue-500/[0.04]"
                 } p-5`}
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -140,10 +140,10 @@ export default function DetailHero({
                 transition={{ duration: 0.6, delay: 0.75 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={`absolute top-0 right-0 w-16 h-16 rounded-full -translate-y-1/2 translate-x-1/2 blur-xl ${
-                  stat.color === "cta" ? "bg-[color:var(--cta)]/10" : "bg-blue-500/10"
+                  stat.color === "cta" ? "bg-cta/10" : "bg-blue-500/10"
                 }`} />
                 <span className={`text-[9px] font-bold uppercase tracking-[0.25em] block mb-1.5 ${
-                  stat.color === "cta" ? "text-[color:var(--cta)]/70" : "text-blue-400/70"
+                  stat.color === "cta" ? "text-cta/70" : "text-blue-400/70"
                 }`}>{stat.label}</span>
                 <p className="text-2xl md:text-3xl font-black text-white leading-none">{stat.value}</p>
               </motion.div>
@@ -159,7 +159,7 @@ export default function DetailHero({
           >
             <Link
               href={`/${locale}/#contact`}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-[color:var(--cta)] text-[#070b14] font-black text-[11px] uppercase tracking-[0.2em] rounded-full hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.35)] transition-all duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 bg-cta text-[#070b14] font-black text-[11px] uppercase tracking-[0.2em] rounded-full hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.35)] transition-all duration-300"
             >
               {quoteBtnText}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
@@ -190,8 +190,8 @@ export default function DetailHero({
           transition={{ duration: 1.0, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="relative aspect-[4/3] lg:aspect-[3/2.5] w-full">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-[color:var(--cta)]/10 rounded-3xl" />
-            <div className="absolute inset-1/4 bg-[color:var(--cta)]/8 rounded-full blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-cta/10 rounded-3xl" />
+            <div className="absolute inset-1/4 bg-cta/8 rounded-full blur-3xl" />
 
             <motion.div
               className="relative w-full h-full rounded-[2rem] bg-white shadow-[0_20px_80px_rgba(0,0,0,0.4)] overflow-hidden border border-slate-200"

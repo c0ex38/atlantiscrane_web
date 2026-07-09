@@ -60,7 +60,7 @@ export default function AboutPhilosophy({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6 }}
-              className="text-lg font-medium italic text-[color:var(--cta)] mb-5"
+              className="text-lg font-medium italic text-cta mb-5"
               style={{ fontFamily: "var(--font-serif), serif" }}
             >
               {eyebrow}
@@ -75,7 +75,7 @@ export default function AboutPhilosophy({
             >
               {title}
               <span className="block mt-1">
-                <span className="text-[color:var(--cta)]">{subtitleHighlight}</span>{" "}
+                <span className="text-cta">{subtitleHighlight}</span>{" "}
                 <span className="text-white/60 font-light">{subtitle}</span>
               </span>
             </motion.h2>
@@ -101,7 +101,7 @@ export default function AboutPhilosophy({
                   transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                   className="flex gap-4 group"
                 >
-                  <div className="shrink-0 w-10 h-10 rounded-xl bg-[color:var(--cta)]/10 border border-[color:var(--cta)]/20 flex items-center justify-center text-[color:var(--cta)] transition-colors duration-300 group-hover:bg-[color:var(--cta)]/20">
+                  <div className="shrink-0 w-10 h-10 rounded-xl bg-cta/10 border border-cta/20 flex items-center justify-center text-cta transition-colors duration-300 group-hover:bg-cta/20">
                     {valueIcons[val.icon]}
                   </div>
                   <div>
@@ -122,7 +122,7 @@ export default function AboutPhilosophy({
             className="relative"
           >
             {/* Decorative gold border frame */}
-            <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-[color:var(--cta)]/30 via-transparent to-[color:var(--cta)]/10" />
+            <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-cta/30 via-transparent to-cta/10" />
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
               <Image
                 src="/about-facility.png"
@@ -136,7 +136,7 @@ export default function AboutPhilosophy({
               <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d1a]/60 via-transparent to-transparent" />
               {/* Caption tag */}
               <div className="absolute bottom-5 left-5 flex items-center gap-2 px-3 py-2 bg-black/60 backdrop-blur-md rounded-lg border border-white/10">
-                <span className="w-2 h-2 rounded-full bg-[color:var(--cta)] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-cta animate-pulse" />
                 <span className="text-white text-xs font-bold">Tuzla, İstanbul — Üretim Tesisi</span>
               </div>
             </div>
@@ -146,7 +146,7 @@ export default function AboutPhilosophy({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="absolute -top-5 -right-5 bg-[color:var(--cta)] rounded-2xl px-5 py-4 shadow-2xl"
+              className="absolute -top-5 -right-5 bg-cta rounded-2xl px-5 py-4 shadow-2xl"
             >
               <div className="text-2xl font-black text-slate-950 leading-none">25+</div>
               <div className="text-[10px] font-bold text-slate-800 uppercase tracking-wider mt-0.5">Yıllık Deneyim</div>

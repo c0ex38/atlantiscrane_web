@@ -59,8 +59,8 @@ export default function ProductSlide({
             isRight ? "ml-auto items-end text-right" : "mr-auto items-start text-left"
           }`}
         >
-          <span className={`text-[10px] md:text-xs font-mono tracking-[0.3em] text-[color:var(--cta)] uppercase mb-6 flex items-center gap-4 ${isRight ? "flex-row-reverse" : "flex-row"}`}>
-            <span className="w-8 sm:w-16 h-px bg-[color:var(--cta)]" />
+          <span className={`text-[10px] md:text-xs font-mono tracking-[0.3em] text-cta uppercase mb-6 flex items-center gap-4 ${isRight ? "flex-row-reverse" : "flex-row"}`}>
+            <span className="w-8 sm:w-16 h-px bg-cta" />
             Model 0{index + 1}
           </span>
 
@@ -99,7 +99,7 @@ export default function ProductSlide({
           <div className={`w-full max-w-md flex ${isRight ? 'justify-end' : 'justify-start'}`}>
             <Link
               href={`/${locale}/products/model-0${index + 1}`}
-              className="inline-flex items-center justify-center px-8 py-4 bg-[color:var(--cta)] text-[#0a0a14] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center justify-center px-8 py-4 bg-cta text-[#0a0a14] font-black text-xs md:text-sm uppercase tracking-widest hover:bg-white hover:scale-105 transition-all duration-300"
             >
               {detailLabel}
             </Link>

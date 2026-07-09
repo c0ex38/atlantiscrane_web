@@ -34,9 +34,9 @@ export default function AboutMilestones({ items, eyebrow, content }: AboutMilest
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.55 }}
-              className="text-xs font-mono tracking-[0.3em] text-[color:var(--cta)] uppercase mb-6 flex items-center gap-3"
+              className="text-xs font-mono tracking-[0.3em] text-cta uppercase mb-6 flex items-center gap-3"
             >
-              <span className="w-6 h-px bg-[color:var(--cta)]" /> {eyebrow}
+              <span className="w-6 h-px bg-cta" /> {eyebrow}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -47,7 +47,7 @@ export default function AboutMilestones({ items, eyebrow, content }: AboutMilest
             >
               {content.title1}
               <br className="hidden sm:block" />
-              <span className="text-[color:var(--cta)]">{content.titleHighlight}</span>
+              <span className="text-cta">{content.titleHighlight}</span>
               {content.title2}
             </motion.h2>
           </div>
@@ -66,14 +66,15 @@ export default function AboutMilestones({ items, eyebrow, content }: AboutMilest
                 >
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full flex items-center gap-6 sm:gap-10 py-7 text-left group"
+                    onMouseEnter={() => setOpenIndex(index)}
+                    className="w-full flex items-center gap-6 sm:gap-10 py-7 text-left group focus:outline-none"
                   >
                     {/* Year */}
                     <span
                       className="font-black tabular-nums shrink-0 transition-colors duration-300 leading-none"
                       style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)" }}
                     >
-                      <span className={isOpen ? "text-[color:var(--cta)]" : "text-slate-200 group-hover:text-slate-300 transition-colors"}>
+                      <span className={isOpen ? "text-cta" : "text-slate-200 group-hover:text-slate-300 transition-colors"}>
                         {item.year}
                       </span>
                     </span>
@@ -84,7 +85,7 @@ export default function AboutMilestones({ items, eyebrow, content }: AboutMilest
                     </span>
 
                     {/* Toggle icon */}
-                    <span className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? "bg-[color:var(--cta)] border-[color:var(--cta)]" : "border-slate-200 group-hover:border-slate-400"}`}>
+                    <span className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center border transition-all duration-300 ${isOpen ? "bg-cta border-cta" : "border-slate-200 group-hover:border-slate-400"}`}>
                       <svg
                         viewBox="0 0 20 20"
                         fill="none"
@@ -108,7 +109,7 @@ export default function AboutMilestones({ items, eyebrow, content }: AboutMilest
                       >
                         <div className="pb-7 pl-[clamp(3.5rem,7vw,7rem)]">
                           <div className="flex gap-4 items-start">
-                            <div className="w-0.5 self-stretch shrink-0 mt-0.5 bg-[color:var(--cta)]/30" />
+                            <div className="w-0.5 self-stretch shrink-0 mt-0.5 bg-cta/30" />
                             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
                               {item.description}
                             </p>

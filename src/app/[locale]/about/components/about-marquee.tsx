@@ -8,7 +8,7 @@ type AboutMarqueeProps = {
 
 export default function AboutMarquee({ items }: AboutMarqueeProps) {
   return (
-    <div className="overflow-hidden bg-[color:var(--cta)] py-4 border-y-0">
+    <div className="overflow-hidden bg-cta py-4 border-y-0">
       <motion.div
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 22, repeat: Infinity, ease: "linear" }}

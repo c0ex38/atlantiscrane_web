@@ -8,6 +8,10 @@ const tr = {
     projects: "Projeler",
     contact: "İletişim",
   },
+  seo: {
+    title: "Atlantis Crane",
+    description: "Gemi ve deniz platformları için mühendislik odaklı vinç tasarımı, üretimi ve global destek hizmetleri.",
+  },
   hero: {
     eyebrow: "Marine lifting engineering",
     title: "Gemi ve deniz platformları için güvenli, sertifikalı vinç çözümleri.",

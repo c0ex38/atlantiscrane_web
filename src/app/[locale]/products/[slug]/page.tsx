@@ -134,7 +134,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
     <main className="min-h-screen bg-[#070b14] text-white -mt-24 pt-32 pb-0 overflow-hidden relative">
       {/* Page-level background glows */}
       <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-blue-900/8 rounded-full blur-[200px] pointer-events-none -z-0" />
-      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-[color:var(--cta)]/4 rounded-full blur-[180px] pointer-events-none -z-0" />
+      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-cta/4 rounded-full blur-[180px] pointer-events-none -z-0" />
 
       <div className="container-shell relative z-10 px-4 md:px-8">
         {/* 1. Hero */}

@@ -38,8 +38,8 @@ export default function DetailOverview({
       <FadeUp delay={0.1}>
         <div className={`flex items-center gap-3 mb-12 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
           <ScaleIn delay={0.15}>
-            <div className="w-6 h-6 rounded-lg bg-[color:var(--cta)]/10 border border-[color:var(--cta)]/20 flex items-center justify-center shrink-0">
-              <span className="text-[9px] font-mono text-[color:var(--cta)]">01</span>
+            <div className="w-6 h-6 rounded-lg bg-cta/10 border border-cta/20 flex items-center justify-center shrink-0">
+              <span className="text-[9px] font-mono text-cta">01</span>
             </div>
           </ScaleIn>
           <span className="text-[10px] font-mono tracking-[0.35em] text-blue-600 uppercase">{descTitle}</span>
@@ -49,7 +49,7 @@ export default function DetailOverview({
       <div className={`grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] gap-0 ${isRtl ? "direction-rtl" : ""}`}>
         {/* Left */}
         <SlideLeft delay={0.2} className={`${isRtl ? "text-right pl-0 lg:pl-16" : "text-left pr-0 lg:pr-16"} pb-12 lg:pb-0`}>
-          <blockquote className={`relative mb-8 ${isRtl ? "pr-6 border-r-4 border-[color:var(--cta)]" : "pl-6 border-l-4 border-[color:var(--cta)]"}`}>
+          <blockquote className={`relative mb-8 ${isRtl ? "pr-6 border-r-4 border-cta" : "pl-6 border-l-4 border-cta"}`}>
             <p className="text-xl md:text-2xl font-bold text-slate-900 leading-snug">{pullQuote}</p>
           </blockquote>
           {restText && (

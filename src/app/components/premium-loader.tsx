@@ -100,34 +100,40 @@ export default function PremiumLoader() {
             exit={{ opacity: 0, transition: { duration: 0.4 } }}
             className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none"
           >
-            <div className="overflow-hidden mb-5 relative z-10">
-              <motion.p
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-                className="text-[color:var(--cta)] text-xs md:text-sm tracking-[0.5em] uppercase font-bold"
-              >
-                Marine Lifting Engineering
-              </motion.p>
-            </div>
+            <div className="relative flex items-center justify-center w-full">
+              {/* Subtitle - Absolutely positioned behind (z-10) */}
+              <div className="absolute inset-0 flex items-start justify-center pt-2 md:pt-6 z-10 pointer-events-none">
+                <div className="overflow-hidden">
+                  <motion.p
+                    initial={{ y: "100%" }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+                    className="text-cta text-[10px] md:text-xs tracking-[0.6em] uppercase font-bold"
+                  >
+                    Marine Lifting Engineering
+                  </motion.p>
+                </div>
+              </div>
 
-            <div className="overflow-hidden relative z-20 flex items-end">
-              <motion.h1
-                initial={{ y: "110%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 1, delay: 0.1, ease: [0.85, 0, 0.15, 1] }}
-                className="text-5xl font-black uppercase leading-[0.9] tracking-tight text-white md:text-8xl lg:text-[8rem]"
-              >
-                ATLANTİS
-              </motion.h1>
-              <motion.span
-                initial={{ opacity: 0, scale: 0.5, y: 50 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6, ease: "backOut" }}
-                className="text-2xl md:text-4xl font-black text-[color:var(--cta)] ml-4 mb-1 md:mb-4"
-              >
-                CRANE
-              </motion.span>
+              {/* Main Title - On top (z-20) with padding to prevent clipping and allow overlap */}
+              <div className="overflow-hidden relative z-20 flex items-end pt-8 md:pt-14">
+                <motion.h1
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 1, delay: 0.1, ease: [0.85, 0, 0.15, 1] }}
+                  className="text-5xl font-black uppercase leading-[0.9] tracking-tight text-white md:text-8xl lg:text-[8rem]"
+                >
+                  ATLANTİS
+                </motion.h1>
+                <motion.span
+                  initial={{ opacity: 0, scale: 0.5, y: 50 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6, ease: "backOut" }}
+                  className="text-2xl md:text-4xl font-black text-cta ml-4 mb-1 md:mb-4"
+                >
+                  CRANE
+                </motion.span>
+              </div>
             </div>
 
             <motion.div
@@ -138,7 +144,7 @@ export default function PremiumLoader() {
               style={{ fontVariantNumeric: "tabular-nums" }}
             >
               {counter.toFixed(1)}
-              <span className="text-[color:var(--cta)] text-3xl md:text-5xl mb-2">%</span>
+              <span className="text-cta text-3xl md:text-5xl mb-2">%</span>
             </motion.div>
 
             <motion.div
@@ -149,7 +155,7 @@ export default function PremiumLoader() {
               transition={{ delay: 0.4 }}
             >
               <div
-                className="absolute top-0 right-0 h-full bg-[color:var(--cta)] transition-all duration-[30ms] ease-linear"
+                className="absolute top-0 right-0 h-full bg-cta transition-all duration-[30ms] ease-linear"
                 style={{ width: `${counter}%` }}
               />
             </motion.div>

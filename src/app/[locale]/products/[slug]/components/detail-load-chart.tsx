@@ -282,7 +282,7 @@ export default function DetailLoadChart({
       <FadeIn>
         <div className="flex items-center gap-4 mb-20">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-          <span className="text-[10px] font-mono tracking-widest text-[color:var(--cta)] uppercase">{loadEnvelope}</span>
+          <span className="text-[10px] font-mono tracking-widest text-cta uppercase">{loadEnvelope}</span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
         </div>
       </FadeIn>
@@ -325,7 +325,7 @@ export default function DetailLoadChart({
                 <TableHeader>
                   <TableRow className="border-white/10 hover:bg-transparent">
                     <TableHead className="w-[100px] text-[9px] font-bold uppercase tracking-[0.25em] text-slate-500">{outreachCol}</TableHead>
-                    <TableHead className="text-[9px] font-bold uppercase tracking-[0.25em] text-[color:var(--cta)]/70">{capacityCol}</TableHead>
+                    <TableHead className="text-[9px] font-bold uppercase tracking-[0.25em] text-cta/70">{capacityCol}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -340,12 +340,12 @@ export default function DetailLoadChart({
                       </TableCell>
                       <TableCell className="py-4">
                         <div className="relative flex flex-col gap-1.5">
-                          <span className="font-black text-xl text-[color:var(--cta)] group-hover:text-white transition-colors leading-none">
+                          <span className="font-black text-xl text-cta group-hover:text-white transition-colors leading-none">
                             {row.capacity}
                           </span>
                           <div className="h-[2px] w-full max-w-[120px] bg-white/5 rounded-full overflow-hidden">
                             <motion.div
-                              className="h-full bg-gradient-to-r from-[color:var(--cta)] to-[color:var(--cta)]/50 rounded-full"
+                              className="h-full bg-gradient-to-r from-cta to-cta/50 rounded-full"
                               initial={{ width: "0%" }}
                               whileInView={{ width: `${pct}%` }}
                               viewport={{ once: true }}
@@ -375,7 +375,7 @@ export default function DetailLoadChart({
                 <span className="text-[9px] font-mono text-slate-700 uppercase tracking-wider">Load Envelope Curve</span>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-5 h-[2px] bg-[color:var(--cta)]" />
+                    <div className="w-5 h-[2px] bg-cta" />
                     <span className="text-[8px] font-mono text-slate-600">Capacity</span>
                   </div>
                   <div className="flex items-center gap-1.5">

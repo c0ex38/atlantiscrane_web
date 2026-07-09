@@ -85,7 +85,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
           <FadeUp delay={0.1}>
             <div className="inline-flex items-center gap-3 mb-6 bg-white/80 px-4 py-2 rounded-full border border-slate-200/80 shadow-sm backdrop-blur-md">
               <div className="flex gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[color:var(--cta)] animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-cta animate-pulse" />
                 <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" style={{ animationDelay: "0.4s" }} />
               </div>
               <span className="text-[10px] font-mono tracking-[0.3em] text-slate-700 uppercase font-bold">
@@ -145,7 +145,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
                       />
                     )}
                     <span className="flex items-center gap-2">
-                      <span className={`w-1.5 h-1.5 rounded-full ${activeTab === loc.id ? "bg-[color:var(--cta)]" : "bg-transparent"}`} />
+                      <span className={`w-1.5 h-1.5 rounded-full ${activeTab === loc.id ? "bg-cta" : "bg-transparent"}`} />
                       {loc.id}
                     </span>
                   </button>
@@ -157,14 +157,14 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
               
               {/* LOCATION PIN LABEL */}
               <div className={`absolute bottom-6 ${isRtl ? "right-6" : "left-6"} bg-slate-900/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-2xl flex items-center gap-4`}>
-                <div className="w-10 h-10 rounded-full bg-[color:var(--cta)] text-slate-900 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-cta text-slate-900 flex items-center justify-center">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
                 <div className={`${isRtl ? "text-right" : "text-left"}`}>
-                  <span className="block text-[10px] font-mono tracking-widest text-[color:var(--cta)] uppercase mb-0.5">{t.contact[activeLoc.nameKey as keyof typeof t.contact]}</span>
+                  <span className="block text-[10px] font-mono tracking-widest text-cta uppercase mb-0.5">{t.contact[activeLoc.nameKey as keyof typeof t.contact]}</span>
                   <span className="block text-sm font-bold text-white uppercase tracking-wider">{activeLoc.tag}</span>
                 </div>
               </div>
@@ -205,14 +205,14 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
               </div>
 
               {/* Bottom Quick Contact Strip */}
-              <div className="bg-white/5 border-t border-white/10 p-4 md:p-6 flex flex-col sm:flex-row gap-4">
-                <a href={`mailto:${t.contact.email}`} className={`flex-1 bg-white/5 hover:bg-[color:var(--cta)] hover:text-slate-900 border border-white/10 hover:border-transparent rounded-2xl p-4 flex items-center justify-center gap-3 transition-all duration-300 group ${isRtl ? "flex-row-reverse" : ""}`}>
-                  <svg className="w-5 h-5 text-[color:var(--cta)] group-hover:text-slate-900 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                  <span className="font-bold text-sm">{t.contact.email}</span>
+              <div className="bg-white/5 border-t border-white/10 p-4 md:p-6 flex flex-col gap-3">
+                <a href={`mailto:${t.contact.email}`} className={`w-full bg-white/5 hover:bg-cta hover:text-slate-900 border border-white/10 hover:border-transparent rounded-2xl p-4 flex items-center justify-center gap-3 transition-all duration-300 group ${isRtl ? "flex-row-reverse" : ""}`}>
+                  <svg className="w-5 h-5 text-cta group-hover:text-slate-900 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                  <span className="font-bold text-sm sm:text-base truncate">{t.contact.email}</span>
                 </a>
-                <a href={`tel:${t.contact.phone.replace(/\s/g, "")}`} className={`flex-1 bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 hover:border-transparent rounded-2xl p-4 flex items-center justify-center gap-3 transition-all duration-300 group ${isRtl ? "flex-row-reverse" : ""}`}>
-                  <svg className="w-5 h-5 text-blue-400 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  <span className="font-bold text-sm">{t.contact.phone}</span>
+                <a href={`tel:${t.contact.phone.replace(/\s/g, "")}`} className={`w-full bg-white/5 hover:bg-blue-600 hover:text-white border border-white/10 hover:border-transparent rounded-2xl p-4 flex items-center justify-center gap-3 transition-all duration-300 group ${isRtl ? "flex-row-reverse" : ""}`}>
+                  <svg className="w-5 h-5 text-blue-400 group-hover:text-white transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  <span className="font-bold text-sm sm:text-base truncate">{t.contact.phone}</span>
                 </a>
               </div>
             </ScaleIn>
@@ -221,7 +221,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
 
           {/* BOTTOM ROW: FORM */}
           <ScaleIn delay={0.4} className="rounded-[2.5rem] bg-white border border-slate-200 shadow-2xl shadow-slate-200/50 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-[color:var(--cta)] to-blue-600" />
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-cta to-blue-600" />
             
             <div className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 p-8 md:p-12 lg:p-16 ${isRtl ? "direction-rtl" : ""}`}>
               

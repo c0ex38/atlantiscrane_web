@@ -63,12 +63,12 @@ export default function AboutNumbers({ stats }: AboutNumbersProps) {
               >
                 <Counter value={stat.value} />
                 {stat.suffix && (
-                  <span className="text-[0.6em] font-bold text-[color:var(--cta)] ml-1 select-none">
+                  <span className="text-[0.6em] font-bold text-cta ml-1 select-none">
                     {stat.suffix}
                   </span>
                 )}
               </div>
-              <div className="w-8 h-px bg-[color:var(--cta)] mb-4 transition-all duration-500 group-hover:w-16" />
+              <div className="w-8 h-px bg-cta mb-4 transition-all duration-500 group-hover:w-16" />
               <p className="text-slate-500 text-xs font-semibold uppercase tracking-[0.2em]">
                 {stat.label}
               </p>

@@ -87,6 +87,7 @@ body {
 }
 
 @theme inline {
+  --color-cta: var(--cta);
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);

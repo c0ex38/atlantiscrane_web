@@ -38,11 +38,11 @@ export default function AboutStory({ content }: AboutStoryProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.55 }}
-          className="text-xs font-mono tracking-[0.3em] text-[color:var(--cta)] uppercase mb-8 flex items-center justify-center gap-4 w-full"
+          className="text-xs font-mono tracking-[0.3em] text-cta uppercase mb-8 flex items-center justify-center gap-4 w-full"
         >
-          <span className="w-8 sm:w-12 h-px bg-[color:var(--cta)]/50" />
+          <span className="w-8 sm:w-12 h-px bg-cta/50" />
           {content.eyebrow}
-          <span className="w-8 sm:w-12 h-px bg-[color:var(--cta)]/50" />
+          <span className="w-8 sm:w-12 h-px bg-cta/50" />
         </motion.p>
 
         {/* Title */}
@@ -54,7 +54,7 @@ export default function AboutStory({ content }: AboutStoryProps) {
           className="font-black tracking-tight leading-[0.95] text-[color:var(--text)] mb-10 max-w-4xl"
           style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
         >
-          {content.title1} <span className="text-[color:var(--cta)]">{content.titleHighlight}</span> {content.title2}
+          {content.title1} <span className="text-cta">{content.titleHighlight}</span> {content.title2}
         </motion.h2>
 
         {/* Text columns */}
@@ -116,8 +116,8 @@ export default function AboutStory({ content }: AboutStoryProps) {
         >
           <div className="flex items-center gap-4">
             <div className="relative flex h-3 w-3 sm:h-4 sm:w-4">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[color:var(--cta)] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 sm:h-4 sm:w-4 bg-[color:var(--cta)]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cta opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 sm:h-4 sm:w-4 bg-cta"></span>
             </div>
             <div>
               <p className="text-white font-black tracking-wide text-sm sm:text-base uppercase">{content.badgeTitle}</p>

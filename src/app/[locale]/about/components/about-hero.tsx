@@ -40,12 +40,12 @@ export default function AboutHero({ description, content }: AboutHeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.85, 0, 0.15, 1] }}
-          className="font-black tracking-tight leading-[0.92] text-[color:var(--text)] mb-6"
-          style={{ fontSize: "clamp(3.2rem, 9vw, 8.5rem)" }}
+          className="font-black tracking-tight leading-[1.05] text-[color:var(--text)] mb-6"
+          style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
         >
           {content.title1}
           <br className="hidden sm:block" />
-          <span className="text-[color:var(--cta)]">{content.titleHighlight}</span>
+          <span className="text-cta">{content.titleHighlight}</span>
           {content.title2}
         </motion.h1>
 

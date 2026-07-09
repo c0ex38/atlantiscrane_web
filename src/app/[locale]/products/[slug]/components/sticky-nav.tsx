@@ -66,7 +66,7 @@ export default function StickyNav({ items, quoteBtnText, locale, isRtl }: Sticky
       {/* Progress bar */}
       <div className="h-[2px] bg-white/5">
         <div
-          className="h-full bg-gradient-to-r from-[color:var(--cta)] to-[color:var(--cta)]/60 transition-all duration-100"
+          className="h-full bg-gradient-to-r from-cta to-cta/60 transition-all duration-100"
           style={{ width: `${scrollProgress}%` }}
         />
       </div>
@@ -84,7 +84,7 @@ export default function StickyNav({ items, quoteBtnText, locale, isRtl }: Sticky
                   onClick={() => scrollTo(item.id)}
                   className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-[0.15em] whitespace-nowrap transition-all duration-200 ${
                     activeId === item.id
-                      ? "bg-[color:var(--cta)]/15 text-[color:var(--cta)] border border-[color:var(--cta)]/30"
+                      ? "bg-cta/15 text-cta border border-cta/30"
                       : "text-slate-500 hover:text-white hover:bg-white/5"
                   }`}
                 >
@@ -96,7 +96,7 @@ export default function StickyNav({ items, quoteBtnText, locale, isRtl }: Sticky
             {/* Quick CTA */}
             <a
               href={`/${locale}/#contact`}
-              className="shrink-0 inline-flex items-center gap-2 px-5 py-2 bg-[color:var(--cta)] text-[#070b14] font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:scale-105 transition-transform duration-200"
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-2 bg-cta text-[#070b14] font-black text-[10px] uppercase tracking-[0.2em] rounded-full hover:scale-105 transition-transform duration-200"
             >
               {quoteBtnText}
               <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">

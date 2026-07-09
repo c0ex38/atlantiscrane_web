@@ -9,26 +9,21 @@ type EngineeringStandardsProps = {
 
 // Premium custom SVGs (Slate/Navy outline with gold accents representing each technical standard)
 const icons = [
-  // Standard 1: Global Certification (Lloyd's Register, DNV, BV, ABS Shield)
-  <svg key="shield" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8 transition-transform duration-500 group-hover:scale-110">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="m9 12 2 2 4-4" fill="none" stroke="var(--cta)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  // Standard 1: Global Certification (Award/Certificate)
+  <svg key="award" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8 transition-transform duration-500 group-hover:scale-110">
+    <circle cx="12" cy="8" r="6" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" fill="none" stroke="var(--cta)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>,
-  // Standard 2: C5-M Marine Paint (Liquid droplet with inner coating protection layer)
-  <svg key="droplet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8 transition-transform duration-500 group-hover:scale-110">
-    <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M12 18.5a3.5 3.5 0 0 0 3.5-3.5c0-1-.5-2-1.5-2.8-.5-.4-1.2-1.2-1.5-2.2-.3 1-.8 1.8-1.5 2.2-1 .8-1.5 1.8-1.5 2.8a3.5 3.5 0 0 0 3.5 3.5z" fill="none" stroke="var(--cta)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  // Standard 2: C5-M Marine Paint (Paintbrush/Coating)
+  <svg key="paintbrush" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8 transition-transform duration-500 group-hover:scale-110">
+    <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z" fill="none" stroke="var(--cta)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>,
-  // Standard 3: Finite Element Analysis (3D structural mesh analysis node points)
-  <svg key="cube" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8 transition-transform duration-500 group-hover:scale-110">
-    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    <polyline points="3.27 6.96 12 12.01 20.73 6.96" fill="none" stroke="#1b1b36" strokeWidth="1.2" />
-    <line x1="12" y1="22.08" x2="12" y2="12" stroke="#1b1b36" strokeWidth="1.2" />
-    <circle cx="12" cy="12" r="3" fill="none" stroke="var(--cta)" strokeWidth="1.5" />
-    <circle cx="12" cy="2.5" r="1.2" fill="var(--cta)" />
-    <circle cx="3" cy="7.5" r="1.2" fill="var(--cta)" />
-    <circle cx="21" cy="7.5" r="1.2" fill="var(--cta)" />
-    <circle cx="12" cy="21.5" r="1.2" fill="var(--cta)" />
+  // Standard 3: Finite Element Analysis (Drafting Compass/Design)
+  <svg key="compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-8 h-8 transition-transform duration-500 group-hover:scale-110">
+    <circle cx="12" cy="5" r="2" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="m3 21 8.02-14.26M21 21l-8.02-14.26" fill="none" stroke="#1b1b36" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M8 14h8" fill="none" stroke="var(--cta)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 ];
 
@@ -68,7 +63,7 @@ export default function EngineeringStandards({ locale }: EngineeringStandardsPro
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
-            className="text-lg md:text-xl font-medium italic text-[color:var(--cta)] mb-4"
+            className="text-lg md:text-xl font-medium italic text-cta mb-4"
             style={{ fontFamily: "var(--font-serif), serif" }}
           >
             {eyebrow}
@@ -101,14 +96,14 @@ export default function EngineeringStandards({ locale }: EngineeringStandardsPro
               {/* Inner card with hover accent line and clean shadow changes */}
               <div className="group bg-white border border-slate-200/80 rounded-2xl p-8 sm:p-12 transition-all duration-500 hover:shadow-[0_20px_50px_rgba(27,27,54,0.04)] hover:-translate-y-2 flex flex-col h-full relative overflow-hidden">
                 {/* Subtle top accent line on hover */}
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-transparent group-hover:bg-[color:var(--cta)] transition-all duration-500" />
+                <div className="absolute top-0 left-0 right-0 h-[3px] bg-transparent group-hover:bg-cta transition-all duration-500" />
 
                 {/* Top Row: Number & Icon */}
                 <div className="flex items-center justify-between mb-8">
-                  <span className="text-4xl font-extralight text-slate-200 group-hover:text-[color:var(--cta)]/50 transition-colors duration-500 font-sans select-none">
+                  <span className="text-4xl font-extralight text-slate-200 group-hover:text-cta/50 transition-colors duration-500 font-sans select-none">
                     0{index + 1}
                   </span>
-                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 transition-all duration-500 group-hover:bg-[color:var(--cta)]/5 group-hover:border-[color:var(--cta)]/20">
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 transition-all duration-500 group-hover:bg-cta/5 group-hover:border-cta/20">
                     {icons[index]}
                   </div>
                 </div>
