@@ -90,7 +90,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
           
           {/* Animated Main Horizontal Line (Scroll progress) */}
           <motion.div 
-            className="absolute top-1/2 left-0 h-[2px] bg-cta -translate-y-1/2 origin-left z-10"
+            className="absolute top-1/2 left-0 h-[3px] bg-gradient-to-r from-cta/40 via-cta to-cta -translate-y-1/2 origin-left z-10 shadow-[0_0_12px_#fdc520]"
             style={{ scaleX: smoothProgress }}
           />
 
@@ -108,21 +108,40 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
                   key={item.year} 
                   className="w-[360px] h-[480px] relative shrink-0 flex items-center justify-center"
                 >
-                  {/* Connection Dot on the horizontal line - Centered inside wrapper */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-4 border-cta z-30 shadow-sm" />
+                  {/* Connection Dot Radar Pulse */}
+                  <motion.div 
+                    animate={{ scale: [0.8, 1.7, 0.8], opacity: [0.4, 0, 0.4] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-cta/40 z-20 pointer-events-none"
+                  />
+
+                  {/* Main Connection Dot */}
+                  <motion.div 
+                    initial={{ scale: 0.4, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: false, amount: 0.8 }}
+                    transition={{ type: "spring", stiffness: 120, damping: 12 }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white border-4 border-cta z-30 shadow-md"
+                  />
 
                   {isEven ? (
                     /* Card below the line - Compact dynamic container centered horizontally */
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 flex flex-col items-center justify-start pt-2 w-[320px]">
-                      {/* Shortened vertical line going down for better spacing */}
-                      <div className="w-[1px] h-8 bg-slate-300 shrink-0" />
+                      {/* Self-drawing vertical connector line */}
+                      <motion.div 
+                        initial={{ height: 0 }}
+                        whileInView={{ height: 32 }}
+                        viewport={{ once: false, amount: 0.8 }}
+                        transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+                        className="w-[1.5px] bg-gradient-to-b from-cta to-slate-200 shrink-0" 
+                      />
                       
                       {/* Card */}
                       <motion.div 
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+                        initial={{ opacity: 0, y: 35, scale: 0.94 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                        transition={{ type: "spring", stiffness: 70, damping: 14 }}
                         className="bg-white border border-slate-200 rounded-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-300 w-full"
                       >
                         <div className="space-y-2">
@@ -141,15 +160,21 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
                   ) : (
                     /* Card above the line - Compact dynamic container centered horizontally */
                     <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 flex flex-col-reverse items-center justify-start pb-2 w-[320px]">
-                      {/* Shortened vertical line going up for better spacing */}
-                      <div className="w-[1px] h-8 bg-slate-300 shrink-0" />
+                      {/* Self-drawing vertical connector line */}
+                      <motion.div 
+                        initial={{ height: 0 }}
+                        whileInView={{ height: 32 }}
+                        viewport={{ once: false, amount: 0.8 }}
+                        transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+                        className="w-[1.5px] bg-gradient-to-t from-cta to-slate-200 shrink-0" 
+                      />
 
                       {/* Card */}
                       <motion.div 
-                        initial={{ opacity: 0, y: -15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
+                        initial={{ opacity: 0, y: -35, scale: 0.94 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                        viewport={{ once: false, amount: 0.3 }}
+                        transition={{ type: "spring", stiffness: 70, damping: 14 }}
                         className="bg-white border border-slate-200 rounded-xl p-5 shadow-[0_8px_30px_rgb(0,0,0,0.015)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-300 w-full"
                       >
                         <div className="space-y-2">
