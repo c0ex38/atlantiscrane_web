@@ -5,6 +5,7 @@ import ProductCatalog from "../components/product-catalog";
 import HistoryTimeline from "../components/history-timeline";
 import EngineeringStandards from "../components/engineering-standards";
 import ExportNetwork from "../components/export-network";
+import ReferencesSection from "../components/references-section";
 import CtaSection from "../components/cta-section";
 import { isLocale, type Locale } from "../lib/site-content";
 
@@ -31,6 +32,7 @@ export default async function LocaleHome({ params }: PageProps) {
       <HistoryTimeline locale={locale as Locale} />
       <EngineeringStandards locale={locale as Locale} />
       <ExportNetwork locale={locale as Locale} />
+      <ReferencesSection locale={locale as Locale} />
       <CtaSection locale={locale as Locale} />
     </main>
   );
