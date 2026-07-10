@@ -376,7 +376,7 @@ const tr = {
   },
   history: {
     eyebrow: "Yılların Birikimi ve Çözüm Ağı",
-    title: "Üretim Kronolojimiz",
+    title: "Kilometre Taşları",
     items: [
       {
         year: "2001",
