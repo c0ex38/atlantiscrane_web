@@ -40,7 +40,7 @@ export default function AboutHero({ description, content }: AboutHeroProps) {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: [0.85, 0, 0.15, 1] }}
-          className="font-black tracking-tight leading-[1.05] text-[color:var(--text)] mb-6"
+          className="font-black tracking-tight leading-[1.05] text-[color:var(--text)] mb-6 text-center"
           style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
         >
           {content.title1}
@@ -54,7 +54,7 @@ export default function AboutHero({ description, content }: AboutHeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.2 }}
-          className="text-slate-600 text-base md:text-lg leading-relaxed max-w-xl mb-10"
+          className="text-slate-600 text-base md:text-lg leading-relaxed max-w-xl mb-10 text-center mx-auto"
         >
           {description}
         </motion.p>
