@@ -15,6 +15,13 @@ export async function generateStaticParams() {
 
 // Product images mapped to each product index
 const productImages = [
+  "/products/knuckle-boom.png",
+  "/products/telescopic-boom.png",
+  "/products/test-product.png",
+  "/products/telescopic-boom.png",
+  "/products/test-product.png",
+  "/products/knuckle-boom.png",
+  "/products/knuckle-boom.png",
   "/products/test-product.png"
 ];
 

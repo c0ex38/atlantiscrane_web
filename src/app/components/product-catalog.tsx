@@ -52,9 +52,8 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
             // Unsplash placeholder images matching the crane/industrial theme
             const bgImages = [
               "/products/knuckle-boom.png",
-              "https://images.unsplash.com/photo-1579684389782-64d84b5e901a?q=80&w=2070", // shipyard / ship cargo
-              "https://images.unsplash.com/photo-1541535881962-e6d8615b3746?q=80&w=2070", // industrial crane
-              "https://images.unsplash.com/photo-1587582423116-ec07293f0395?q=80&w=2070"  // marine port/industrial structure
+              "/products/telescopic-boom.png",
+              "/products/test-product.png"
             ];
             const bgImage = bgImages[index % bgImages.length];
 
