@@ -19,7 +19,7 @@ export default function Footer({ locale }: FooterProps) {
   const footerLinks = [
     { label: t.nav.about, href: `/${locale}#${sectionIds.about}` },
     { label: t.nav.products, href: `/${locale}/products` },
-    { label: t.nav.projects, href: `/${locale}#${sectionIds.projects}` },
+    { label: t.nav.projects, href: `/${locale}/references` },
     { label: t.nav.contact, href: `/${locale}/contact` },
   ];
 
