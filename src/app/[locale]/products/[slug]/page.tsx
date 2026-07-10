@@ -75,17 +75,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const isRtl = locale === "ar";
 
   // Use the same fallback images as the list page
-  const productImages = [
-    "/products/knuckle-boom.png",
-    "/products/telescopic-boom.png",
-    "/products/test-product.png",
-    "/products/telescopic-boom.png",
-    "/products/test-product.png",
-    "/products/knuckle-boom.png",
-    "/products/knuckle-boom.png",
-    "/products/test-product.png"
-  ];
-  const productImage = productImages[modelIndex] || "/products/test-product.png";
+  const productImage = "/about-facility.png";
 
   const capLabel =
     currentLocale === "tr" ? "Kapasite" : currentLocale === "en" ? "Capacity" : "الحمولة";

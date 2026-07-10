@@ -50,12 +50,7 @@ export default function ProductCatalog({ locale }: ProductCatalogProps) {
         <div className="flex w-full flex-col md:flex-row">
           {items.map((item, index) => {
             // Unsplash placeholder images matching the crane/industrial theme
-            const bgImages = [
-              "/products/knuckle-boom.png",
-              "/products/telescopic-boom.png",
-              "/products/test-product.png"
-            ];
-            const bgImage = bgImages[index % bgImages.length];
+            const bgImage = "/about-facility.png";
 
             return (
               <article

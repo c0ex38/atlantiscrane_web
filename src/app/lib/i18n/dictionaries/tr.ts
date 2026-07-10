@@ -294,21 +294,21 @@ const tr = {
         client: "National Marine Dredging",
         category: "Liman & Altyapı",
         description: "Ağır hizmet tipi teleskopik bomlu vinçlerin römorkörlere entegrasyonu ve zorlu sıcaklık şartlarında saha testleri.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       },
       {
         title: "Kuzey Denizi Araştırma Gemisi",
         client: "Polaris Maritime",
         category: "Offshore & Araştırma",
         description: "Kutup şartlarında çalışabilen, aktif dalga sönümlemeli (AHC) derin deniz ROV fırlatma ve kurtarma vinci tasarımı.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       },
       {
         title: "Dubai Kargo Filosu Yenilenmesi",
         client: "Gulf Shipping Co.",
         category: "Gemi Üstü Operasyon",
         description: "12 adet kargo gemisi için güverte alanından tasarruf sağlayan hidrolik katlanır bomlu vinç serisinin seri üretimi.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       }
     ]
   },

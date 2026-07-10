@@ -290,21 +290,21 @@ const ar = {
         client: "شركة الجرافات البحرية الوطنية",
         category: "الموانئ والبنية التحتية",
         description: "دمج واختبار ميداني لرافعات ذات أذرع تلسكوبية للخدمة الشاقة على زوارق القطر في ظل درجات حرارة قاسية.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       },
       {
         title: "سفينة أبحاث بحر الشمال",
         client: "Polaris Maritime",
         category: "أوفشور وأبحاث",
         description: "تصميم رافعة إطلاق واستعادة لمركبات ROV في أعماق البحار مزودة بنظام تعويض الأمواج النشط (AHC) قادرة على العمل في الظروف القطبية.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       },
       {
         title: "تجديد أسطول شحن دبي",
         client: "شركة الخليج للشحن",
         category: "عمليات على متن السفن",
         description: "إنتاج ضخم لرافعات هيدروليكية ذات ذراع مفصلي موفرة للمساحة لأسطول مكون من 12 سفينة شحن.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       }
     ]
   },

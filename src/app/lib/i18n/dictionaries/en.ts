@@ -290,21 +290,21 @@ const en = {
         client: "National Marine Dredging",
         category: "Port & Infrastructure",
         description: "Integration and field testing of heavy-duty telescopic boom cranes onto tugboats under extreme temperature conditions.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       },
       {
         title: "North Sea Research Vessel",
         client: "Polaris Maritime",
         category: "Offshore & Research",
         description: "Design of a deep-sea ROV launch and recovery crane with Active Heave Compensation (AHC) capable of operating in polar conditions.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       },
       {
         title: "Dubai Cargo Fleet Renewal",
         client: "Gulf Shipping Co.",
         category: "On-Board Operation",
         description: "Mass production of space-saving hydraulic knuckle boom cranes for a fleet of 12 cargo vessels.",
-        image: "/products/test-product.png"
+        image: "/about-facility.png"
       }
     ]
   },
