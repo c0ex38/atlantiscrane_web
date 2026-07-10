@@ -14,7 +14,7 @@ export default function ProductsHero({ title, description }: ProductsHeroProps) 
       {/* Background image — very faint */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://images.unsplash.com/photo-1541535881962-e6d8615b3746?q=80&w=2000"
+          src="/about-facility.png"
           alt=""
           fill
           sizes="100vw"
