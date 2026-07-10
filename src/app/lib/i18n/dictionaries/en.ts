@@ -380,14 +380,29 @@ const en = {
         description: "Founded as a specialized steel fabrication workshop producing hatch covers and deck equipment for local Tuzla shipyards."
       },
       {
+        year: "2005",
+        title: "Capacity Growth & New Factory",
+        description: "Relocated to a larger production facility in the Tuzla shipyards region. Heavy steel fabrication and assembly lines were commissioned."
+      },
+      {
         year: "2008",
         title: "First Marine Deck Cranes",
         description: "Manufactured the first DNV certified hydraulic telescopic marine crane. The engineering and R&D team was expanded to focus entirely on lifting solutions."
       },
       {
+        year: "2012",
+        title: "Class Certifications & Offshore",
+        description: "Received Lloyd's Register and DNV type approvals. Delivered the first heavy-tonnage cranes for offshore platforms."
+      },
+      {
         year: "2015",
         title: "Export Network and Dubai Office",
         description: "International sales channels were established. First major crane orders were delivered for offshore support vessels (OSV) operating in UAE, Abu Dhabi, and Dubai ports."
+      },
+      {
+        year: "2020",
+        title: "Wave Compensation (AHC) Tech",
+        description: "Completed R&D for Active Heave Compensation (AHC) technology. Successfully delivered the first deep-sea ROV launch and recovery systems."
       },
       {
         year: "2026",

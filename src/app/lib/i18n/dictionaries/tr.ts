@@ -384,14 +384,29 @@ const tr = {
         description: "Yerel Tuzla tersanelerine ambar kapakları ve güverte teçhizatları üreten özel bir çelik imalat atölyesi olarak kuruldu."
       },
       {
+        year: "2005",
+        title: "Kapasite Artışı ve Yeni Fabrika",
+        description: "Tersaneler bölgesinde daha geniş bir üretim tesisine geçiş yapıldı. Ağır çelik konstrüksiyon ve montaj hattı devreye alındı."
+      },
+      {
         year: "2008",
         title: "İlk Deniz Güverte Vinçleri",
         description: "DNV sertifikalı ilk hidrolik teleskopik deniz vincini üretti. Mühendislik ve Ar-Ge ekibi tamamen kaldırma çözümlerine odaklanacak şekilde genişletildi."
       },
       {
+        year: "2012",
+        title: "Loyd Sertifikasyonları ve Offshore",
+        description: "Lloyd's Register ve DNV tip onayları alındı. Açık deniz (offshore) platformları için ilk yüksek tonajlı vinç teslimatları yapıldı."
+      },
+      {
         year: "2015",
         title: "İhracat Ağı ve Dubai Ofisi",
         description: "Uluslararası satış kanalları oluşturuldu. Birleşik Arap Emirlikleri, Abu Dabi ve Dubai limanlarında çalışan açık deniz destek gemileri (OSV) için ilk büyük vinç siparişleri teslim edildi."
+      },
+      {
+        year: "2020",
+        title: "Dalga Sönümleme (AHC) Teknolojisi",
+        description: "Aktif Dalga Sönümleme (AHC) teknolojisine yönelik Ar-Ge çalışmaları tamamlandı. İlk derin deniz ROV fırlatma ve kurtarma vinç sistemi başarıyla teslim edildi."
       },
       {
         year: "2026",
