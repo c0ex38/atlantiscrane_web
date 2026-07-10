@@ -47,7 +47,8 @@ export default function Navbar({ locale }: NavbarProps) {
     { label: t.nav.home, href: `/${locale}` },
     { label: t.nav.about, href: `/${locale}/about` },
     { label: t.nav.products, href: `/${locale}/products` },
-    { label: t.nav.projects, href: `/${locale}/references` }
+    { label: t.nav.projects, href: `/${locale}/projects` },
+    { label: t.nav.references, href: `/${locale}/references` }
   ];
 
   return (

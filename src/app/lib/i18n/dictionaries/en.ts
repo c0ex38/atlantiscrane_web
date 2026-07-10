@@ -5,7 +5,8 @@ const en = {
     home: "Home",
     about: "About",
     products: "Products",
-    projects: "References",
+    projects: "Projects",
+    references: "References",
     contact: "Contact",
   },
   seo: {

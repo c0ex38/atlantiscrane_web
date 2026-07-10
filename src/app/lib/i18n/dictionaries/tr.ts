@@ -5,7 +5,8 @@ const tr = {
     home: "Ana Sayfa",
     about: "Hakkımızda",
     products: "Ürünler",
-    projects: "Referanslar",
+    projects: "Projeler",
+    references: "Referanslar",
     contact: "İletişim",
   },
   seo: {

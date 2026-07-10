@@ -5,7 +5,8 @@ const ar = {
     home: "الرئيسية",
     about: "من نحن",
     products: "المنتجات",
-    projects: "المرجعيات",
+    projects: "المشاريع",
+    references: "المرجعيات",
     contact: "اتصل بنا",
   },
   seo: {
