@@ -33,6 +33,17 @@ const countryCodes = {
   "أذربيجان": "az",
 } as const;
 
+// Country flag emojis matching the codes
+const countryFlags = {
+  "ae": "🇦🇪",
+  "tr": "🇹🇷",
+  "sa": "🇸🇦",
+  "us": "🇺🇸",
+  "qa": "🇶🇦",
+  "no": "🇳🇴",
+  "az": "🇦🇿"
+} as const;
+
 export default function ExportNetwork({ locale }: ExportNetworkProps) {
   const t = translations[locale];
   const { eyebrow, title, subtitle, listTitle, craneLabel, items } = t.exportNetwork;
@@ -86,45 +97,93 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
     }
   }, [clickedCountry, svgContent]);
 
-  // Sync hovered state with SVG elements
+  // Synchronize map states and event listeners
   useEffect(() => {
-    if (!mapContainerRef.current) return;
+    if (!mapContainerRef.current || !svgContent) return;
     const svg = mapContainerRef.current.querySelector("svg");
     if (!svg) return;
 
-    // Reset all active countries styles
-    items.forEach((item) => {
-      const code = countryCodes[item.country as keyof typeof countryCodes];
-      if (!code) return;
-      const path = svg.querySelector(`#${code}`);
-      if (path) {
-        const isHovered = hoveredCountry === code;
-        const isClicked = clickedCountry === code;
-        
-        if (isClicked) {
-          (path as HTMLElement).style.fill = "#1b1b36"; // Selected country: Corporate deep navy
-        } else if (isHovered) {
-          (path as HTMLElement).style.fill = "#e0aa00"; // Hover: Dark gold
-        } else {
-          (path as HTMLElement).style.fill = "#fdc520"; // Default active: Brand gold
-        }
-        (path as HTMLElement).style.transition = "fill 0.3s ease";
-        (path as HTMLElement).style.cursor = "pointer";
-        
-        // Add event listeners for map interactions
-        path.addEventListener("mouseenter", () => setHoveredCountry(code));
-        path.addEventListener("mouseleave", () => setHoveredCountry(null));
-        path.addEventListener("click", () => setClickedCountry(isClicked ? null : code));
+    // 1. Style all inactive countries to look elegant and subtle
+    const allPaths = svg.querySelectorAll("path");
+    allPaths.forEach((path) => {
+      const id = path.getAttribute("id");
+      const isActiveCountry = items.some(
+        (item) => countryCodes[item.country as keyof typeof countryCodes] === id
+      );
+
+      if (!isActiveCountry) {
+        const element = path as SVGElement;
+        element.style.fill = "#eaedf3"; 
+        element.style.stroke = "#ffffff";
+        element.style.strokeWidth = "0.5px";
+        element.style.transition = "fill 0.4s ease";
+        element.style.cursor = "default";
       }
     });
 
+    // 2. Set up active countries styles and interaction event listeners
+    items.forEach((item) => {
+      const code = countryCodes[item.country as keyof typeof countryCodes];
+      if (!code) return;
+      const path = svg.querySelector(`#${code}`) as SVGGraphicsElement | null;
+      if (!path) return;
+
+      const isHovered = hoveredCountry === code;
+      const isClicked = clickedCountry === code;
+
+      // Premium highlight & glow states for active countries
+      if (isClicked) {
+        path.style.fill = "#1b1b36"; // corporate deep navy
+        path.style.stroke = "#fdc520"; // gold border
+        path.style.strokeWidth = "1.5px";
+        path.style.filter = "drop-shadow(0 0 8px rgba(27,27,54,0.35))";
+      } else if (isHovered) {
+        path.style.fill = "#e0aa00"; // dark gold
+        path.style.stroke = "#ffffff";
+        path.style.strokeWidth = "1px";
+        path.style.filter = "drop-shadow(0 0 10px rgba(253,197,32,0.6))";
+      } else {
+        path.style.fill = "#fdc520"; // default active brand gold
+        path.style.stroke = "#ffffff";
+        path.style.strokeWidth = "0.8px";
+        path.style.filter = "none";
+      }
+
+      path.style.transition = "all 0.3s cubic-bezier(0.25, 1, 0.5, 1)";
+      path.style.cursor = "pointer";
+
+      // Attach event handlers
+      const onMouseEnter = () => setHoveredCountry(code);
+      const onMouseLeave = () => setHoveredCountry(null);
+      const onClick = (e: Event) => {
+        e.stopPropagation();
+        setClickedCountry(prev => prev === code ? null : code);
+      };
+
+      path.addEventListener("mouseenter", onMouseEnter);
+      path.addEventListener("mouseleave", onMouseLeave);
+      path.addEventListener("click", onClick);
+
+      // Keep references to handlers for clean teardown
+      (path as any)._handlers = { onMouseEnter, onMouseLeave, onClick };
+    });
+
+    // Clear clicked state when clicking empty spots on the map
+    const onMapClick = () => {
+      setClickedCountry(null);
+    };
+    svg.addEventListener("click", onMapClick);
+
     return () => {
+      svg.removeEventListener("click", onMapClick);
       items.forEach((item) => {
         const code = countryCodes[item.country as keyof typeof countryCodes];
         if (!code) return;
-        const path = svg.querySelector(`#${code}`);
-        if (path) {
-          path.replaceWith(path.cloneNode(true)); // remove event listeners safely
+        const path = svg.querySelector(`#${code}`) as any;
+        if (path && path._handlers) {
+          path.removeEventListener("mouseenter", path._handlers.onMouseEnter);
+          path.removeEventListener("mouseleave", path._handlers.onMouseLeave);
+          path.removeEventListener("click", path._handlers.onClick);
         }
       });
     };
@@ -192,6 +251,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                   const isHovered = hoveredCountry === code;
                   const isClicked = clickedCountry === code;
                   const isActive = isHovered || isClicked;
+                  const flag = countryFlags[code as keyof typeof countryFlags] || "🌐";
 
                   return (
                     <motion.li 
@@ -202,16 +262,22 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                       key={index} 
                       onMouseEnter={() => setHoveredCountry(code)}
                       onMouseLeave={() => setHoveredCountry(null)}
-                      onClick={() => setClickedCountry(isClicked ? null : code)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setClickedCountry(isClicked ? null : code);
+                      }}
                       className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-300 ${
                         isActive ? "bg-[color:var(--bg)] shadow-sm scale-[1.02] border border-cta" : "hover:bg-slate-50 border border-transparent"
                       }`}
                     >
-                      <span className={`text-sm font-bold transition-colors duration-300 ${
-                        isActive ? "text-[color:var(--text)]" : "text-slate-600"
-                      }`}>
-                        {item.country}
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl select-none">{flag}</span>
+                        <span className={`text-sm font-bold transition-colors duration-300 ${
+                          isActive ? "text-[color:var(--text)]" : "text-slate-600"
+                        }`}>
+                          {item.country}
+                        </span>
+                      </div>
                       <span className={`inline-flex items-center justify-center px-3 py-1.5 text-xs font-black min-w-[80px] text-center rounded-md transition-colors duration-300 ${
                         isActive ? "bg-[#e0aa00] text-white" : "bg-cta text-slate-900"
                       }`}>
@@ -226,7 +292,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
             {/* Right Column: Interactive SVG Map */}
             <div className="w-full lg:w-2/3 relative flex items-center justify-center overflow-hidden min-h-[300px] md:min-h-[500px] rounded-2xl bg-slate-50/50 border border-slate-100/50">
               
-              {/* Clicked Country Info Popup - Moved to Bottom Right & made highly responsive */}
+              {/* Clicked Country Info Popup */}
               <AnimatePresence>
                 {selectedItem && (
                   <motion.div 
@@ -236,7 +302,10 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                     className="absolute bottom-4 right-4 z-20 bg-white border border-slate-200 shadow-xl rounded-2xl p-6 min-w-[200px] max-w-[calc(100%-32px)] md:max-w-[240px]"
                   >
                     <button 
-                      onClick={() => setClickedCountry(null)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setClickedCountry(null);
+                      }}
                       className="absolute top-4 right-4 text-slate-400 hover:text-slate-900 transition-colors"
                       aria-label="Close details"
                     >
@@ -255,6 +324,17 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                 )}
               </AnimatePresence>
 
+              {/* Interaction Hint Tooltip when nothing is selected */}
+              {!selectedItem && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.75 }}
+                  className="absolute bottom-4 right-4 z-20 bg-slate-900/5 backdrop-blur-[2px] border border-slate-200/50 rounded-xl px-4 py-2 pointer-events-none text-xs text-slate-500 font-medium"
+                >
+                  💡 {locale === "tr" ? "Detaylar için haritada bir ülkeye tıklayın" : locale === "ar" ? "انقر على بلد على الخريطة للتفاصيل" : "Click on a country to view details"}
+                </motion.div>
+              )}
+
               <div 
                 ref={mapContainerRef}
                 className="w-full h-full transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.01] [&>svg]:w-full [&>svg]:h-auto [&>svg]:max-h-[500px]"
@@ -268,3 +348,4 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
     </section>
   );
 }
+
