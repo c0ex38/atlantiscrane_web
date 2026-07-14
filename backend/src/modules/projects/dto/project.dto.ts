@@ -1,0 +1,53 @@
+import { IsNotEmpty, IsString, IsObject, IsOptional, IsBoolean } from 'class-validator';
+
+export class CreateProjectDto {
+  @IsObject()
+  @IsNotEmpty()
+  title: Record<string, string>;
+
+  @IsObject()
+  @IsOptional()
+  client?: Record<string, string>;
+
+  @IsObject()
+  @IsOptional()
+  category?: Record<string, string>;
+
+  @IsObject()
+  @IsOptional()
+  description?: Record<string, string>;
+
+  @IsString()
+  @IsOptional()
+  image?: string;
+
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
+}
+
+export class UpdateProjectDto {
+  @IsObject()
+  @IsOptional()
+  title?: Record<string, string>;
+
+  @IsObject()
+  @IsOptional()
+  client?: Record<string, string>;
+
+  @IsObject()
+  @IsOptional()
+  category?: Record<string, string>;
+
+  @IsObject()
+  @IsOptional()
+  description?: Record<string, string>;
+
+  @IsString()
+  @IsOptional()
+  image?: string;
+
+  @IsBoolean()
+  @IsOptional()
+  isActive?: boolean;
+}
