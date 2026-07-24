@@ -40,7 +40,7 @@ services:
       JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
       CORS_ORIGINS: ${CORS_ORIGINS}
     ports:
-      - "7501:3001"
+      - "3001:3001"
     volumes:
       - backend_uploads:/workspace/backend/uploads
     networks:
@@ -63,7 +63,7 @@ services:
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
       INTERNAL_API_URL: http://backend:3001/api/v1
     ports:
-      - "7500:3000"
+      - "3000:3000"
     networks:
       - atlantis_network
 
