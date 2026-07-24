@@ -17,8 +17,8 @@ async function bootstrap() {
   // Cookie Parser
   app.use(cookieParser());
 
-  // Static files for uploads
-  app.use('/uploads', express.static(join(process.cwd(), 'uploads')));
+  // Static files for uploads (Disable ETag to fix Cloudflare byte-range video seeking)
+  app.use('/uploads', express.static(join(process.cwd(), 'uploads'), { etag: false }));
 
   // Global validation pipe
   app.useGlobalPipes(
