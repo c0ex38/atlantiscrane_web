@@ -420,212 +420,232 @@ export default function ProductsAdminPage() {
             </div>
 
             {/* Modal Form */}
-            <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+            <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 custom-scrollbar bg-muted/10">
               
-              {/* Base Metadata Fields */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Slug</label>
-                  <input
-                    type="text"
-                    required
-                    value={slug}
-                    onChange={(e) => setSlug(e.target.value)}
-                    placeholder="8-ton-katlanir-vinch"
-                    className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                  />
-                </div>
-                <div>
-                  <FileUpload
-                    label="Görsel Yolu"
-                    value={image || ""}
-                    onChange={setImage}
-                    accept="image/*,video/*"
-                    placeholder="/about-facility.png"
-                  />
-                </div>
-                <div className="flex flex-col gap-3 pt-8">
-                  <label className="flex items-center gap-3 cursor-pointer select-none group">
-                    <div className={`h-5 w-5 rounded border flex items-center justify-center transition-colors ${isActive ? 'bg-primary border-primary' : 'bg-background border-border group-hover:border-primary/50'}`}>
-                      {isActive && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
+              <div className="flex flex-col lg:flex-row gap-6">
+                {/* Left Column: Image & Settings */}
+                <div className="w-full lg:w-1/3 space-y-6">
+                  {/* Image Card */}
+                  <div className="bg-card p-5 rounded-2xl border border-border/50 shadow-sm">
+                    <FileUpload
+                      label="Ürün Görseli"
+                      value={image || ""}
+                      onChange={setImage}
+                      accept="image/*,video/*"
+                      placeholder="/about-facility.png"
+                    />
+                  </div>
+
+                  {/* Settings Card */}
+                  <div className="bg-card p-5 rounded-2xl border border-border/50 shadow-sm space-y-5">
+                    <h4 className="text-xs font-black text-muted-foreground uppercase tracking-wider border-b border-border/50 pb-2">Temel Ayarlar</h4>
+                    
+                    <div>
+                      <label className="block text-xs font-bold text-foreground mb-2">Slug (URL Uzantısı)</label>
+                      <input
+                        type="text"
+                        required
+                        value={slug}
+                        onChange={(e) => setSlug(e.target.value)}
+                        placeholder="orn-8-ton-katlanir-vinch"
+                        className="w-full px-3 py-2.5 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] transition-all font-mono"
+                      />
                     </div>
-                    <input
-                      type="checkbox"
-                      checked={isActive}
-                      onChange={(e) => setIsActive(e.target.checked)}
-                      className="hidden"
-                    />
-                    <span className="text-sm font-bold text-card-foreground">Aktif / Listelensin</span>
-                  </label>
-                  
-                  <label className="flex items-center gap-3 cursor-pointer select-none group">
-                    <div className={`h-5 w-5 rounded border flex items-center justify-center transition-colors ${showOnHome ? 'bg-primary border-primary' : 'bg-background border-border group-hover:border-primary/50'}`}>
-                      {showOnHome && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
-                    </div>
-                    <input
-                      type="checkbox"
-                      checked={showOnHome}
-                      onChange={(e) => setShowOnHome(e.target.checked)}
-                      className="hidden"
-                    />
-                    <span className="text-sm font-bold text-card-foreground">Anasayfada Göster</span>
-                  </label>
-                </div>
-              </div>
 
-              {/* Language Tabs Selector */}
-              <div className="border-b border-border/50">
-                <div className="flex gap-2">
-                  {(["tr", "en", "ar"] as const).map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
-                      onClick={() => setActiveLang(lang)}
-                      className={`px-5 py-3 text-[13px] font-black uppercase tracking-widest border-b-2 transition-all ${
-                        activeLang === lang
-                          ? "border-primary text-primary"
-                          : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-t-lg"
-                      }`}
-                    >
-                      {lang === "tr" ? "Türkçe" : lang === "en" ? "English" : "العربية (Arabic)"}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Multilingual Text Inputs */}
-              <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-300">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Başlık ({activeLang})</label>
-                    <input
-                      type="text"
-                      required
-                      value={title[activeLang] || ""}
-                      onChange={(e) => setTitle({ ...title, [activeLang]: e.target.value })}
-                      className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Kapasite Metni ({activeLang})</label>
-                    <input
-                      type="text"
-                      value={capacity[activeLang] || ""}
-                      onChange={(e) => setCapacity({ ...capacity, [activeLang]: e.target.value })}
-                      placeholder="1.5 - 25 Ton"
-                      className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Erişim Metni ({activeLang})</label>
-                    <input
-                      type="text"
-                      value={outreach[activeLang] || ""}
-                      onChange={(e) => setOutreach({ ...outreach, [activeLang]: e.target.value })}
-                      placeholder="6 - 24 Metre"
-                      className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Kısa Tanıtım ({activeLang})</label>
-                  <textarea
-                    rows={2}
-                    value={shortIntro[activeLang] || ""}
-                    onChange={(e) => setShortIntro({ ...shortIntro, [activeLang]: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Açıklama ({activeLang})</label>
-                  <textarea
-                    rows={4}
-                    value={description[activeLang] || ""}
-                    onChange={(e) => setDescription({ ...description, [activeLang]: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">Kullanım / Uygulamalar ({activeLang})</label>
-                  <textarea
-                    rows={2}
-                    value={usage[activeLang] || ""}
-                    onChange={(e) => setUsage({ ...usage, [activeLang]: e.target.value })}
-                    className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-medium transition-all"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black text-foreground uppercase tracking-wider mb-2">
-                    Öne Çıkan Özellikler ({activeLang}) <span className="text-[10px] text-muted-foreground font-medium ml-1">(Her satıra bir özellik yazın)</span>
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={featuresText[activeLang] || ""}
-                    onChange={(e) => setFeaturesText({ ...featuresText, [activeLang]: e.target.value })}
-                    placeholder="Hidrolik çalışma sistemi sağlar.&#10;Katlanabilir bom yapısına sahiptir."
-                    className="w-full px-4 py-2.5 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none rounded-xl text-[13px] font-mono transition-all"
-                  />
-                </div>
-              </div>
-
-              {/* Load Chart Points */}
-              <div className="border-t border-border/50 pt-8 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-[13px] font-black text-foreground uppercase tracking-widest flex items-center gap-2">
-                    <TrendingUp className="h-[18px] w-[18px] text-primary" />
-                    <span>Yük Kapasite Eğrisi (Load Chart)</span>
-                  </h4>
-                  <button
-                    type="button"
-                    onClick={handleAddLoadChartRow}
-                    className="flex items-center gap-1.5 px-4 py-2 border border-primary/30 hover:bg-primary/10 text-primary text-xs font-bold rounded-xl transition-all shadow-sm active:scale-95"
-                  >
-                    <Plus className="h-4 w-4" />
-                    <span>Nokta Ekle</span>
-                  </button>
-                </div>
-
-                {loadChart.length === 0 ? (
-                  <div className="bg-muted/30 border border-border/50 rounded-xl p-6 text-center">
-                    <p className="text-[13px] text-muted-foreground font-medium italic">Kapasite eğrisi tanımlanmadı. Grafik çizilmeyecektir.</p>
-                  </div>
-                ) : (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {loadChart.map((point, idx) => (
-                      <div key={idx} className="flex items-center gap-3 bg-background p-3 rounded-xl border border-border/50 shadow-sm group hover:border-primary/50 transition-colors">
-                        <div className="flex-1 space-y-2">
-                          <input
-                            type="text"
-                            required
-                            placeholder="Erişim (örn: 2.50 m)"
-                            value={point.outreach}
-                            onChange={(e) => handleLoadChartChange(idx, "outreach", e.target.value)}
-                            className="w-full px-3 py-1.5 text-xs bg-muted/50 border border-border focus:border-primary focus:bg-background rounded-lg outline-none transition-all"
-                          />
-                          <input
-                            type="text"
-                            required
-                            placeholder="Kapasite (örn: 3200 kg)"
-                            value={point.capacity}
-                            onChange={(e) => handleLoadChartChange(idx, "capacity", e.target.value)}
-                            className="w-full px-3 py-1.5 text-xs bg-muted/50 border border-border focus:border-primary focus:bg-background rounded-lg outline-none transition-all"
-                          />
+                    <div className="flex flex-col gap-2 pt-2">
+                      <label className="flex items-center gap-3 cursor-pointer group p-2 -mx-2 hover:bg-muted/50 rounded-xl transition-colors">
+                        <div className={`h-5 w-5 rounded-md border flex items-center justify-center transition-all ${isActive ? 'bg-primary border-primary shadow-sm shadow-primary/20' : 'bg-background border-border group-hover:border-primary/50'}`}>
+                          {isActive && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveLoadChartRow(idx)}
-                          className="text-destructive/70 hover:text-destructive hover:bg-destructive/10 p-2 rounded-lg transition-colors"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
+                        <input
+                          type="checkbox"
+                          checked={isActive}
+                          onChange={(e) => setIsActive(e.target.checked)}
+                          className="hidden"
+                        />
+                        <span className="text-sm font-bold text-foreground">Aktif (Sitede Görünsün)</span>
+                      </label>
+                      
+                      <label className="flex items-center gap-3 cursor-pointer group p-2 -mx-2 hover:bg-muted/50 rounded-xl transition-colors">
+                        <div className={`h-5 w-5 rounded-md border flex items-center justify-center transition-all ${showOnHome ? 'bg-primary border-primary shadow-sm shadow-primary/20' : 'bg-background border-border group-hover:border-primary/50'}`}>
+                          {showOnHome && <Check className="h-3.5 w-3.5 text-primary-foreground" />}
+                        </div>
+                        <input
+                          type="checkbox"
+                          checked={showOnHome}
+                          onChange={(e) => setShowOnHome(e.target.checked)}
+                          className="hidden"
+                        />
+                        <span className="text-sm font-bold text-foreground">Anasayfada Öne Çıkar</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Column: Multilingual Data */}
+                <div className="w-full lg:w-2/3 space-y-6">
+                  {/* Language Tabs */}
+                  <div className="flex gap-1 bg-muted/30 p-1.5 rounded-2xl border border-border/50">
+                    {(["tr", "en", "ar"] as const).map((lang) => (
+                      <button
+                        key={lang}
+                        type="button"
+                        onClick={() => setActiveLang(lang)}
+                        className={`flex-1 py-2.5 text-[13px] font-bold rounded-xl transition-all ${
+                          activeLang === lang
+                            ? "bg-card shadow-sm text-primary border border-border/50"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent"
+                        }`}
+                      >
+                        {lang === "tr" ? "🇹🇷 Türkçe" : lang === "en" ? "🇬🇧 English" : "🇸🇦 العربية"}
+                      </button>
                     ))}
                   </div>
-                )}
+
+                  {/* Localized Form Fields */}
+                  <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-sm animate-in fade-in zoom-in-95 duration-200">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Ürün Başlığı</label>
+                        <input
+                          type="text"
+                          required
+                          value={title[activeLang] || ""}
+                          onChange={(e) => setTitle({ ...title, [activeLang]: e.target.value })}
+                          className="w-full px-4 py-2.5 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[14px] font-bold transition-all"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Kapasite Metni</label>
+                        <input
+                          type="text"
+                          value={capacity[activeLang] || ""}
+                          onChange={(e) => setCapacity({ ...capacity, [activeLang]: e.target.value })}
+                          placeholder="Örn: 1.5 - 25 Ton"
+                          className="w-full px-4 py-2.5 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] transition-all"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Erişim Metni</label>
+                        <input
+                          type="text"
+                          value={outreach[activeLang] || ""}
+                          onChange={(e) => setOutreach({ ...outreach, [activeLang]: e.target.value })}
+                          placeholder="Örn: 6 - 24 Metre"
+                          className="w-full px-4 py-2.5 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] transition-all"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Kısa Tanıtım</label>
+                        <textarea
+                          rows={2}
+                          value={shortIntro[activeLang] || ""}
+                          onChange={(e) => setShortIntro({ ...shortIntro, [activeLang]: e.target.value })}
+                          className="w-full px-4 py-3 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] transition-all resize-none leading-relaxed"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Açıklama</label>
+                        <textarea
+                          rows={4}
+                          value={description[activeLang] || ""}
+                          onChange={(e) => setDescription({ ...description, [activeLang]: e.target.value })}
+                          className="w-full px-4 py-3 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] transition-all resize-y leading-relaxed"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Kullanım / Uygulamalar</label>
+                        <textarea
+                          rows={2}
+                          value={usage[activeLang] || ""}
+                          onChange={(e) => setUsage({ ...usage, [activeLang]: e.target.value })}
+                          className="w-full px-4 py-3 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] transition-all resize-none leading-relaxed"
+                        />
+                      </div>
+
+                      <div className="md:col-span-2">
+                        <div className="flex items-center justify-between mb-2">
+                          <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Öne Çıkan Özellikler</label>
+                          <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-bold">Her satıra bir özellik</span>
+                        </div>
+                        <textarea
+                          rows={4}
+                          value={featuresText[activeLang] || ""}
+                          onChange={(e) => setFeaturesText({ ...featuresText, [activeLang]: e.target.value })}
+                          placeholder="Hidrolik çalışma sistemi sağlar.&#10;Katlanabilir bom yapısına sahiptir."
+                          className="w-full px-4 py-3 bg-muted/30 border border-border focus:border-primary focus:bg-background outline-none rounded-xl text-[13px] font-mono transition-all resize-y leading-relaxed"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Load Chart Points */}
+                  <div className="bg-card p-6 rounded-2xl border border-border/50 shadow-sm space-y-4">
+                    <div className="flex items-center justify-between border-b border-border/50 pb-4">
+                      <h4 className="text-[13px] font-black text-foreground uppercase tracking-widest flex items-center gap-2">
+                        <TrendingUp className="h-[18px] w-[18px] text-primary" />
+                        <span>Yük Kapasite Eğrisi (Load Chart)</span>
+                      </h4>
+                      <button
+                        type="button"
+                        onClick={handleAddLoadChartRow}
+                        className="flex items-center gap-1.5 px-3 py-1.5 border border-primary/30 hover:bg-primary/10 text-primary text-xs font-bold rounded-lg transition-all shadow-sm active:scale-95"
+                      >
+                        <Plus className="h-4 w-4" />
+                        <span>Nokta Ekle</span>
+                      </button>
+                    </div>
+
+                    {loadChart.length === 0 ? (
+                      <div className="bg-muted/30 border border-dashed border-border/50 rounded-xl p-6 text-center">
+                        <p className="text-[13px] text-muted-foreground font-medium italic">Kapasite eğrisi tanımlanmadı. Grafik çizilmeyecektir.</p>
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {loadChart.map((point, idx) => (
+                          <div key={idx} className="flex items-center gap-3 bg-muted/20 p-3 rounded-xl border border-border/50 shadow-sm group hover:border-primary/50 transition-colors">
+                            <div className="flex-1 space-y-2.5">
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase w-16">Erişim:</span>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="örn: 2.50 m"
+                                  value={point.outreach}
+                                  onChange={(e) => handleLoadChartChange(idx, "outreach", e.target.value)}
+                                  className="flex-1 px-3 py-1.5 text-xs bg-background border border-border focus:border-primary rounded-lg outline-none transition-all"
+                                />
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase w-16">Kapasite:</span>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="örn: 3200 kg"
+                                  value={point.capacity}
+                                  onChange={(e) => handleLoadChartChange(idx, "capacity", e.target.value)}
+                                  className="flex-1 px-3 py-1.5 text-xs bg-background border border-border focus:border-primary rounded-lg outline-none transition-all"
+                                />
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveLoadChartRow(idx)}
+                              className="text-destructive/50 hover:text-destructive hover:bg-destructive/10 p-2.5 rounded-xl transition-colors border border-transparent hover:border-destructive/20"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </form>
 
