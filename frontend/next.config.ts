@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "192.168.1.190",
       },
+      {
+        protocol: "https",
+        hostname: "api.atlantiscrane.com",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
     ],
   },
 };
