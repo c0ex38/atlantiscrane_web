@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Outfit, Lora, Noto_Sans_Arabic, Geist } from "next/font/google";

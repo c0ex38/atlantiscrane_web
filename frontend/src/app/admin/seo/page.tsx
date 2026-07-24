@@ -61,9 +61,24 @@ export default function SeoAdminPage() {
     setSuccess(null);
     setIsSaving(true);
 
+    // Fetch current backend state and merge to avoid wiping other admin pages' data
+    let mergedContent = structuredClone(siteContent);
+    try {
+      const currentRes = await apiFetch("/settings") as { data: Record<string, any> };
+      const currentSiteContent = currentRes?.data?.site_content;
+      if (currentSiteContent && typeof currentSiteContent === "object") {
+        // Merge: backend is base, our edits override
+        mergedContent = {
+          tr: { ...currentSiteContent.tr, ...siteContent.tr },
+          en: { ...currentSiteContent.en, ...siteContent.en },
+          ar: { ...currentSiteContent.ar, ...siteContent.ar },
+        };
+      }
+    } catch { /* continue with local state */ }
+
     const payload = {
       settings: {
-        site_content: siteContent,
+        site_content: mergedContent,
       }
     };
 

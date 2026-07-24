@@ -42,11 +42,11 @@ export default function HomeAdminPage() {
       const res = await apiFetch("/settings") as { data: Record<string, any> };
       const data = res.data;
       
-      if (data.home_page) {
+      if (data.site_content) {
         setSiteContent({
-          tr: deepMerge(blankContent(translations.tr), data.home_page.tr || {}),
-          en: deepMerge(blankContent(translations.en), data.home_page.en || {}),
-          ar: deepMerge(blankContent(translations.ar), data.home_page.ar || {}),
+          tr: deepMerge(blankContent(translations.tr), data.site_content.tr || {}),
+          en: deepMerge(blankContent(translations.en), data.site_content.en || {}),
+          ar: deepMerge(blankContent(translations.ar), data.site_content.ar || {}),
         });
       }
     } catch (e: any) {
@@ -62,9 +62,24 @@ export default function HomeAdminPage() {
     setSuccess(null);
     setIsSaving(true);
 
+    // Fetch current backend state and merge to avoid wiping other admin pages' data
+    let mergedContent = structuredClone(siteContent);
+    try {
+      const currentRes = await apiFetch("/settings") as { data: Record<string, any> };
+      const currentSiteContent = currentRes?.data?.site_content;
+      if (currentSiteContent && typeof currentSiteContent === "object") {
+        // Merge: backend is base, our edits override
+        mergedContent = {
+          tr: { ...currentSiteContent.tr, ...siteContent.tr },
+          en: { ...currentSiteContent.en, ...siteContent.en },
+          ar: { ...currentSiteContent.ar, ...siteContent.ar },
+        };
+      }
+    } catch { /* continue with local state */ }
+
     const payload = {
       settings: {
-        home_page: siteContent,
+        site_content: mergedContent,
       }
     };
 
@@ -81,7 +96,7 @@ export default function HomeAdminPage() {
     }
   };
 
-  const updateField = (section: string, field: string, val: string) => {
+  const updateField = (section: string, field: string, val: any) => {
     setSiteContent((prev) => {
       const copy = structuredClone(prev);
       if (!copy[activeLang][section]) copy[activeLang][section] = {};
@@ -101,6 +116,9 @@ export default function HomeAdminPage() {
   const currentContent = siteContent[activeLang] || {};
   const hero = currentContent.hero || {};
   const about = currentContent.about || {};
+  const history = currentContent.history || {};
+  const standards = currentContent.standards || {};
+  const exportNetwork = currentContent.exportNetwork || {};
 
   return (
     <div className="space-y-6 max-w-4xl">
@@ -290,6 +308,144 @@ export default function HomeAdminPage() {
           </div>
         </div>
 
+
+        {/* History Section */}
+        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">3. Tarihçe (History)</h3>
+          
+          <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
+                <input type="text" value={history.eyebrow || ""} onChange={(e) => updateField("history", "eyebrow", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Title)</label>
+                <input type="text" value={history.title || ""} onChange={(e) => updateField("history", "title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-muted-foreground">Tarihçe Öğeleri (Yıl ve Açıklama)</label>
+              {[0, 1, 2, 3, 4, 5, 6].map((idx) => {
+                const items = history.items || [];
+                const item = items[idx] || {};
+                const updateItem = (field: string, val: string) => {
+                  const newItems = [...items];
+                  newItems[idx] = { ...item, [field]: val };
+                  updateField("history", "items", newItems);
+                };
+                return (
+                  <div key={idx} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border border-border rounded-xl bg-muted/30">
+                    <div className="md:col-span-2">
+                      <input placeholder="Yıl" type="text" value={item.year || ""} onChange={(e) => updateItem("year", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                    </div>
+                    <div className="md:col-span-4">
+                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                    </div>
+                    <div className="md:col-span-6">
+                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Standards Section */}
+        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">4. Mühendislik Standartları</h3>
+          
+          <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
+                <input type="text" value={standards.eyebrow || ""} onChange={(e) => updateField("standards", "eyebrow", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Title)</label>
+                <input type="text" value={standards.title || ""} onChange={(e) => updateField("standards", "title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <label className="block text-xs font-bold text-muted-foreground">Standart Öğeleri</label>
+              {[0, 1, 2].map((idx) => {
+                const items = standards.items || [];
+                const item = items[idx] || {};
+                const updateItem = (field: string, val: string) => {
+                  const newItems = [...items];
+                  newItems[idx] = { ...item, [field]: val };
+                  updateField("standards", "items", newItems);
+                };
+                return (
+                  <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border border-border rounded-xl bg-muted/30">
+                    <div>
+                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                    </div>
+                    <div>
+                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Export Network Section */}
+        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">5. İhracat Ağı</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık</label>
+              <input type="text" value={exportNetwork.eyebrow || ""} onChange={(e) => updateField("exportNetwork", "eyebrow", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık</label>
+              <input type="text" value={exportNetwork.title || ""} onChange={(e) => updateField("exportNetwork", "title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Alt Başlık (Subtitle)</label>
+              <input type="text" value={exportNetwork.subtitle || ""} onChange={(e) => updateField("exportNetwork", "subtitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Liste Başlığı</label>
+              <input type="text" value={exportNetwork.listTitle || ""} onChange={(e) => updateField("exportNetwork", "listTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Vinç Etiketi (örn: Vinç)</label>
+              <input type="text" value={exportNetwork.craneLabel || ""} onChange={(e) => updateField("exportNetwork", "craneLabel", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Aktif Operasyon Etiketi</label>
+              <input type="text" value={exportNetwork.activeOperation || ""} onChange={(e) => updateField("exportNetwork", "activeOperation", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+            </div>
+            
+            <div className="md:col-span-2 space-y-4">
+              <label className="block text-xs font-bold text-muted-foreground">Ülke Listesi (En fazla 7 adet önerilir)</label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {[0, 1, 2, 3, 4, 5, 6].map((idx) => {
+                  const items = exportNetwork.items || [];
+                  const item = items[idx] || {};
+                  const updateItem = (field: string, val: any) => {
+                    const newItems = [...items];
+                    newItems[idx] = { ...item, [field]: val };
+                    updateField("exportNetwork", "items", newItems);
+                  };
+                  return (
+                    <div key={idx} className="flex gap-2 p-3 border border-border rounded-xl bg-muted/30">
+                      <input placeholder="Ülke Adı" type="text" value={item.country || ""} onChange={(e) => updateItem("country", e.target.value)} className="w-2/3 px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                      <input placeholder="Sayı" type="number" value={item.count || ""} onChange={(e) => updateItem("count", parseInt(e.target.value) || 0)} className="w-1/3 px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Save Button */}
         <div className="border-t border-[#F2F0EF] pt-6 flex justify-end">

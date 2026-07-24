@@ -109,10 +109,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     { name: "Genel Bakış", path: "/admin", icon: LayoutDashboard },
     { name: "Gelen Talepler", path: "/admin/enquiries", icon: Mail },
     { name: "Ürünler", path: "/admin/products", icon: HardHat },
+    { name: "Ürün Metinleri", path: "/admin/product-texts", icon: Type },
     { name: "Projeler", path: "/admin/projects", icon: FolderKanban },
     { name: "Referanslar", path: "/admin/references", icon: FileText },
     { name: "Anasayfa İçerikleri", path: "/admin/home", icon: Home },
     { name: "Hakkımızda İçerikleri", path: "/admin/about", icon: Info },
+    { name: "İletişim İçerikleri", path: "/admin/contact", icon: Mail },
     { name: "Ortak Metinler", path: "/admin/common", icon: Type },
     { name: "Ziyaretçiler", path: "/admin/analytics", icon: Globe },
     { name: "SEO Ayarları", path: "/admin/seo", icon: Search },
@@ -264,10 +266,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
               {pathname === "/admin" && "Genel Bakış"}
               {pathname === "/admin/enquiries" && "Gelen Talepler"}
               {pathname === "/admin/products" && "Ürün Yönetimi"}
+              {pathname === "/admin/product-texts" && "Ürün Detay Metinleri"}
               {pathname === "/admin/projects" && "Proje Yönetimi"}
               {pathname === "/admin/references" && "Referans Yönetimi"}
               {pathname === "/admin/home" && "Anasayfa İçerikleri"}
               {pathname === "/admin/about" && "Hakkımızda İçerikleri"}
+              {pathname === "/admin/contact" && "İletişim İçerikleri"}
               {pathname === "/admin/seo" && "SEO ve Meta Ayarları"}
               {pathname === "/admin/common" && "Ortak Metinler"}
               {pathname === "/admin/settings" && "Sistem Ayarları"}
