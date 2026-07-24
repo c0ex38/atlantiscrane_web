@@ -36,14 +36,14 @@ export default function ProductCatalog({ locale, products }: ProductCatalogProps
                 className="text-lg md:text-xl font-medium italic text-cta"
                 style={{ fontFamily: "var(--font-serif), serif", textTransform: "none", letterSpacing: "normal" }}
               >
-                {t.products.eyebrow}
+                {t?.products?.eyebrow}
               </p>
               <span className="h-px w-10 bg-cta" />
             </div>
             <h2 className="text-5xl font-black uppercase leading-[0.9] tracking-tight text-[color:var(--text)] sm:text-6xl lg:text-[5rem]">
-              <span className="block">{t.products.title.split(" ").slice(0, 1).join(" ")}</span>
+              <span className="block">{(t?.products?.title || "").split(" ").slice(0, 1).join(" ")}</span>
               <span className="block text-slate-200">
-                {t.products.title.split(" ").slice(1).join(" ")}
+                {(t?.products?.title || "").split(" ").slice(1).join(" ")}
               </span>
             </h2>
           </div>
@@ -53,7 +53,7 @@ export default function ProductCatalog({ locale, products }: ProductCatalogProps
               href={`/${locale}/products`}
               className="group inline-flex items-center text-xs font-black uppercase tracking-[0.15em] text-slate-900 transition hover:opacity-80"
             >
-              <span className="mr-4">{t.products.exploreAll}</span>
+              <span className="mr-4">{t?.products?.exploreAll}</span>
               <span className="flex h-12 w-12 items-center justify-center bg-cta text-slate-950 transition-transform group-hover:translate-x-1">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </span>
@@ -134,7 +134,7 @@ export default function ProductCatalog({ locale, products }: ProductCatalogProps
                             href={`/${locale}/products`}
                             className="group/link mt-6 inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-cta transition-colors hover:text-white sm:text-xs"
                           >
-                            {t.products.viewDetail}
+                            {t?.products?.viewDetail}
                             <span className="flex h-6 w-6 items-center justify-center rounded-full border border-cta transition-[background-color,color,transform] group-hover/link:bg-cta group-hover/link:text-slate-900 group-hover/link:translate-x-1">
                               →
                             </span>

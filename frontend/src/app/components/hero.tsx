@@ -16,7 +16,7 @@ export default function Hero({ locale }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative -mt-24 min-h-[100svh] overflow-hidden pt-24 flex items-center justify-center"
+      className="relative -mt-24 min-h-[calc(100svh+6rem)] overflow-hidden pt-24 flex items-center justify-center"
     >
       {/* Video Background */}
       <div className="absolute inset-0 z-0">

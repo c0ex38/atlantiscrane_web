@@ -30,6 +30,10 @@ export class AnalyticsService {
       take: 50,
     });
 
+    const totalProducts = await this.prisma.product.count();
+    const totalProjects = await this.prisma.project.count();
+    const totalReferences = await this.prisma.reference.count();
+
     // Generate chart data for the last 30 days
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
@@ -65,7 +69,10 @@ export class AnalyticsService {
       mobile: mobileVisits,
       desktop: desktopVisits,
       recent: recentVisits,
-      chartData
+      chartData,
+      totalProducts,
+      totalProjects,
+      totalReferences
     };
   }
 }

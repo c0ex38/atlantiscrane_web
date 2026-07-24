@@ -32,7 +32,7 @@ services:
         condition: service_healthy
     environment:
       NODE_ENV: production
-      PORT: 3001
+      PORT: 7501
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
@@ -40,7 +40,7 @@ services:
       JWT_REFRESH_EXPIRES_IN: ${JWT_REFRESH_EXPIRES_IN}
       CORS_ORIGINS: ${CORS_ORIGINS}
     ports:
-      - "3001:3001"
+      - "7501:7501"
     volumes:
       - backend_uploads:/workspace/backend/uploads
     networks:
@@ -61,7 +61,7 @@ services:
       NODE_ENV: production
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
-      INTERNAL_API_URL: http://backend:3001/api/v1
+      INTERNAL_API_URL: http://backend:7501/api/v1
     ports:
       - "7500:3000"
     networks:

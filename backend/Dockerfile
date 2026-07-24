@@ -13,7 +13,7 @@ RUN npm ci
 
 # Copy the rest of the application
 COPY backend/ ./
-COPY frontend/src/app/lib/i18n/dictionaries/ /workspace/frontend/src/app/lib/i18n/dictionaries/
+COPY frontend/src/app/lib/i18n/empty-dictionary.ts /workspace/frontend/src/app/lib/i18n/
 
 # Generate Prisma client
 RUN npx prisma generate

@@ -92,7 +92,7 @@ export default function SeoAdminPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#FF2700] border-t-transparent"></div>
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
       </div>
     );
   }
@@ -102,14 +102,14 @@ export default function SeoAdminPage() {
 
   return (
     <div className="space-y-6 max-w-4xl">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#DEDAD8] pb-5">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
         <div>
-          <h2 className="text-2xl font-black text-[#111010] tracking-tight">SEO ve Meta Ayarları</h2>
-          <p className="text-xs text-[#6F6B69] mt-1">Sitenizin arama motorlarındaki görünümünü ve etiketlerini yönetin.</p>
+          <h2 className="text-2xl font-black text-card-foreground tracking-tight">SEO ve Meta Ayarları</h2>
+          <p className="text-xs text-muted-foreground mt-1">Sitenizin arama motorlarındaki görünümünü ve etiketlerini yönetin.</p>
         </div>
 
         {/* Language Tabs */}
-        <div className="flex gap-1 bg-[#F2F0EF] p-0.5 rounded-lg border border-[#DEDAD8] self-start sm:self-auto">
+        <div className="flex gap-1 bg-muted p-0.5 rounded-lg border border-border self-start sm:self-auto">
           {(["tr", "en", "ar"] as const).map((lang) => (
             <button
               key={lang}
@@ -117,8 +117,8 @@ export default function SeoAdminPage() {
               onClick={() => setActiveLang(lang)}
               className={`px-3 py-1 text-xs font-bold rounded-md transition-all uppercase ${
                 activeLang === lang
-                  ? "bg-white text-[#111010] shadow-sm"
-                  : "text-[#6F6B69] hover:text-[#111010]"
+                  ? "bg-card text-card-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-card-foreground"
               }`}
             >
               {localeNames[lang]}
@@ -141,49 +141,49 @@ export default function SeoAdminPage() {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-white border border-[#DEDAD8] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
         
         {/* SEO Section */}
         <div className="space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider border-b border-[#F2F0EF] pb-2">Arama Motoru (Meta) Bilgileri</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">Arama Motoru (Meta) Bilgileri</h3>
           
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Site Başlığı (Title)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Site Başlığı (Title)</label>
               <input
                 type="text"
                 required
                 value={seo.title || ""}
                 onChange={(e) => updateField("seo", "title", e.target.value)}
                 placeholder="Örn: Atlantis Crane - Deniz Vinçleri"
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
-              <p className="text-[10px] text-[#6F6B69] mt-1">Tarayıcı sekmesinde ve arama sonuçlarında görünen ana başlıktır. (Önerilen: 50-60 karakter)</p>
+              <p className="text-[10px] text-muted-foreground mt-1">Tarayıcı sekmesinde ve arama sonuçlarında görünen ana başlıktır. (Önerilen: 50-60 karakter)</p>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Site Açıklaması (Meta Description)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Site Açıklaması (Meta Description)</label>
               <textarea
                 rows={3}
                 required
                 value={seo.description || ""}
                 onChange={(e) => updateField("seo", "description", e.target.value)}
                 placeholder="Sitenizin kısa ve özlü bir tanıtımını yapın..."
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
-              <p className="text-[10px] text-[#6F6B69] mt-1">Arama sonuçlarında başlığın altında görünen özet metindir. (Önerilen: 150-160 karakter)</p>
+              <p className="text-[10px] text-muted-foreground mt-1">Arama sonuçlarında başlığın altında görünen özet metindir. (Önerilen: 150-160 karakter)</p>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Anahtar Kelimeler (Meta Keywords)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Anahtar Kelimeler (Meta Keywords)</label>
               <textarea
                 rows={2}
                 value={seo.keywords || ""}
                 onChange={(e) => updateField("seo", "keywords", e.target.value)}
                 placeholder="Örn: vinç, deniz vinci, offshore platform vinci, atlantis crane"
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
-              <p className="text-[10px] text-[#6F6B69] mt-1">Kelimeleri virgülle ayırarak yazın.</p>
+              <p className="text-[10px] text-muted-foreground mt-1">Kelimeleri virgülle ayırarak yazın.</p>
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@ export default function SeoAdminPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-[#FF2700] hover:bg-[#D62000] disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-[#FF2700]/15 transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all"
           >
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "Ayarları Kaydet"}</span>

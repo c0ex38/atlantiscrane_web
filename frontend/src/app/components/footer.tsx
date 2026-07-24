@@ -18,15 +18,15 @@ type FooterProps = {
 export default function Footer({ locale, settings }: FooterProps) {
   const t = useSiteContent(locale);
 
-  const email = settings?.contact_email?.email || t.contact.email;
-  const phone = settings?.contact_phone?.phone || t.contact.phone;
+  const email = settings?.contact_email?.email || t?.contact?.email || "";
+  const phone = settings?.contact_phone?.phone || t?.contact?.phone || "";
 
   const footerLinks = [
-    { label: t.nav.about, href: `/${locale}#${sectionIds.about}` },
-    { label: t.nav.products, href: `/${locale}/products` },
-    { label: t.nav.projects, href: `/${locale}/projects` },
-    { label: t.nav.references, href: `/${locale}/references` },
-    { label: t.nav.contact, href: `/${locale}/contact` },
+    { label: t?.nav?.about, href: `/${locale}#${sectionIds.about}` },
+    { label: t?.nav?.products, href: `/${locale}/products` },
+    { label: t?.nav?.projects, href: `/${locale}/projects` },
+    { label: t?.nav?.references, href: `/${locale}/references` },
+    { label: t?.nav?.contact, href: `/${locale}/contact` },
   ];
 
   const scrollToTop = () => {
@@ -62,14 +62,14 @@ export default function Footer({ locale, settings }: FooterProps) {
             </Link>
 
             <p className="max-w-md text-sm leading-7 text-slate-400 font-medium">
-              {footerData.description}
+              {footerData?.description || ""}
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6 border-b border-slate-700 pb-4 inline-block">
-              {t.footer.quickLinks}
+              {t?.footer?.quickLinks}
             </h3>
             <ul className="space-y-4">
               {footerLinks.map((item) => (
@@ -89,10 +89,10 @@ export default function Footer({ locale, settings }: FooterProps) {
           {/* Contact */}
           <div>
             <h3 className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6 border-b border-slate-700 pb-4 inline-block">
-              {t.nav.contact}
+              {t?.nav?.contact}
             </h3>
             <div className="space-y-5 text-sm font-medium text-slate-400">
-              {t.contact.locations.map((location) => (
+              {(t?.contact?.locations || []).map((location: string) => (
                 <p key={location} className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-cta shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                   {location}
@@ -117,7 +117,7 @@ export default function Footer({ locale, settings }: FooterProps) {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-800 gap-6">
           <p className="text-slate-400 text-sm">
-            {t.footer.allRightsReserved} | {t.footer.designedBy}{" "}
+            {t?.footer?.allRightsReserved} | {t?.footer?.designedBy}{" "}
             <a
               href="https://kncdesign.com.tr"
               target="_blank"

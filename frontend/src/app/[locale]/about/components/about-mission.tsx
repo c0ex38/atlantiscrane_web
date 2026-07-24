@@ -5,9 +5,7 @@ import { motion } from "framer-motion";
 type AboutMissionProps = {
   content: {
     eyebrow: string;
-    title1: string;
-    titleHighlight: string;
-    title2: string;
+    title: string;
     description: string;
     certs: readonly string[];
   };
@@ -48,11 +46,8 @@ export default function AboutMission({ content }: AboutMissionProps) {
           transition={{ duration: 0.9, ease: [0.85, 0, 0.15, 1] }}
           className="font-black text-white leading-[0.92] tracking-tight max-w-5xl"
           style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)" }}
-        >
-          {content.title1}{" "}
-          <span className="text-cta">{content.titleHighlight}</span>{" "}
-          {content.title2}
-        </motion.h2>
+          dangerouslySetInnerHTML={{ __html: content.title || "" }}
+        />
 
         <motion.div
           initial={{ opacity: 0 }}

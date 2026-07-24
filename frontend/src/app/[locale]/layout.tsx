@@ -50,10 +50,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale)) return {};
   
   const t = await getSiteDictionary(locale as Locale);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.atlantiscrane.com";
+  const title = t.seo?.title || "Atlantis Crane";
+  const description = t.seo?.description || "";
+  const keywords = t.seo?.keywords || "";
+
   return {
-    title: t.seo?.title || "",
-    description: t.seo?.description || "",
-    keywords: t.seo?.keywords || "",
+    metadataBase: new URL(siteUrl),
+    title: {
+      template: `%s | ${title}`,
+      default: title,
+    },
+    description: description,
+    keywords: keywords,
+    openGraph: {
+      title: title,
+      description: description,
+      url: `${siteUrl}/${locale}`,
+      siteName: title,
+      locale: locale,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+    },
+    alternates: {
+      canonical: `${siteUrl}/${locale}`,
+      languages: {
+        'tr': `${siteUrl}/tr`,
+        'en': `${siteUrl}/en`,
+        'ar': `${siteUrl}/ar`,
+        'x-default': `${siteUrl}/tr`,
+      },
+    }
   };
 }
 

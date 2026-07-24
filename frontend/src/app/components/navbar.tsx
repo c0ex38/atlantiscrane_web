@@ -45,11 +45,11 @@ export default function Navbar({ locale }: NavbarProps) {
   const languageHref = (targetLocale: Locale) => `/${targetLocale}`;
 
   const navigation = [
-    { label: t.nav.home, href: `/${locale}` },
-    { label: t.nav.about, href: `/${locale}/about` },
-    { label: t.nav.products, href: `/${locale}/products` },
-    { label: t.nav.projects, href: `/${locale}/projects` },
-    { label: t.nav.references, href: `/${locale}/references` }
+    { label: t?.nav?.home, href: `/${locale}` },
+    { label: t?.nav?.about, href: `/${locale}/about` },
+    { label: t?.nav?.products, href: `/${locale}/products` },
+    { label: t?.nav?.projects, href: `/${locale}/projects` },
+    { label: t?.nav?.references, href: `/${locale}/references` }
   ];
 
   return (
@@ -163,10 +163,10 @@ export default function Navbar({ locale }: NavbarProps) {
               <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="relative z-10 overflow-hidden h-[20px]">
                 <span className="block leading-[20px] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
-                  {t.nav.contact}
+                  {t?.nav?.contact}
                 </span>
                 <span className="absolute top-0 left-0 block leading-[20px] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-full group-hover:translate-y-0" aria-hidden="true">
-                  {t.nav.contact}
+                  {t?.nav?.contact}
                 </span>
               </div>
             </Link>

@@ -14,7 +14,6 @@ export default function AboutSection({ locale }: AboutSectionProps) {
   const { 
     eyebrow, 
     title, 
-    subtitleHighlight, 
     subtitle, 
     description, 
     primaryBtn, 
@@ -47,10 +46,7 @@ export default function AboutSection({ locale }: AboutSectionProps) {
           >
             <h2 className="w-full text-center">
               <span className="block">{title}</span>
-              <span className="block">
-                <span className="text-cta">{subtitleHighlight}</span>
-                {subtitle}
-              </span>
+              <span className="block" dangerouslySetInnerHTML={{ __html: subtitle || "" }} />
             </h2>
           </motion.div>
 

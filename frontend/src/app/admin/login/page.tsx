@@ -49,16 +49,16 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F2F0EF] px-4">
-      <div className="w-full max-w-[440px] bg-white border border-[#DEDAD8] rounded-xl shadow-lg shadow-black/5 p-8">
+    <div className="min-h-screen flex items-center justify-center bg-muted px-4">
+      <div className="w-full max-w-[440px] bg-card border border-border rounded-xl shadow-lg shadow-black/5 p-8">
         
         {/* Header */}
         <div className="flex flex-col items-center mb-8 text-center">
-          <div className="h-12 w-12 bg-[#FF2700] rounded-xl flex items-center justify-center text-white font-black text-xl mb-4">
+          <div className="h-12 w-12 bg-primary rounded-xl flex items-center justify-center text-white font-black text-xl mb-4">
             AC
           </div>
-          <h2 className="text-2xl font-bold tracking-tight text-[#111010]">Giriş Yapın</h2>
-          <p className="text-sm text-[#6F6B69] mt-1">Atlantis Crane Yönetim Paneli</p>
+          <h2 className="text-2xl font-bold tracking-tight text-card-foreground">Giriş Yapın</h2>
+          <p className="text-sm text-muted-foreground mt-1">Atlantis Crane Yönetim Paneli</p>
         </div>
 
         {/* Error Message */}
@@ -78,7 +78,7 @@ export default function AdminLoginPage() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Email field */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-[#111010]" htmlFor="email">
+            <label className="text-xs font-bold text-card-foreground" htmlFor="email">
               E-posta Adresi
             </label>
             <input
@@ -88,13 +88,13 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isSubmitting}
-              className="min-h-[44px] px-4 py-2 border border-[#DEDAD8] rounded-lg text-sm bg-white placeholder-[#9B9795] focus:outline-none focus:border-[#FF2700] focus:ring-4 focus:ring-[#FF2700]/10 disabled:opacity-60 transition-all duration-150"
+              className="min-h-[44px] px-4 py-2 border border-border rounded-lg text-sm bg-card placeholder-[#9B9795] focus:outline-none focus:border-primary focus:ring-4 focus:ring-[#FF2700]/10 disabled:opacity-60 transition-all duration-150"
             />
           </div>
 
           {/* Password field */}
           <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-[#111010]" htmlFor="password">
+            <label className="text-xs font-bold text-card-foreground" htmlFor="password">
               Şifre
             </label>
             <input
@@ -104,7 +104,7 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isSubmitting}
-              className="min-h-[44px] px-4 py-2 border border-[#DEDAD8] rounded-lg text-sm bg-white placeholder-[#9B9795] focus:outline-none focus:border-[#FF2700] focus:ring-4 focus:ring-[#FF2700]/10 disabled:opacity-60 transition-all duration-150"
+              className="min-h-[44px] px-4 py-2 border border-border rounded-lg text-sm bg-card placeholder-[#9B9795] focus:outline-none focus:border-primary focus:ring-4 focus:ring-[#FF2700]/10 disabled:opacity-60 transition-all duration-150"
             />
           </div>
 
@@ -112,7 +112,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full min-h-[44px] mt-2 flex items-center justify-center gap-2 rounded-lg bg-[#FF2700] text-white font-bold text-sm shadow-md shadow-[#FF2700]/15 hover:bg-[#DB2100] active:scale-[0.98] disabled:opacity-60 transition-all duration-150 cursor-pointer"
+            className="w-full min-h-[44px] mt-2 flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-bold text-sm shadow-md shadow-primary/15 hover:bg-[#DB2100] active:scale-[0.98] disabled:opacity-60 transition-all duration-150 cursor-pointer"
           >
             {isSubmitting ? (
               <>

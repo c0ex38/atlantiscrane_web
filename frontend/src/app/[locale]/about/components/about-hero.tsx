@@ -6,9 +6,7 @@ import { motion } from "framer-motion";
 type AboutHeroProps = {
   description: string;
   content: {
-    title1: string;
-    titleHighlight: string;
-    title2: string;
+    title: string;
   };
 };
 
@@ -42,12 +40,8 @@ export default function AboutHero({ description, content }: AboutHeroProps) {
           transition={{ duration: 0.85, ease: [0.85, 0, 0.15, 1] }}
           className="font-black tracking-tight leading-[1.05] text-[color:var(--text)] mb-6 text-center"
           style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
-        >
-          {content.title1}
-          <br className="hidden sm:block" />
-          <span className="text-cta">{content.titleHighlight}</span>
-          {content.title2}
-        </motion.h1>
+          dangerouslySetInnerHTML={{ __html: content.title || "" }}
+        />
 
         {/* Description */}
         <motion.p

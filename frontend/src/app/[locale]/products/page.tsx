@@ -6,6 +6,8 @@ import CtaSection from "../../components/cta-section";
 import ProductsSliderWrapper from "./components/products-slider-wrapper";
 import { getProducts, getSiteDictionary } from "../../lib/api";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -31,19 +33,10 @@ export default async function ProductsPage({ params }: PageProps) {
   const products = t.products;
   const dbProducts = await getProducts();
 
-  const metaDesc =
-    currentLocale === "tr"
-      ? "Gemi, yat ve açık deniz platformları için tasarlanmış yüksek mühendislik ürünü deniz vinçleri."
-      : currentLocale === "en"
-        ? "High-engineered marine cranes designed for vessels, yachts, and offshore platforms."
-        : "رافعات بحرية هندسية متطورة مصممة للسفن واليخوت والمنصات البحرية.";
-
-  const capLabel =
-    currentLocale === "tr" ? "Kapasite" : currentLocale === "en" ? "Capacity" : "الحمولة";
-  const outLabel =
-    currentLocale === "tr" ? "Erişim" : currentLocale === "en" ? "Outreach" : "المدى";
-  const detailLabel =
-    currentLocale === "tr" ? "Detaylı İncele" : currentLocale === "en" ? "View Details" : "عرض التفاصيل";
+  const metaDesc = t?.products?.description;
+  const capLabel = t?.common?.capacity;
+  const outLabel = t?.common?.outreach;
+  const detailLabel = t?.common?.viewDetails;
 
   // Map db products to match localized structure that ProductSlide expects
   const localizedItems = dbProducts

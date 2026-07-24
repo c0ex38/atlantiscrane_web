@@ -90,17 +90,17 @@ export default function SettingsAdminPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#FF2700] border-t-transparent"></div>
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6 max-w-4xl">
-      <div className="flex items-center justify-between border-b border-[#DEDAD8] pb-5">
+      <div className="flex items-center justify-between border-b border-border pb-5">
         <div>
-          <h2 className="text-2xl font-black text-[#111010] tracking-tight">Sistem Ayarları</h2>
-          <p className="text-xs text-[#6F6B69] mt-1">İletişim, adresler ve global şirket parametrelerini güncelleyin.</p>
+          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Sistem Ayarları</h2>
+          <p className="text-xs text-muted-foreground mt-1">İletişim, adresler ve global şirket parametrelerini güncelleyin.</p>
         </div>
       </div>
 
@@ -118,21 +118,21 @@ export default function SettingsAdminPage() {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-white border border-[#DEDAD8] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
         
         {/* General Identity */}
         <div className="space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider">Genel Kimlik</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">Genel Kimlik</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Site Başlığı (Title)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Site Başlığı (Title)</label>
               <input
                 type="text"
                 required
                 value={siteTitle}
                 onChange={(e) => setSiteTitle(e.target.value)}
                 placeholder="Atlantis Crane"
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm focus:border-[#FF2700] focus:ring-1 focus:ring-[#FF2700]"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-[#FF2700]"
               />
             </div>
             <div>
@@ -149,28 +149,28 @@ export default function SettingsAdminPage() {
 
         {/* Contact Info */}
         <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider">İletişim Kanalları</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">İletişim Kanalları</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">E-posta Adresi</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">E-posta Adresi</label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="info@atlantiscrane.com"
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm focus:border-[#FF2700] focus:ring-1 focus:ring-[#FF2700]"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-[#FF2700]"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Telefon Numarası</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Telefon Numarası</label>
               <input
                 type="text"
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+90 216 000 00 00"
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm focus:border-[#FF2700] focus:ring-1 focus:ring-[#FF2700]"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm focus:border-primary focus:ring-1 focus:ring-[#FF2700]"
               />
             </div>
           </div>
@@ -178,72 +178,72 @@ export default function SettingsAdminPage() {
 
         {/* Physical Addresses */}
         <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider">İstanbul Genel Merkez Adresi</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">İstanbul Genel Merkez Adresi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Türkçe</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Türkçe</label>
               <textarea
                 rows={3}
                 required
                 value={istanbulAddress.tr}
                 onChange={(e) => setIstanbulAddress({ ...istanbulAddress, tr: e.target.value })}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-xs"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">English</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">English</label>
               <textarea
                 rows={3}
                 required
                 value={istanbulAddress.en}
                 onChange={(e) => setIstanbulAddress({ ...istanbulAddress, en: e.target.value })}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-xs"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">العربية (Arabic)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">العربية (Arabic)</label>
               <textarea
                 rows={3}
                 required
                 value={istanbulAddress.ar}
                 onChange={(e) => setIstanbulAddress({ ...istanbulAddress, ar: e.target.value })}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-xs"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
               />
             </div>
           </div>
         </div>
 
         <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider">Dubai Bölge Ofisi Adresi</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">Dubai Bölge Ofisi Adresi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Türkçe</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Türkçe</label>
               <textarea
                 rows={3}
                 required
                 value={dubaiAddress.tr}
                 onChange={(e) => setDubaiAddress({ ...dubaiAddress, tr: e.target.value })}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-xs"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">English</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">English</label>
               <textarea
                 rows={3}
                 required
                 value={dubaiAddress.en}
                 onChange={(e) => setDubaiAddress({ ...dubaiAddress, en: e.target.value })}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-xs"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">العربية (Arabic)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">العربية (Arabic)</label>
               <textarea
                 rows={3}
                 required
                 value={dubaiAddress.ar}
                 onChange={(e) => setDubaiAddress({ ...dubaiAddress, ar: e.target.value })}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-xs"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
               />
             </div>
           </div>
@@ -254,7 +254,7 @@ export default function SettingsAdminPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-[#FF2700] hover:bg-[#D62000] disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-[#FF2700]/15 transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all"
           >
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "Ayarları Kaydet"}</span>

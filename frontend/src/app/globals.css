@@ -261,3 +261,13 @@ body.admin-theme {
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .soft-card {
+    @apply bg-card border border-border/30 rounded-2xl;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.06), 0 0 15px rgba(0,0,0,0.02);
+  }
+  .dark .soft-card {
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.5), 0 0 15px rgba(0,0,0,0.2);
+  }
+}

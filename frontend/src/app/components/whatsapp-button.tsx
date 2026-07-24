@@ -11,7 +11,7 @@ type WhatsAppButtonProps = {
 export default function WhatsAppButton({ locale }: WhatsAppButtonProps) {
   const t = useSiteContent(locale);
   // Remove non-numeric characters for the wa.me link
-  const phoneNumber = t.contact.phone.replace(/\D/g, "");
+  const phoneNumber = (t?.contact?.phone || "").replace(/\D/g, "");
 
   return (
     <motion.a

@@ -3,6 +3,8 @@ import { isLocale, translations, localeDirections, type Locale } from "../../lib
 import ContactClient from "./components/contact-client";
 import { getSettings, getSiteDictionary } from "../../lib/api";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -17,8 +19,8 @@ export async function generateMetadata({ params }: PageProps) {
   const t = await getSiteDictionary(locale);
 
   return {
-    title: `${t.nav.contact} | Atlantis Crane`,
-    description: t.contact.description,
+    title: `${t?.nav?.contact ?? "Contact"} | Atlantis Crane`,
+    description: t?.contact?.description,
   };
 }
 

@@ -4,6 +4,8 @@ import { isLocale, translations, type Locale } from "../../lib/site-content";
 import CtaSection from "../../components/cta-section";
 import { getReferences, getSiteDictionary } from "../../lib/api";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -34,24 +36,6 @@ export default async function ReferencesPage({ params }: PageProps) {
       image: p.image || "/about-facility.png"
     }));
 
-  // Render references list
-  const refLabels = {
-    tr: {
-      sub: "Mühendislik Referanslarımız",
-      badge: "ONAYLI REFERANS"
-    },
-    en: {
-      sub: "Our Engineering References",
-      badge: "APPROVED REFERENCE"
-    },
-    ar: {
-      sub: "مرجعياتنا الهندسية",
-      badge: "مرجع معتمد"
-    }
-  };
-
-  const labels = refLabels[currentLocale] || refLabels.en;
-
   return (
     <main className="min-h-screen bg-[#070b14] text-white -mt-24 pt-44">
       {/* Background glow effects */}
@@ -63,7 +47,7 @@ export default async function ReferencesPage({ params }: PageProps) {
         <div className="text-center max-w-3xl mx-auto mb-20">
           <span className="inline-flex items-center gap-3 text-xs font-mono tracking-[0.35em] text-cta uppercase mb-6">
             <span className="w-8 h-px bg-cta" />
-            {labels.sub}
+            {eyebrow}
           </span>
           <h1 
             className="font-black tracking-tight leading-[0.95] text-white mb-8"
@@ -77,41 +61,30 @@ export default async function ReferencesPage({ params }: PageProps) {
         </div>
 
         {/* References Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-16">
           {items.map((item, index) => (
             <div
               key={index}
-              className="group bg-slate-900/50 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 flex flex-col h-full hover:shadow-[0_20px_50px_rgba(253,197,32,0.05)] hover:-translate-y-1 transition-all duration-300"
+              className="group relative flex flex-col items-center justify-center p-6 md:p-8 rounded-3xl bg-white/[0.02] hover:bg-white/[0.04] backdrop-blur-xl border border-white/5 hover:border-white/10 hover:shadow-[0_0_40px_rgba(255,255,255,0.03)] hover:-translate-y-1 transition-all duration-500"
             >
+              {/* Subtle inner gradient on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
               {/* Image Box */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-950">
+              <div className="relative aspect-square w-full flex items-center justify-center mb-5">
                 <Image
                   src={item.image}
                   alt={item.title}
                   fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 50vw, 20vw"
+                  className="object-contain p-2 filter drop-shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:drop-shadow-[0_0_25px_rgba(253,197,32,0.15)] transition-all duration-500 group-hover:scale-110 opacity-70 group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent opacity-80" />
-                <div className="absolute bottom-4 left-4">
-                  <span className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider bg-cta text-slate-950 rounded">
-                    {labels.badge}
-                  </span>
-                </div>
               </div>
 
               {/* Content */}
-              <div className="p-6 sm:p-8 flex flex-col flex-1">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">
-                  {item.client}
-                </span>
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-3 group-hover:text-cta transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed flex-1">
-                  {item.description}
-                </p>
-              </div>
+              <h3 className="relative text-sm font-semibold text-slate-400 text-center group-hover:text-white transition-colors duration-300 line-clamp-2">
+                {item.title}
+              </h3>
             </div>
           ))}
         </div>

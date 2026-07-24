@@ -1,17 +1,6 @@
-import { translations } from "./site-content";
-
 const API_URL = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
 
-function emptyContent(value: any): any {
-  if (typeof value === "string") return "";
-  if (typeof value === "number") return 0;
-  if (Array.isArray(value)) return [];
-  if (value && typeof value === "object") {
-    return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, emptyContent(child)]));
-  }
-  return value;
-}
-
+// Used by admin pages to merge saved settings with form state
 export function deepMerge<T>(fallback: T, override: unknown): T {
   if (!override || typeof override !== "object" || Array.isArray(override)) {
     return (override === undefined || override === null ? fallback : override) as T;
@@ -27,6 +16,7 @@ export function deepMerge<T>(fallback: T, override: unknown): T {
   }
   return result as T;
 }
+
 
 export async function getProducts() {
   try {
@@ -85,5 +75,5 @@ export async function getSettings() {
 
 export async function getSiteDictionary(locale: "tr" | "en" | "ar") {
   const settings = await getSettings();
-  return settings.site_content?.[locale] || emptyContent(translations[locale]);
+  return settings?.site_content?.[locale] || {};
 }

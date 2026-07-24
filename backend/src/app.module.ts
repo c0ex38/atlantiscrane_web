@@ -10,6 +10,7 @@ import { ReferencesModule } from './modules/references/references.module';
 import { SettingsModule } from './modules/settings/settings.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
+import { EnquiriesModule } from './modules/enquiries/enquiries.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,6 +24,7 @@ import { AnalyticsModule } from './modules/analytics/analytics.module';
     SettingsModule,
     UploadsModule,
     AnalyticsModule,
+    EnquiriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

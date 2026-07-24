@@ -52,6 +52,10 @@ export class CreateProductDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  showOnHome?: boolean;
 }
 
 export class UpdateProductDto {
@@ -106,4 +110,8 @@ export class UpdateProductDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  showOnHome?: boolean;
 }

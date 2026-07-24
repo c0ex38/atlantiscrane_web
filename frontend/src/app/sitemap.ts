@@ -26,6 +26,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified: new Date(),
         changeFrequency: route === '' ? 'daily' : 'weekly',
         priority: route === '' ? 1.0 : 0.8,
+        alternates: {
+          languages: {
+            'tr': `${SITE_URL}/tr${route}`,
+            'en': `${SITE_URL}/en${route}`,
+            'ar': `${SITE_URL}/ar${route}`,
+          },
+        },
       });
     });
   });
@@ -55,6 +62,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           lastModified: new Date(product.updatedAt),
           changeFrequency: 'weekly',
           priority: 0.9,
+          alternates: {
+            languages: {
+              'tr': `${SITE_URL}/tr/products/${product.slug}`,
+              'en': `${SITE_URL}/en/products/${product.slug}`,
+              'ar': `${SITE_URL}/ar/products/${product.slug}`,
+            },
+          },
         });
       });
     }

@@ -24,6 +24,10 @@ export class CreateProjectDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  showOnHome?: boolean;
 }
 
 export class UpdateProjectDto {
@@ -50,4 +54,8 @@ export class UpdateProjectDto {
   @IsBoolean()
   @IsOptional()
   isActive?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
+  showOnHome?: boolean;
 }

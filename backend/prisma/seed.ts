@@ -3,9 +3,10 @@ import * as argon2 from 'argon2';
 import * as dotenv from 'dotenv';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
-import tr from '../../frontend/src/app/lib/i18n/dictionaries/tr';
-import en from '../../frontend/src/app/lib/i18n/dictionaries/en';
-import ar from '../../frontend/src/app/lib/i18n/dictionaries/ar';
+import emptyDictionary from '../../frontend/src/app/lib/i18n/empty-dictionary';
+const tr = emptyDictionary;
+const en = emptyDictionary;
+const ar = emptyDictionary;
 
 dotenv.config();
 

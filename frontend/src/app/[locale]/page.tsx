@@ -8,7 +8,9 @@ import ExportNetwork from "../components/export-network";
 import ReferencesSection from "../components/references-section";
 import CtaSection from "../components/cta-section";
 import { isLocale, type Locale } from "../lib/site-content";
-import { getProducts } from "../lib/api";
+import { getProducts, getProjects } from "../lib/api";
+
+export const dynamic = "force-dynamic";
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -25,17 +27,20 @@ export default async function LocaleHome({ params }: PageProps) {
     notFound();
   }
 
-  const products = await getProducts();
+  const dbProducts = await getProducts();
+  const homeProducts = dbProducts.filter((p: any) => p.isActive && p.showOnHome);
+  const dbProjects = await getProjects();
+  const homeProjects = dbProjects.filter((p: any) => p.isActive && p.showOnHome);
 
   return (
     <main>
       <Hero locale={locale as Locale} />
       <AboutSection locale={locale as Locale} />
-      <ProductCatalog locale={locale as Locale} products={products} />
+      <ProductCatalog locale={locale as Locale} products={homeProducts} />
       <HistoryTimeline locale={locale as Locale} />
       <EngineeringStandards locale={locale as Locale} />
       <ExportNetwork locale={locale as Locale} />
-      <ReferencesSection locale={locale as Locale} />
+      <ReferencesSection locale={locale as Locale} references={homeProjects} />
       <CtaSection locale={locale as Locale} />
     </main>
   );

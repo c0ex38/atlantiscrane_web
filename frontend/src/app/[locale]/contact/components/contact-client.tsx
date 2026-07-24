@@ -53,13 +53,37 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [activeTab, setActiveTab] = useState(LOCATIONS[0].id);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api/v1";
+      const res = await fetch(`${apiUrl}/enquiries`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error('Form submission failed');
+
       alert("Message sent successfully!");
-    }, 1500);
+      (e.target as HTMLFormElement).reset();
+    } catch (error) {
+      alert("Error sending message. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const activeLoc = LOCATIONS.find((loc) => loc.id === activeTab)!;
@@ -241,6 +265,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
                     <div className="space-y-2">
                       <input
                         type="text"
+                        name="name"
                         required
                         placeholder={t.contact.namePlaceholder}
                         className={`w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4.5 text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition-all ${isRtl ? "text-right" : "text-left"}`}
@@ -249,6 +274,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
                     <div className="space-y-2">
                       <input
                         type="email"
+                        name="email"
                         required
                         placeholder={t.contact.emailPlaceholder}
                         className={`w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4.5 text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition-all ${isRtl ? "text-right" : "text-left"}`}
@@ -259,6 +285,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
                   <div className="space-y-2">
                     <input
                       type="text"
+                      name="subject"
                       required
                       placeholder={t.contact.subjectPlaceholder}
                       className={`w-full bg-slate-50 border border-slate-200 rounded-2xl px-6 py-4.5 text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition-all ${isRtl ? "text-right" : "text-left"}`}
@@ -267,6 +294,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
 
                   <div className="space-y-2">
                     <textarea
+                      name="message"
                       required
                       rows={4}
                       placeholder={t.contact.messagePlaceholder}

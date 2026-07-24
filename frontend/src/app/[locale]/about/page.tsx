@@ -9,6 +9,8 @@ import AboutMission from "./components/about-mission";
 import CtaSection from "../../components/cta-section";
 import { getSettings, getSiteDictionary } from "../../lib/api";
 
+export const dynamic = "force-dynamic";
+
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -28,7 +30,23 @@ export default async function AboutPage({ params }: PageProps) {
   const settings = await getSettings();
   const t = await getSiteDictionary(currentLocale);
   const { about, history } = t;
-  const aboutPage = settings.site_content?.[currentLocale]?.aboutPage || settings.about_page?.[currentLocale] || t.aboutPage;
+  
+  // Combine all possible sources of about page content, prioritizing specific about_page setting
+  const dbAboutPage = settings.about_page?.[currentLocale] || settings.site_content?.[currentLocale]?.aboutPage || {};
+  
+  // Deep merge with fallback to ensure no properties are missing (like title1, etc.)
+  const deepMerge = (target: any, source: any): any => {
+    if (!source || typeof source !== "object" || Array.isArray(source)) return source === undefined ? target : source;
+    const result = { ...target };
+    for (const key of Object.keys(source)) {
+      result[key] = source[key] && typeof source[key] === "object" && !Array.isArray(source[key]) 
+        ? deepMerge(target[key], source[key]) 
+        : source[key];
+    }
+    return result;
+  };
+  
+  const aboutPage = deepMerge(t.aboutPage, dbAboutPage);
 
   return (
     <main className="min-h-screen">

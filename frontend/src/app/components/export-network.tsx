@@ -319,7 +319,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                       {selectedItem.country}
                     </h4>
                     <p className="text-xs font-semibold text-slate-600">
-                      {t.exportNetwork.activeOperation} <strong className="text-[color:var(--text)]">{selectedItem.count} {craneLabel}</strong>
+                      {t?.exportNetwork?.activeOperation} <strong className="text-[color:var(--text)]">{selectedItem.count} {craneLabel}</strong>
                     </p>
                   </motion.div>
                 )}
@@ -332,7 +332,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                   animate={{ opacity: 0.75 }}
                   className="absolute bottom-4 right-4 z-20 bg-slate-900/5 backdrop-blur-[2px] border border-slate-200/50 rounded-xl px-4 py-2 pointer-events-none text-xs text-slate-500 font-medium"
                 >
-                  💡 {locale === "tr" ? "Detaylar için haritada bir ülkeye tıklayın" : locale === "ar" ? "انقر على بلد على الخريطة للتفاصيل" : "Click on a country to view details"}
+                  💡 {t?.common?.mapInstruction}
                 </motion.div>
               )}
 

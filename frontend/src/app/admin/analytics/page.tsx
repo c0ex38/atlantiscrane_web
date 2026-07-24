@@ -61,17 +61,17 @@ export default function AnalyticsAdminPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#FF2700] border-t-transparent"></div>
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6 max-w-5xl animate-in fade-in duration-300">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#DEDAD8] pb-5">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
         <div>
-          <h2 className="text-2xl font-black text-[#111010] tracking-tight">Ziyaretçi İstatistikleri</h2>
-          <p className="text-xs text-[#6F6B69] mt-1">Sitenizi ziyaret eden kullanıcıların cihaz ve IP bilgilerini buradan takip edebilirsiniz.</p>
+          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Ziyaretçi İstatistikleri</h2>
+          <p className="text-xs text-muted-foreground mt-1">Sitenizi ziyaret eden kullanıcıların cihaz ve IP bilgilerini buradan takip edebilirsiniz.</p>
         </div>
       </div>
 
@@ -82,14 +82,14 @@ export default function AnalyticsAdminPage() {
           return (
             <div 
               key={i}
-              className="bg-white border border-[#DEDAD8] rounded-xl p-6 flex justify-between items-start"
+              className="bg-card border border-border rounded-xl p-6 flex justify-between items-start"
             >
               <div className="space-y-2">
-                <span className="text-xs font-bold text-[#6F6B69] uppercase tracking-wide">
+                <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
                   {metric.title}
                 </span>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-black text-[#111010] tracking-tight">
+                  <span className="text-3xl font-black text-card-foreground tracking-tight">
                     {metric.value}
                   </span>
                   <span className="text-[10px] font-semibold text-[#168A4A] flex items-center gap-0.5 bg-[#E3F4EA] px-1.5 py-0.5 rounded-full">
@@ -97,7 +97,7 @@ export default function AnalyticsAdminPage() {
                   </span>
                 </div>
               </div>
-              <div className="h-10 w-10 bg-[#FFE5DF] text-[#FF2700] rounded-lg flex items-center justify-center">
+              <div className="h-10 w-10 bg-[#FFE5DF] text-primary rounded-lg flex items-center justify-center">
                 <Icon className="h-5 w-5 shrink-0" />
               </div>
             </div>
@@ -106,9 +106,9 @@ export default function AnalyticsAdminPage() {
       </div>
 
       {/* Chart Section */}
-      <div className="bg-white border border-[#DEDAD8] rounded-xl overflow-hidden flex flex-col p-6">
-        <h3 className="font-bold text-[#111010] flex items-center gap-2 text-sm uppercase tracking-wide mb-6">
-          <Globe className="h-4 w-4 text-[#FF2700]" />
+      <div className="bg-card border border-border rounded-xl overflow-hidden flex flex-col p-6">
+        <h3 className="font-bold text-card-foreground flex items-center gap-2 text-sm uppercase tracking-wide mb-6">
+          <Globe className="h-4 w-4 text-primary" />
           <span>Son 30 Günün Ziyaretçi Trendi</span>
         </h3>
         <div className="h-[300px] w-full">
@@ -150,10 +150,10 @@ export default function AnalyticsAdminPage() {
       </div>
 
       {/* Visitor List */}
-      <div className="bg-white border border-[#DEDAD8] rounded-xl overflow-hidden flex flex-col">
-        <div className="px-6 py-5 border-b border-[#DEDAD8] flex items-center justify-between bg-[#F2F0EF]/30">
-          <h3 className="font-bold text-[#111010] flex items-center gap-2 text-sm uppercase tracking-wide">
-            <Globe className="h-4 w-4 text-[#FF2700]" />
+      <div className="bg-card border border-border rounded-xl overflow-hidden flex flex-col">
+        <div className="px-6 py-5 border-b border-border flex items-center justify-between bg-muted/30">
+          <h3 className="font-bold text-card-foreground flex items-center gap-2 text-sm uppercase tracking-wide">
+            <Globe className="h-4 w-4 text-primary" />
             <span>Son 50 Ziyaret</span>
           </h3>
         </div>
@@ -161,7 +161,7 @@ export default function AnalyticsAdminPage() {
         <div className="divide-y divide-[#DEDAD8] overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-white text-xs font-bold text-[#6F6B69] border-b border-[#DEDAD8]">
+              <tr className="bg-card text-xs font-bold text-muted-foreground border-b border-border">
                 <th className="px-6 py-4 font-bold">Cihaz Tipi</th>
                 <th className="px-6 py-4 font-bold">IP Adresi</th>
                 <th className="px-6 py-4 font-bold">Ziyaret Edilen Sayfa</th>
@@ -172,34 +172,34 @@ export default function AnalyticsAdminPage() {
             <tbody className="divide-y divide-[#DEDAD8]">
               {stats?.recent && stats.recent.length > 0 ? (
                 stats.recent.map((visit: any) => (
-                  <tr key={visit.id} className="hover:bg-[#F2F0EF]/30 transition-colors text-sm">
+                  <tr key={visit.id} className="hover:bg-muted/30 transition-colors text-sm">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <div className="h-8 w-8 bg-[#E9E6E4]/40 rounded-full flex items-center justify-center shrink-0">
                           {visit.isMobile ? (
-                            <Smartphone className="h-4 w-4 text-[#FF2700]" />
+                            <Smartphone className="h-4 w-4 text-primary" />
                           ) : (
-                            <Monitor className="h-4 w-4 text-[#6F6B69]" />
+                            <Monitor className="h-4 w-4 text-muted-foreground" />
                           )}
                         </div>
-                        <span className="font-semibold text-[#111010]">
+                        <span className="font-semibold text-card-foreground">
                           {visit.isMobile ? "Mobil" : "Masaüstü"}
                         </span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[#111010] font-medium">{visit.ip}</td>
-                    <td className="px-6 py-4 text-[#6F6B69]">{visit.path}</td>
-                    <td className="px-6 py-4 text-[#6F6B69] text-xs max-w-[200px] truncate" title={visit.userAgent}>
+                    <td className="px-6 py-4 text-card-foreground font-medium">{visit.ip}</td>
+                    <td className="px-6 py-4 text-muted-foreground">{visit.path}</td>
+                    <td className="px-6 py-4 text-muted-foreground text-xs max-w-[200px] truncate" title={visit.userAgent}>
                       {visit.userAgent}
                     </td>
-                    <td className="px-6 py-4 text-[#6F6B69] text-xs">
+                    <td className="px-6 py-4 text-muted-foreground text-xs">
                       {new Date(visit.createdAt).toLocaleString("tr-TR")}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="px-6 py-8 text-center text-sm text-[#6F6B69]">
+                  <td colSpan={5} className="px-6 py-8 text-center text-sm text-muted-foreground">
                     Henüz ziyaretçi kaydı bulunmuyor.
                   </td>
                 </tr>

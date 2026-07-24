@@ -42,11 +42,11 @@ export default function HomeAdminPage() {
       const res = await apiFetch("/settings") as { data: Record<string, any> };
       const data = res.data;
       
-      if (data.site_content) {
+      if (data.home_page) {
         setSiteContent({
-          tr: deepMerge(blankContent(translations.tr), data.site_content.tr || {}),
-          en: deepMerge(blankContent(translations.en), data.site_content.en || {}),
-          ar: deepMerge(blankContent(translations.ar), data.site_content.ar || {}),
+          tr: deepMerge(blankContent(translations.tr), data.home_page.tr || {}),
+          en: deepMerge(blankContent(translations.en), data.home_page.en || {}),
+          ar: deepMerge(blankContent(translations.ar), data.home_page.ar || {}),
         });
       }
     } catch (e: any) {
@@ -64,7 +64,7 @@ export default function HomeAdminPage() {
 
     const payload = {
       settings: {
-        site_content: siteContent,
+        home_page: siteContent,
       }
     };
 
@@ -93,7 +93,7 @@ export default function HomeAdminPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-[#FF2700] border-t-transparent"></div>
+        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
       </div>
     );
   }
@@ -105,14 +105,14 @@ export default function HomeAdminPage() {
 
   return (
     <div className="space-y-6 max-w-4xl">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-[#DEDAD8] pb-5">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
         <div>
-          <h2 className="text-2xl font-black text-[#111010] tracking-tight">Anasayfa İçerik Yönetimi</h2>
-          <p className="text-xs text-[#6F6B69] mt-1">Anasayfadaki banner, video, yazı ve butonları yönetin.</p>
+          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Anasayfa İçerik Yönetimi</h2>
+          <p className="text-xs text-muted-foreground mt-1">Anasayfadaki banner, video, yazı ve butonları yönetin.</p>
         </div>
 
         {/* Language Tabs */}
-        <div className="flex gap-1 bg-[#F2F0EF] p-0.5 rounded-lg border border-[#DEDAD8] self-start sm:self-auto">
+        <div className="flex gap-1 bg-muted p-0.5 rounded-lg border border-border self-start sm:self-auto">
           {(["tr", "en", "ar"] as const).map((lang) => (
             <button
               key={lang}
@@ -120,8 +120,8 @@ export default function HomeAdminPage() {
               onClick={() => setActiveLang(lang)}
               className={`px-3 py-1 text-xs font-bold rounded-md transition-all uppercase ${
                 activeLang === lang
-                  ? "bg-white text-[#111010] shadow-sm"
-                  : "text-[#6F6B69] hover:text-[#111010]"
+                  ? "bg-card text-card-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-card-foreground"
               }`}
             >
               {localeNames[lang]}
@@ -144,11 +144,11 @@ export default function HomeAdminPage() {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-white border border-[#DEDAD8] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
         
         {/* Hero Section */}
         <div className="space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider border-b border-[#F2F0EF] pb-2">1. Giriş Alanı (Hero)</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">1. Giriş Alanı (Hero)</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
@@ -162,57 +162,57 @@ export default function HomeAdminPage() {
             </div>
             
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Etiket (Eyebrow)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Etiket (Eyebrow)</label>
               <input
                 type="text"
                 required
                 value={hero.eyebrow || ""}
                 onChange={(e) => updateField("hero", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Ana Başlık</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık</label>
               <input
                 type="text"
                 required
                 value={hero.title || ""}
                 onChange={(e) => updateField("hero", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Açıklama</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama</label>
               <textarea
                 rows={3}
                 required
                 value={hero.description || ""}
                 onChange={(e) => updateField("hero", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Birincil Buton (CTA 1)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Birincil Buton (CTA 1)</label>
               <input
                 type="text"
                 required
                 value={hero.primaryCta || ""}
                 onChange={(e) => updateField("hero", "primaryCta", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">İkincil Buton (CTA 2)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">İkincil Buton (CTA 2)</label>
               <input
                 type="text"
                 required
                 value={hero.secondaryCta || ""}
                 onChange={(e) => updateField("hero", "secondaryCta", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
           </div>
@@ -220,83 +220,72 @@ export default function HomeAdminPage() {
 
         {/* About Section */}
         <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider border-b border-[#F2F0EF] pb-2">2. Hakkımızda Önizleme Bölümü</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">2. Hakkımızda Önizleme Bölümü</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Küçük Başlık (Eyebrow)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
               <input
                 type="text"
                 required
                 value={about.eyebrow || ""}
                 onChange={(e) => updateField("about", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Bölüm Başlığı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Bölüm Başlığı</label>
               <input
                 type="text"
                 required
                 value={about.title || ""}
                 onChange={(e) => updateField("about", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Altbaşlık Vurgulu Kısım</label>
-              <input
-                type="text"
-                required
-                value={about.subtitleHighlight || ""}
-                onChange={(e) => updateField("about", "subtitleHighlight", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Altbaşlık Devamı</label>
+            <div className="md:col-span-2">
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Altbaşlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
                 value={about.subtitle || ""}
                 onChange={(e) => updateField("about", "subtitle", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Açıklama Paragrafı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama Paragrafı</label>
               <textarea
                 rows={3}
                 required
                 value={about.description || ""}
                 onChange={(e) => updateField("about", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Sol Buton Yazısı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Sol Buton Yazısı</label>
               <input
                 type="text"
                 required
                 value={about.primaryBtn || ""}
                 onChange={(e) => updateField("about", "primaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Sağ Buton Yazısı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Sağ Buton Yazısı</label>
               <input
                 type="text"
                 required
                 value={about.secondaryBtn || ""}
                 onChange={(e) => updateField("about", "secondaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
           </div>
@@ -304,61 +293,61 @@ export default function HomeAdminPage() {
 
         {/* CTA Section */}
         <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-[#111010] uppercase tracking-wider border-b border-[#F2F0EF] pb-2">3. Alt İletişim Bandı (CTA Bölümü)</h3>
+          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">3. Alt İletişim Bandı (CTA Bölümü)</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Küçük Başlık (Eyebrow)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
               <input
                 type="text"
                 required
                 value={cta.eyebrow || ""}
                 onChange={(e) => updateField("ctaSection", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Ana Başlık (Satır atlamak için \n kullanın)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık (Satır atlamak için \n kullanın)</label>
               <input
                 type="text"
                 required
                 value={cta.title || ""}
                 onChange={(e) => updateField("ctaSection", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Açıklama</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama</label>
               <textarea
                 rows={3}
                 required
                 value={cta.description || ""}
                 onChange={(e) => updateField("ctaSection", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">Birincil Buton Yazısı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Birincil Buton Yazısı</label>
               <input
                 type="text"
                 required
                 value={cta.primaryBtn || ""}
                 onChange={(e) => updateField("ctaSection", "primaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#3E3B3A] mb-2">İkincil Buton Yazısı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">İkincil Buton Yazısı</label>
               <input
                 type="text"
                 required
                 value={cta.secondaryBtn || ""}
                 onChange={(e) => updateField("ctaSection", "secondaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
               />
             </div>
           </div>
@@ -369,7 +358,7 @@ export default function HomeAdminPage() {
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-[#FF2700] hover:bg-[#D62000] disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-[#FF2700]/15 transition-all"
+            className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all"
           >
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "İçerikleri Kaydet"}</span>

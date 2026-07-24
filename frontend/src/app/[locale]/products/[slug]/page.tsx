@@ -10,6 +10,8 @@ import DetailSpecs from "./components/detail-specs";
 import DetailEquipments from "./components/detail-equipments";
 import { getProductBySlug, getSiteDictionary } from "../../../lib/api";
 
+export const dynamic = "force-dynamic";
+
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string }>;
@@ -62,8 +64,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `${siteUrl}/${currentLocale}/products/${slug}`,
       type: "website",
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} - Atlantis Crane`,
+      description: description,
+    },
     alternates: {
       canonical: `${siteUrl}/${currentLocale}/products/${slug}`,
+      languages: {
+        'tr': `${siteUrl}/tr/products/${slug}`,
+        'en': `${siteUrl}/en/products/${slug}`,
+        'ar': `${siteUrl}/ar/products/${slug}`,
+        'x-default': `${siteUrl}/tr/products/${slug}`,
+      },
     }
   };
 }
@@ -109,57 +122,27 @@ export default async function ProductDetailPage({ params }: PageProps) {
   // Use the same fallback images as the list page
   const productImage = "/about-facility.png";
 
-  const capLabel =
-    currentLocale === "tr" ? "Kapasite" : currentLocale === "en" ? "Capacity" : "الحمولة";
-  const outLabel =
-    currentLocale === "tr" ? "Erişim" : currentLocale === "en" ? "Outreach" : "المدى";
+  const capLabel = t?.common?.capacity;
+  const outLabel = t?.common?.outreach;
 
-  const specsDesc =
-    currentLocale === "tr"
-      ? "Atlantis Crane mühendisleri, tüm güverte kreynlerini zorlu çalışma koşulları altında FEM standartlarına ve klas kuruluşu gerekliliklerine göre optimize eder."
-      : currentLocale === "en"
-        ? "Atlantis Crane engineers optimize all deck cranes according to FEM standards and classification society requirements under harsh operating conditions."
-        : "يقوم مهندسو Atlantis Crane بتحسين جميع الرافعات وفقًا لمعايير FEM ومتطلبات هيئة التصنيف في ظل ظروف التشغيل القاسية.";
-
-  const labels = {
-    tr: {
-      descTitle: "Genel Açıklama",
-      usageTitle: "Ne İşe Yarar?",
-      featuresTitle: "Öne Çıkan Özellikler",
-      loadChartTitle: "Çalışma Kapasitesi",
-      loadChartDesc: "Vinç, bom mesafesine göre farklı kaldırma kapasiteleri sunar. Detaylı değerler tabloda verilmiştir.",
-      outreachCol: "Bom Mesafesi (Erişim)",
-      capacityCol: "Kaldırma Kapasitesi"
-    },
-    en: {
-      descTitle: "General Description",
-      usageTitle: "Applications",
-      featuresTitle: "Key Features",
-      loadChartTitle: "Working Capacity",
-      loadChartDesc: "The crane offers different lifting capacities depending on the boom outreach. Detailed values are given in the table.",
-      outreachCol: "Outreach",
-      capacityCol: "Lifting Capacity"
-    },
-    ar: {
-      descTitle: "الوصف العام",
-      usageTitle: "التطبيقات",
-      featuresTitle: "الميزات الرئيسية",
-      loadChartTitle: "سعة العمل",
-      loadChartDesc: "توفر الرافعة سعات رفع مختلفة حسب مدى ذراع الرافعة. القيم المفصلة معطاة في الجدول.",
-      outreachCol: "مدى الذراع",
-      capacityCol: "سعة الرفع"
-    }
+  const specsDesc = t?.productDetail?.specsDesc;
+  const uiLabels = {
+    descTitle: t?.productDetail?.descTitle,
+    usageTitle: t?.productDetail?.usageTitle,
+    featuresTitle: t?.productDetail?.featuresTitle,
+    loadChartTitle: t?.productDetail?.loadChartTitle,
+    loadChartDesc: t?.productDetail?.loadChartDesc,
+    outreachCol: t?.productDetail?.outreachCol,
+    capacityCol: t?.productDetail?.capacityCol
   };
 
-  const uiLabels = labels[currentLocale] || labels.en;
-
   const navItems = [
-    { id: "section-hero", label: currentLocale === "tr" ? "Genel" : currentLocale === "ar" ? "عام" : "Overview" },
-    { id: "section-overview", label: currentLocale === "tr" ? "Açıklama" : currentLocale === "ar" ? "الوصف" : "Description" },
-    { id: "section-features", label: currentLocale === "tr" ? "Özellikler" : currentLocale === "ar" ? "الميزات" : "Features" },
-    { id: "section-capacity", label: currentLocale === "tr" ? "Kapasite" : currentLocale === "ar" ? "الطاقة" : "Capacity" },
-    { id: "section-specs", label: currentLocale === "tr" ? "Teknik" : currentLocale === "ar" ? "التقنية" : "Specs" },
-    { id: "section-equipment", label: currentLocale === "tr" ? "Donanım" : currentLocale === "ar" ? "المعدات" : "Equipment" },
+    { id: "section-hero", label: t?.productDetail?.sectionLabels?.overview },
+    { id: "section-overview", label: t?.productDetail?.sectionLabels?.description },
+    { id: "section-features", label: t?.productDetail?.sectionLabels?.features },
+    { id: "section-capacity", label: t?.productDetail?.sectionLabels?.capacity },
+    { id: "section-specs", label: t?.productDetail?.sectionLabels?.specs },
+    { id: "section-equipment", label: t?.productDetail?.sectionLabels?.equipment },
   ];
 
   return (
@@ -214,7 +197,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
               description={product.description || ""}
               usageTitle={uiLabels.usageTitle}
               usage={product.usage || ""}
-              tags={currentLocale === "tr" ? ["Denizcilik", "Offshore", "Tersane", "Liman"] : currentLocale === "en" ? ["Marine", "Offshore", "Shipyard", "Port"] : ["البحرية", "البحر", "حوض بناء السفن", "الميناء"]}
+              tags={t?.productDetail?.tags || []}
               isRtl={isRtl}
             />
           )}

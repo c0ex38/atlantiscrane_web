@@ -7,9 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 type AboutStoryProps = {
   content: {
     eyebrow: string;
-    title1: string;
-    titleHighlight: string;
-    title2: string;
+    title: string;
     p1: string;
     p2: string;
     p3: string;
@@ -54,7 +52,7 @@ export default function AboutStory({ content }: AboutStoryProps) {
           className="font-black tracking-tight leading-[0.95] text-[color:var(--text)] mb-10 max-w-4xl"
           style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
         >
-          {content.title1} <span className="text-cta">{content.titleHighlight}</span> {content.title2}
+          <span dangerouslySetInnerHTML={{ __html: content.title || "" }} />
         </motion.h2>
 
         {/* Text columns */}

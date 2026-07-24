@@ -61,7 +61,7 @@ export function FileUpload({
 
   return (
     <div className="w-full">
-      {label && <label className="block text-xs font-bold text-[#3E3B3A] mb-2">{label}</label>}
+      {label && <label className="block text-xs font-bold text-muted-foreground mb-2">{label}</label>}
       <div className="flex flex-col gap-3">
         {/* Preview Area */}
         {value ? (
@@ -107,7 +107,7 @@ export function FileUpload({
             value={value || ""}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="flex-1 px-3 py-2 border border-[#DEDAD8] outline-none rounded-lg text-sm bg-white"
+            className="flex-1 px-3 py-2 border border-border outline-none rounded-lg text-sm bg-card"
           />
           <button
             type="button"
