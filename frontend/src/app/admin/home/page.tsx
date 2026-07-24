@@ -101,7 +101,6 @@ export default function HomeAdminPage() {
   const currentContent = siteContent[activeLang] || {};
   const hero = currentContent.hero || {};
   const about = currentContent.about || {};
-  const cta = currentContent.ctaSection || {};
 
   return (
     <div className="space-y-6 max-w-4xl">
@@ -291,67 +290,6 @@ export default function HomeAdminPage() {
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">3. Alt İletişim Bandı (CTA Bölümü)</h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
-              <input
-                type="text"
-                required
-                value={cta.eyebrow || ""}
-                onChange={(e) => updateField("ctaSection", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık (Satır atlamak için \n, vurgu için &lt;span&gt; kullanın)</label>
-              <input
-                type="text"
-                required
-                value={cta.title || ""}
-                onChange={(e) => updateField("ctaSection", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama (Vurgu için &lt;span&gt; kullanın)</label>
-              <textarea
-                rows={3}
-                required
-                value={cta.description || ""}
-                onChange={(e) => updateField("ctaSection", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Birincil Buton Yazısı</label>
-              <input
-                type="text"
-                required
-                value={cta.primaryBtn || ""}
-                onChange={(e) => updateField("ctaSection", "primaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">İkincil Buton Yazısı</label>
-              <input
-                type="text"
-                required
-                value={cta.secondaryBtn || ""}
-                onChange={(e) => updateField("ctaSection", "secondaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
-              />
-            </div>
-          </div>
-        </div>
 
         {/* Save Button */}
         <div className="border-t border-[#F2F0EF] pt-6 flex justify-end">

@@ -42,7 +42,7 @@ export async function getProductBySlug(slug: string) {
 
 export async function getProjects() {
   try {
-    const res = await fetch(`${API_URL}/projects`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/projects`, { cache: "no-store" });
     if (!res.ok) throw new Error("API failed");
     const json = await res.json() as { data: any[] };
     return json.data || [];
@@ -53,7 +53,7 @@ export async function getProjects() {
 
 export async function getReferences() {
   try {
-    const res = await fetch(`${API_URL}/references`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/references`, { cache: "no-store" });
     if (!res.ok) throw new Error("API failed");
     const json = await res.json() as { data: any[] };
     return json.data || [];
@@ -64,7 +64,7 @@ export async function getReferences() {
 
 export async function getSettings() {
   try {
-    const res = await fetch(`${API_URL}/settings`, { next: { revalidate: 60 } });
+    const res = await fetch(`${API_URL}/settings`, { cache: "no-store" });
     if (!res.ok) throw new Error("API failed");
     const json = await res.json() as { data: any };
     return json.data || {};

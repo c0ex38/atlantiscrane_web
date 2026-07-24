@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isLocale, translations, type Locale } from "../../../lib/site-content";
-import CtaSection from "../../../components/cta-section";
 import DetailHero from "./components/detail-hero";
 import DetailOverview from "./components/detail-overview";
 import DetailFeatures from "./components/detail-features";
@@ -252,8 +251,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
         />
       </div>
 
-      {/* CTA Section */}
-      <CtaSection locale={currentLocale} />
     </main>
   );
 }
