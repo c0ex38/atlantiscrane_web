@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
-import { UploadCloud, Loader2, X, Video, Image as ImageIcon, Link2 } from "lucide-react";
+import { UploadCloud, Loader2, X, Video, Link2 } from "lucide-react";
 
 interface FileUploadProps {
   label?: string;
@@ -54,7 +54,6 @@ export function FileUpload({
   };
 
   const isVideo = value?.match(/\.(mp4|webm|ogg)$/i) || value?.includes("youtube") || value?.includes("vimeo");
-  const isImage = value && !isVideo;
 
   return (
     <div className="w-full">
