@@ -93,8 +93,8 @@ export default function AboutAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      <div className="flex items-center justify-center py-24">
+        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
       </div>
     );
   }
@@ -133,58 +133,58 @@ export default function AboutAdminPage() {
 
       {/* Notifications */}
       {error && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
           <Check className="h-5 w-5 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* Hero Section */}
-        <div className="space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">1. Giriş Alanı (Hero)</h3>
+        <div className="p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">1. Giriş Alanı (Hero)</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-3">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Başlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 value={hero.title || ""}
                 onChange={(e) => updateField("hero", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
             <div className="md:col-span-3">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Açıklama</label>
               <textarea
                 rows={2}
                 value={hero.description || ""}
                 onChange={(e) => updateField("hero", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
           </div>
         </div>
 
         {/* Story Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">2. Hikayemiz</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">2. Hikayemiz</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Üst Başlık (Eyebrow)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Üst Başlık (Eyebrow)</label>
               <input
                 type="text"
                 value={story.eyebrow || ""}
                 onChange={(e) => updateField("story", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
             <div className="md:col-span-2">
@@ -192,17 +192,17 @@ export default function AboutAdminPage() {
             </div>
 
             <div className="md:col-span-3">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Başlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 value={story.title || ""}
                 onChange={(e) => updateField("story", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Paragraf 1</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Paragraf 1</label>
               <textarea
                 rows={4}
                 value={story.p1 || ""}
@@ -211,7 +211,7 @@ export default function AboutAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Paragraf 2</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Paragraf 2</label>
               <textarea
                 rows={4}
                 value={story.p2 || ""}
@@ -220,7 +220,7 @@ export default function AboutAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Paragraf 3</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Paragraf 3</label>
               <textarea
                 rows={4}
                 value={story.p3 || ""}
@@ -230,38 +230,38 @@ export default function AboutAdminPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Rozet Başlığı (Badge Title)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Rozet Başlığı (Badge Title)</label>
               <input
                 type="text"
                 value={story.badgeTitle || ""}
                 onChange={(e) => updateField("story", "badgeTitle", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Rozet Altbaşlığı (Badge Subtitle)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Rozet Altbaşlığı (Badge Subtitle)</label>
               <input
                 type="text"
                 value={story.badgeSubtitle || ""}
                 onChange={(e) => updateField("story", "badgeSubtitle", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
           </div>
         </div>
 
         {/* Mission Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">3. Misyonumuz</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">3. Misyonumuz</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Üst Başlık (Eyebrow)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Üst Başlık (Eyebrow)</label>
               <input
                 type="text"
                 value={mission.eyebrow || ""}
                 onChange={(e) => updateField("mission", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
             <div className="md:col-span-2">
@@ -269,33 +269,33 @@ export default function AboutAdminPage() {
             </div>
 
             <div className="md:col-span-3">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Başlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 value={mission.title || ""}
                 onChange={(e) => updateField("mission", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div className="md:col-span-3">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Misyon Açıklaması</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Misyon Açıklaması</label>
               <textarea
                 rows={3}
                 value={mission.description || ""}
                 onChange={(e) => updateField("mission", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
           </div>
         </div>
 
         {/* Save Button */}
-        <div className="border-t border-[#F2F0EF] pt-6 flex justify-end">
+        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all"
+            className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95"
           >
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "İçerikleri Kaydet"}</span>

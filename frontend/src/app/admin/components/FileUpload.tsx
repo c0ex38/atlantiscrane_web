@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
-import { UploadCloud, Loader2, X, FileVideo, Image as ImageIcon } from "lucide-react";
+import { UploadCloud, Loader2, X, Video, Image as ImageIcon, Link2 } from "lucide-react";
 
 interface FileUploadProps {
   label?: string;
@@ -43,80 +43,60 @@ export function FileUpload({
       }) as { success: boolean; url: string };
 
       if (res.success && res.url) {
-        // Construct full URL if needed, or just keep relative and prefix with base in frontend
-        // Assuming we want to store the relative URL /uploads/xxx
         onChange(`${API_BASE_URL}${res.url}`);
       }
     } catch (err: any) {
       setError(err.message || "Dosya yüklenirken bir hata oluştu.");
     } finally {
       setIsUploading(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
   const isVideo = value?.match(/\.(mp4|webm|ogg)$/i) || value?.includes("youtube") || value?.includes("vimeo");
+  const isImage = value && !isVideo;
 
   return (
     <div className="w-full">
-      {label && <label className="block text-xs font-bold text-muted-foreground mb-2">{label}</label>}
-      <div className="flex flex-col gap-3">
-        {/* Preview Area */}
-        {value ? (
-          <div className="relative w-full aspect-video sm:aspect-[21/9] bg-gray-100 rounded-lg overflow-hidden border border-gray-200 flex items-center justify-center group">
-            {isVideo ? (
-              <video src={value} controls className="w-full h-full object-contain bg-black" />
-            ) : (
-              <img src={value} alt="Preview" className="w-full h-full object-cover" />
-            )}
-            
-            <button
-              type="button"
-              onClick={() => onChange("")}
-              className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-md opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 shadow-sm"
-              title="Kaldır"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          </div>
-        ) : (
-          <div
-            onClick={() => fileInputRef.current?.click()}
-            className="w-full border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center text-gray-500 hover:border-gray-400 hover:bg-gray-50 transition-colors cursor-pointer"
-          >
-            {isUploading ? (
-              <div className="flex flex-col items-center">
-                <Loader2 className="w-8 h-8 animate-spin text-blue-500 mb-2" />
-                <span className="text-sm font-medium text-gray-600">Yükleniyor...</span>
-              </div>
-            ) : (
-              <div className="flex flex-col items-center">
-                <UploadCloud className="w-8 h-8 mb-2 text-gray-400" />
-                <span className="text-sm font-medium">Dosya seçin veya sürükleyin</span>
-                <span className="text-xs text-gray-400 mt-1">Resim veya Video</span>
-              </div>
-            )}
-          </div>
-        )}
-
+      {label && (
+        <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">
+          {label}
+        </label>
+      )}
+      <div className="flex flex-col gap-2">
+        {/* URL Input + Upload Button */}
         <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={value || ""}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder}
-            className="flex-1 px-3 py-2 border border-border outline-none rounded-lg text-sm bg-card"
-          />
+          <div className="flex-1 flex items-center gap-2 px-3 py-2.5 bg-background border border-border/70 rounded-lg focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+            <Link2 className="h-3.5 w-3.5 text-muted-foreground/50 shrink-0" />
+            <input
+              type="text"
+              value={value || ""}
+              onChange={(e) => onChange(e.target.value)}
+              placeholder={placeholder}
+              className="flex-1 text-sm bg-transparent outline-none text-foreground placeholder:text-muted-foreground/40 min-w-0"
+            />
+            {value && (
+              <button
+                type="button"
+                onClick={() => onChange("")}
+                className="p-0.5 text-muted-foreground/50 hover:text-foreground rounded transition-colors shrink-0"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="flex items-center gap-2 px-3 py-2 bg-gray-100 border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-200 disabled:opacity-50 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-2.5 bg-muted border border-border/70 rounded-lg text-[12px] font-semibold text-foreground hover:bg-muted/80 disabled:opacity-50 transition-all whitespace-nowrap"
           >
-            {isUploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <UploadCloud className="w-4 h-4" />}
-            <span>Yükle</span>
+            {isUploading ? (
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
+            ) : (
+              <UploadCloud className="h-3.5 w-3.5" />
+            )}
+            <span>{isUploading ? "Yükleniyor" : "Yükle"}</span>
           </button>
           <input
             type="file"
@@ -126,7 +106,37 @@ export function FileUpload({
             className="hidden"
           />
         </div>
-        {error && <span className="text-xs text-red-500">{error}</span>}
+
+        {/* Preview — only shown when there's a value */}
+        {value && (
+          <div className="relative w-full rounded-lg overflow-hidden border border-border/60 bg-black/5 group">
+            {isVideo ? (
+              <div className="relative">
+                <video
+                  src={value}
+                  controls
+                  className="w-full max-h-[200px] object-contain bg-black"
+                />
+                <div className="absolute top-2 left-2 flex items-center gap-1 bg-black/60 text-white text-[10px] font-medium px-2 py-0.5 rounded-full">
+                  <Video className="h-3 w-3" />
+                  <span>Video</span>
+                </div>
+              </div>
+            ) : (
+              <img
+                src={value}
+                alt="Preview"
+                className="w-full max-h-[200px] object-contain bg-muted/30"
+              />
+            )}
+          </div>
+        )}
+
+        {error && (
+          <p className="text-xs text-red-500 flex items-center gap-1">
+            <span>⚠</span> {error}
+          </p>
+        )}
       </div>
     </div>
   );

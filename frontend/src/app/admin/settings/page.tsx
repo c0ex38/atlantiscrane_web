@@ -89,8 +89,8 @@ export default function SettingsAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      <div className="flex items-center justify-center py-24">
+        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
       </div>
     );
   }
@@ -106,26 +106,26 @@ export default function SettingsAdminPage() {
 
       {/* Notifications */}
       {error && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
           <Check className="h-5 w-5 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* General Identity */}
-        <div className="space-y-4">
+        <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">Genel Kimlik</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Site Başlığı (Title)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Site Başlığı (Title)</label>
               <input
                 type="text"
                 required
@@ -148,11 +148,11 @@ export default function SettingsAdminPage() {
         </div>
 
         {/* Contact Info */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
           <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">İletişim Kanalları</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">E-posta Adresi</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">E-posta Adresi</label>
               <input
                 type="email"
                 required
@@ -163,7 +163,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Telefon Numarası</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Telefon Numarası</label>
               <input
                 type="text"
                 required
@@ -177,11 +177,11 @@ export default function SettingsAdminPage() {
         </div>
 
         {/* Physical Addresses */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
           <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">İstanbul Genel Merkez Adresi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Türkçe</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Türkçe</label>
               <textarea
                 rows={3}
                 required
@@ -191,7 +191,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">English</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">English</label>
               <textarea
                 rows={3}
                 required
@@ -201,7 +201,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">العربية (Arabic)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">العربية (Arabic)</label>
               <textarea
                 rows={3}
                 required
@@ -213,11 +213,11 @@ export default function SettingsAdminPage() {
           </div>
         </div>
 
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
           <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">Dubai Bölge Ofisi Adresi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Türkçe</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Türkçe</label>
               <textarea
                 rows={3}
                 required
@@ -227,7 +227,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">English</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">English</label>
               <textarea
                 rows={3}
                 required
@@ -237,7 +237,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">العربية (Arabic)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">العربية (Arabic)</label>
               <textarea
                 rows={3}
                 required
@@ -250,11 +250,11 @@ export default function SettingsAdminPage() {
         </div>
 
         {/* Save Button */}
-        <div className="border-t border-[#F2F0EF] pt-6 flex justify-end">
+        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all"
+            className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95"
           >
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "Ayarları Kaydet"}</span>

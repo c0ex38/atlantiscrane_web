@@ -106,8 +106,8 @@ export default function ProductTextsAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      <div className="flex items-center justify-center py-24">
+        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
       </div>
     );
   }
@@ -116,14 +116,14 @@ export default function ProductTextsAdminPage() {
   const productDetail = currentContent.productDetail || {};
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
+    <div className="space-y-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Ürün Sayfası Sabit Metinleri</h2>
-          <p className="text-xs text-muted-foreground mt-1">Ürün detay sayfalarındaki sabit başlıklar, tablo sütun adları ve butonları yönetin.</p>
+          <h2 className="text-xl font-bold text-foreground tracking-tight">Ürün Sayfası Sabit Metinleri</h2>
+          <p className="text-xs text-muted-foreground mt-0.5">Ürün detay sayfalarındaki sabit başlıklar, tablo sütun adları ve butonları yönetin.</p>
         </div>
 
-        <div className="flex gap-1 bg-muted p-0.5 rounded-lg border border-border self-start sm:self-auto">
+        <div className="flex gap-0.5 bg-muted/50 p-0.5 rounded-lg border border-border/60 self-start sm:self-auto">
           {(["tr", "en", "ar"] as const).map((lang) => (
             <button
               key={lang}
@@ -142,56 +142,56 @@ export default function ProductTextsAdminPage() {
       </div>
 
       {error && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
           <Check className="h-5 w-5 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* Titles */}
-        <div className="space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">1. Bölüm Başlıkları</h3>
+        <div className="p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">1. Bölüm Başlıkları</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Teknik Özellikler (SpecsTitle)</label><input type="text" value={productDetail.specsTitle || ""} onChange={(e) => updateField("productDetail", "specsTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Standart Ekipman (standardEquipTitle)</label><input type="text" value={productDetail.standardEquipTitle || ""} onChange={(e) => updateField("productDetail", "standardEquipTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Opsiyonel Ekipman (optionalEquipTitle)</label><input type="text" value={productDetail.optionalEquipTitle || ""} onChange={(e) => updateField("productDetail", "optionalEquipTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama Başlığı (descTitle)</label><input type="text" value={productDetail.descTitle || ""} onChange={(e) => updateField("productDetail", "descTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Kullanım Alanı Başlığı (usageTitle)</label><input type="text" value={productDetail.usageTitle || ""} onChange={(e) => updateField("productDetail", "usageTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Özellikler Başlığı (featuresTitle)</label><input type="text" value={productDetail.featuresTitle || ""} onChange={(e) => updateField("productDetail", "featuresTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Yük Tablosu Başlığı (loadChartTitle)</label><input type="text" value={productDetail.loadChartTitle || ""} onChange={(e) => updateField("productDetail", "loadChartTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Teknik Özellikler (SpecsTitle)</label><input type="text" value={productDetail.specsTitle || ""} onChange={(e) => updateField("productDetail", "specsTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Standart Ekipman (standardEquipTitle)</label><input type="text" value={productDetail.standardEquipTitle || ""} onChange={(e) => updateField("productDetail", "standardEquipTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Opsiyonel Ekipman (optionalEquipTitle)</label><input type="text" value={productDetail.optionalEquipTitle || ""} onChange={(e) => updateField("productDetail", "optionalEquipTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Açıklama Başlığı (descTitle)</label><input type="text" value={productDetail.descTitle || ""} onChange={(e) => updateField("productDetail", "descTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Kullanım Alanı Başlığı (usageTitle)</label><input type="text" value={productDetail.usageTitle || ""} onChange={(e) => updateField("productDetail", "usageTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Özellikler Başlığı (featuresTitle)</label><input type="text" value={productDetail.featuresTitle || ""} onChange={(e) => updateField("productDetail", "featuresTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Yük Tablosu Başlığı (loadChartTitle)</label><input type="text" value={productDetail.loadChartTitle || ""} onChange={(e) => updateField("productDetail", "loadChartTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
           </div>
         </div>
 
         {/* Labels & Buttons */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">2. Etiketler ve Butonlar</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">2. Etiketler ve Butonlar</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Standart Etiketi</label><input type="text" value={productDetail.standardLabel || ""} onChange={(e) => updateField("productDetail", "standardLabel", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Opsiyonel Etiketi</label><input type="text" value={productDetail.optionalLabel || ""} onChange={(e) => updateField("productDetail", "optionalLabel", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Sertifika Etiketi (classCertLabel)</label><input type="text" value={productDetail.classCertLabel || ""} onChange={(e) => updateField("productDetail", "classCertLabel", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Yük Zarfları (loadEnvelope)</label><input type="text" value={productDetail.loadEnvelope || ""} onChange={(e) => updateField("productDetail", "loadEnvelope", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Kapasite (Büyük Harf)</label><input type="text" value={productDetail.capacityUpper || ""} onChange={(e) => updateField("productDetail", "capacityUpper", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Erişim (Büyük Harf)</label><input type="text" value={productDetail.outreachUpper || ""} onChange={(e) => updateField("productDetail", "outreachUpper", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Izgara Etiketi (gridLabel)</label><input type="text" value={productDetail.gridLabel || ""} onChange={(e) => updateField("productDetail", "gridLabel", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Yük Tablosu Sütun - Erişim</label><input type="text" value={productDetail.outreachCol || ""} onChange={(e) => updateField("productDetail", "outreachCol", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Yük Tablosu Sütun - Kapasite</label><input type="text" value={productDetail.capacityCol || ""} onChange={(e) => updateField("productDetail", "capacityCol", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Teklif İste Butonu (quoteBtn)</label><input type="text" value={productDetail.quoteBtn || ""} onChange={(e) => updateField("productDetail", "quoteBtn", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
-            <div><label className="block text-xs font-bold text-muted-foreground mb-2">Listeye Dön Butonu (backToList)</label><input type="text" value={productDetail.backToList || ""} onChange={(e) => updateField("productDetail", "backToList", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Standart Etiketi</label><input type="text" value={productDetail.standardLabel || ""} onChange={(e) => updateField("productDetail", "standardLabel", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Opsiyonel Etiketi</label><input type="text" value={productDetail.optionalLabel || ""} onChange={(e) => updateField("productDetail", "optionalLabel", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Sertifika Etiketi (classCertLabel)</label><input type="text" value={productDetail.classCertLabel || ""} onChange={(e) => updateField("productDetail", "classCertLabel", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Yük Zarfları (loadEnvelope)</label><input type="text" value={productDetail.loadEnvelope || ""} onChange={(e) => updateField("productDetail", "loadEnvelope", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Kapasite (Büyük Harf)</label><input type="text" value={productDetail.capacityUpper || ""} onChange={(e) => updateField("productDetail", "capacityUpper", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Erişim (Büyük Harf)</label><input type="text" value={productDetail.outreachUpper || ""} onChange={(e) => updateField("productDetail", "outreachUpper", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Izgara Etiketi (gridLabel)</label><input type="text" value={productDetail.gridLabel || ""} onChange={(e) => updateField("productDetail", "gridLabel", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Yük Tablosu Sütun - Erişim</label><input type="text" value={productDetail.outreachCol || ""} onChange={(e) => updateField("productDetail", "outreachCol", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Yük Tablosu Sütun - Kapasite</label><input type="text" value={productDetail.capacityCol || ""} onChange={(e) => updateField("productDetail", "capacityCol", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Teklif İste Butonu (quoteBtn)</label><input type="text" value={productDetail.quoteBtn || ""} onChange={(e) => updateField("productDetail", "quoteBtn", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
+            <div><label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Listeye Dön Butonu (backToList)</label><input type="text" value={productDetail.backToList || ""} onChange={(e) => updateField("productDetail", "backToList", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" /></div>
           </div>
         </div>
 
-        <div className="border-t border-[#F2F0EF] pt-6 flex justify-end">
-          <button type="submit" disabled={isSaving} className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all">
+        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
+          <button type="submit" disabled={isSaving} className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95">
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "İçerikleri Kaydet"}</span>
           </button>

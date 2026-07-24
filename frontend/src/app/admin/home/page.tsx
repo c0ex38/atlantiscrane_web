@@ -107,8 +107,8 @@ export default function HomeAdminPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
+      <div className="flex items-center justify-center py-24">
+        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
       </div>
     );
   }
@@ -121,15 +121,15 @@ export default function HomeAdminPage() {
   const exportNetwork = currentContent.exportNetwork || {};
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
+    <div className="space-y-5">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Anasayfa İçerik Yönetimi</h2>
-          <p className="text-xs text-muted-foreground mt-1">Anasayfadaki banner, video, yazı ve butonları yönetin.</p>
+          <h2 className="text-xl font-bold text-foreground tracking-tight">Anasayfa İçerik Yönetimi</h2>
+          <p className="text-xs text-muted-foreground mt-0.5">Anasayfadaki banner, video, yazı ve butonları yönetin.</p>
         </div>
 
         {/* Language Tabs */}
-        <div className="flex gap-1 bg-muted p-0.5 rounded-lg border border-border self-start sm:self-auto">
+        <div className="flex gap-0.5 bg-muted/50 p-0.5 rounded-lg border border-border/60 self-start sm:self-auto">
           {(["tr", "en", "ar"] as const).map((lang) => (
             <button
               key={lang}
@@ -149,23 +149,23 @@ export default function HomeAdminPage() {
 
       {/* Notifications */}
       {error && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
           <AlertCircle className="h-5 w-5 shrink-0" />
           <span>{error}</span>
         </div>
       )}
       {success && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-sm">
+        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
           <Check className="h-5 w-5 shrink-0" />
           <span>{success}</span>
         </div>
       )}
 
-      <form onSubmit={handleSave} className="space-y-8 bg-card border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
+      <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* Hero Section */}
-        <div className="space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">1. Giriş Alanı (Hero)</h3>
+        <div className="p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">1. Giriş Alanı (Hero)</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
@@ -179,130 +179,130 @@ export default function HomeAdminPage() {
             </div>
             
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Etiket (Eyebrow)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Etiket (Eyebrow)</label>
               <input
                 type="text"
                 required
                 value={hero.eyebrow || ""}
                 onChange={(e) => updateField("hero", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık (Vurgu için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Ana Başlık (Vurgu için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
                 value={hero.title || ""}
                 onChange={(e) => updateField("hero", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama (Vurgu için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Açıklama (Vurgu için &lt;span&gt; kullanın)</label>
               <textarea
                 rows={3}
                 required
                 value={hero.description || ""}
                 onChange={(e) => updateField("hero", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Birincil Buton (CTA 1)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Birincil Buton (CTA 1)</label>
               <input
                 type="text"
                 required
                 value={hero.primaryCta || ""}
                 onChange={(e) => updateField("hero", "primaryCta", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">İkincil Buton (CTA 2)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">İkincil Buton (CTA 2)</label>
               <input
                 type="text"
                 required
                 value={hero.secondaryCta || ""}
                 onChange={(e) => updateField("hero", "secondaryCta", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
           </div>
         </div>
 
         {/* About Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">2. Hakkımızda Önizleme Bölümü</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">2. Hakkımızda Önizleme Bölümü</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Küçük Başlık (Eyebrow)</label>
               <input
                 type="text"
                 required
                 value={about.eyebrow || ""}
                 onChange={(e) => updateField("about", "eyebrow", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Bölüm Başlığı (Vurgu için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Bölüm Başlığı (Vurgu için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
                 value={about.title || ""}
                 onChange={(e) => updateField("about", "title", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Altbaşlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Altbaşlık (Vurgulu kısımlar için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
                 value={about.subtitle || ""}
                 onChange={(e) => updateField("about", "subtitle", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama Paragrafı (Vurgu için &lt;span&gt; kullanın)</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Açıklama Paragrafı (Vurgu için &lt;span&gt; kullanın)</label>
               <textarea
                 rows={3}
                 required
                 value={about.description || ""}
                 onChange={(e) => updateField("about", "description", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Sol Buton Yazısı</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Sol Buton Yazısı</label>
               <input
                 type="text"
                 required
                 value={about.primaryBtn || ""}
                 onChange={(e) => updateField("about", "primaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Sağ Buton Yazısı</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Sağ Buton Yazısı</label>
               <input
                 type="text"
                 required
                 value={about.secondaryBtn || ""}
                 onChange={(e) => updateField("about", "secondaryBtn", e.target.value)}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm"
+                className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all"
               />
             </div>
           </div>
@@ -310,18 +310,18 @@ export default function HomeAdminPage() {
 
 
         {/* History Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">3. Tarihçe (History)</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">3. Tarihçe (History)</h3>
           
           <div className="grid grid-cols-1 gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
-                <input type="text" value={history.eyebrow || ""} onChange={(e) => updateField("history", "eyebrow", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Küçük Başlık (Eyebrow)</label>
+                <input type="text" value={history.eyebrow || ""} onChange={(e) => updateField("history", "eyebrow", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Title)</label>
-                <input type="text" value={history.title || ""} onChange={(e) => updateField("history", "title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Başlık (Title)</label>
+                <input type="text" value={history.title || ""} onChange={(e) => updateField("history", "title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
               </div>
             </div>
             
@@ -338,13 +338,13 @@ export default function HomeAdminPage() {
                 return (
                   <div key={idx} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border border-border rounded-xl bg-muted/30">
                     <div className="md:col-span-2">
-                      <input placeholder="Yıl" type="text" value={item.year || ""} onChange={(e) => updateItem("year", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                      <input placeholder="Yıl" type="text" value={item.year || ""} onChange={(e) => updateItem("year", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
                     </div>
                     <div className="md:col-span-4">
-                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
                     </div>
                     <div className="md:col-span-6">
-                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
                     </div>
                   </div>
                 );
@@ -354,18 +354,18 @@ export default function HomeAdminPage() {
         </div>
 
         {/* Standards Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">4. Mühendislik Standartları</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">4. Mühendislik Standartları</h3>
           
           <div className="grid grid-cols-1 gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık (Eyebrow)</label>
-                <input type="text" value={standards.eyebrow || ""} onChange={(e) => updateField("standards", "eyebrow", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Küçük Başlık (Eyebrow)</label>
+                <input type="text" value={standards.eyebrow || ""} onChange={(e) => updateField("standards", "eyebrow", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık (Title)</label>
-                <input type="text" value={standards.title || ""} onChange={(e) => updateField("standards", "title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Başlık (Title)</label>
+                <input type="text" value={standards.title || ""} onChange={(e) => updateField("standards", "title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
               </div>
             </div>
             
@@ -382,10 +382,10 @@ export default function HomeAdminPage() {
                 return (
                   <div key={idx} className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border border-border rounded-xl bg-muted/30">
                     <div>
-                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
                     </div>
                     <div>
-                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
                     </div>
                   </div>
                 );
@@ -395,33 +395,33 @@ export default function HomeAdminPage() {
         </div>
 
         {/* Export Network Section */}
-        <div className="border-t border-[#F2F0EF] pt-6 space-y-4">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider border-b border-[#F2F0EF] pb-2">5. İhracat Ağı</h3>
+        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">5. İhracat Ağı</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Küçük Başlık</label>
-              <input type="text" value={exportNetwork.eyebrow || ""} onChange={(e) => updateField("exportNetwork", "eyebrow", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Küçük Başlık</label>
+              <input type="text" value={exportNetwork.eyebrow || ""} onChange={(e) => updateField("exportNetwork", "eyebrow", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Başlık</label>
-              <input type="text" value={exportNetwork.title || ""} onChange={(e) => updateField("exportNetwork", "title", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Başlık</label>
+              <input type="text" value={exportNetwork.title || ""} onChange={(e) => updateField("exportNetwork", "title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Alt Başlık (Subtitle)</label>
-              <input type="text" value={exportNetwork.subtitle || ""} onChange={(e) => updateField("exportNetwork", "subtitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Alt Başlık (Subtitle)</label>
+              <input type="text" value={exportNetwork.subtitle || ""} onChange={(e) => updateField("exportNetwork", "subtitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Liste Başlığı</label>
-              <input type="text" value={exportNetwork.listTitle || ""} onChange={(e) => updateField("exportNetwork", "listTitle", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Liste Başlığı</label>
+              <input type="text" value={exportNetwork.listTitle || ""} onChange={(e) => updateField("exportNetwork", "listTitle", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Vinç Etiketi (örn: Vinç)</label>
-              <input type="text" value={exportNetwork.craneLabel || ""} onChange={(e) => updateField("exportNetwork", "craneLabel", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Vinç Etiketi (örn: Vinç)</label>
+              <input type="text" value={exportNetwork.craneLabel || ""} onChange={(e) => updateField("exportNetwork", "craneLabel", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
             </div>
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Aktif Operasyon Etiketi</label>
-              <input type="text" value={exportNetwork.activeOperation || ""} onChange={(e) => updateField("exportNetwork", "activeOperation", e.target.value)} className="w-full px-3 py-2 border border-border outline-none rounded-lg text-sm" />
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Aktif Operasyon Etiketi</label>
+              <input type="text" value={exportNetwork.activeOperation || ""} onChange={(e) => updateField("exportNetwork", "activeOperation", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
             </div>
             
             <div className="md:col-span-2 space-y-4">
@@ -448,11 +448,11 @@ export default function HomeAdminPage() {
         </div>
 
         {/* Save Button */}
-        <div className="border-t border-[#F2F0EF] pt-6 flex justify-end">
+        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
           <button
             type="submit"
             disabled={isSaving}
-            className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 disabled:bg-gray-400 text-white text-sm font-bold rounded-lg shadow-lg shadow-primary/15 transition-all"
+            className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95"
           >
             <Save className="h-4 w-4" />
             <span>{isSaving ? "Kaydediliyor..." : "İçerikleri Kaydet"}</span>
