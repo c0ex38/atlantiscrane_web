@@ -54,20 +54,18 @@ export default function Hero({ locale }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight max-w-4xl leading-[1.05] mb-6"
-        >
-          {title}
-        </motion.h1>
+          className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight max-w-4xl leading-[1.05] mb-6 [&_span]:text-cta"
+          dangerouslySetInnerHTML={{ __html: title || "" }}
+        />
 
         {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base sm:text-lg lg:text-xl text-slate-200 max-w-2xl mb-12 font-medium leading-relaxed"
-        >
-          {description}
-        </motion.p>
+          className="text-base sm:text-lg lg:text-xl text-slate-200 max-w-2xl mb-12 font-medium leading-relaxed [&_span]:text-cta [&_span]:font-bold"
+          dangerouslySetInnerHTML={{ __html: description || "" }}
+        />
 
         {/* Actions */}
         <motion.div

@@ -204,7 +204,7 @@ export default function ReferencesAdminPage() {
             >
               {reference.image && (
                 <div className="w-full h-32 bg-muted/50 border-b border-border/50 flex items-center justify-center p-4">
-                  <img src={reference.image} alt={reference.title.tr || ""} className="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal" />
+                  <img src={reference.image} alt={reference.title.tr || ""} className="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white rounded-md p-1" />
                 </div>
               )}
               <div className="p-6 flex-1 space-y-4 flex flex-col justify-center">
@@ -259,7 +259,7 @@ export default function ReferencesAdminPage() {
                   <td className="px-6 py-4">
                     <div className="h-12 w-24 bg-muted/50 rounded-lg flex items-center justify-center overflow-hidden border border-border/50 p-2">
                       {reference.image ? (
-                        <img src={reference.image} alt={reference.title.tr || ""} className="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal" />
+                        <img src={reference.image} alt={reference.title.tr || ""} className="max-h-full max-w-full object-contain mix-blend-multiply dark:mix-blend-normal dark:bg-white rounded-md p-0.5" />
                       ) : (
                         <Layers className="h-5 w-5 text-muted-foreground" />
                       )}

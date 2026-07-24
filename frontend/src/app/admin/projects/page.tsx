@@ -273,7 +273,7 @@ export default function ProjectsAdminPage() {
                   <td className="px-6 py-4">
                     <div className="h-12 w-12 bg-muted/50 rounded-xl flex items-center justify-center overflow-hidden border border-border/50">
                       {project.image ? (
-                        <img src={project.image} alt={project.title.tr || ""} className="h-full w-full object-cover mix-blend-multiply dark:mix-blend-normal" />
+                        <img src={project.image} alt={project.title.tr || ""} className="h-full w-full object-cover mix-blend-multiply dark:mix-blend-normal dark:bg-white rounded-md p-0.5" />
                       ) : (
                         <Layers className="h-5 w-5 text-muted-foreground" />
                       )}

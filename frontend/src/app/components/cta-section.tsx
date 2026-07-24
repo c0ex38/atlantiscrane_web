@@ -34,22 +34,18 @@ export default function CtaSection({ locale }: CtaSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-8"
-          >
-            {title.split("\n").map((line, i) => (
-              <span key={i} className="block">{line}</span>
-            ))}
-          </motion.h2>
+            className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-8 [&_span]:text-white"
+            dangerouslySetInnerHTML={{ __html: (title || "").replace(/\n/g, "<br/>") }}
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-slate-800 leading-relaxed max-w-3xl mx-auto mb-12 font-medium"
-          >
-            {description}
-          </motion.p>
+            className="text-slate-800 leading-relaxed max-w-3xl mx-auto mb-12 font-medium [&_span]:text-slate-900 [&_span]:font-bold"
+            dangerouslySetInnerHTML={{ __html: (description || "").replace(/\n/g, "<br/>") }}
+          />
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}

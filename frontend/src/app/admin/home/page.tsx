@@ -173,7 +173,7 @@ export default function HomeAdminPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık (Vurgu için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
@@ -184,7 +184,7 @@ export default function HomeAdminPage() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama (Vurgu için &lt;span&gt; kullanın)</label>
               <textarea
                 rows={3}
                 required
@@ -235,7 +235,7 @@ export default function HomeAdminPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Bölüm Başlığı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Bölüm Başlığı (Vurgu için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
@@ -257,7 +257,7 @@ export default function HomeAdminPage() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama Paragrafı</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama Paragrafı (Vurgu için &lt;span&gt; kullanın)</label>
               <textarea
                 rows={3}
                 required
@@ -308,7 +308,7 @@ export default function HomeAdminPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık (Satır atlamak için \n kullanın)</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Ana Başlık (Satır atlamak için \n, vurgu için &lt;span&gt; kullanın)</label>
               <input
                 type="text"
                 required
@@ -319,7 +319,7 @@ export default function HomeAdminPage() {
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama</label>
+              <label className="block text-xs font-bold text-muted-foreground mb-2">Açıklama (Vurgu için &lt;span&gt; kullanın)</label>
               <textarea
                 rows={3}
                 required

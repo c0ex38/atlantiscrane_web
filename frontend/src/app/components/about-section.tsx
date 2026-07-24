@@ -45,21 +45,19 @@ export default function AboutSection({ locale }: AboutSectionProps) {
             className="mx-auto mb-10 w-full max-w-none text-4xl font-black leading-[0.96] tracking-tight text-slate-900 md:text-5xl lg:text-[4.1rem]"
           >
             <h2 className="w-full text-center">
-              <span className="block">{title}</span>
-              <span className="block" dangerouslySetInnerHTML={{ __html: subtitle || "" }} />
+              <span className="block [&_span]:text-cta" dangerouslySetInnerHTML={{ __html: title || "" }} />
+              <span className="block [&_span]:text-cta" dangerouslySetInnerHTML={{ __html: subtitle || "" }} />
             </h2>
           </motion.div>
 
-          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mx-auto mb-14 max-w-6xl text-base leading-relaxed text-slate-600 md:text-lg"
-          >
-            {description}
-          </motion.p>
+            className="mx-auto mb-14 max-w-6xl text-base leading-relaxed text-slate-600 md:text-lg [&_span]:text-slate-900 [&_span]:font-bold"
+            dangerouslySetInnerHTML={{ __html: description || "" }}
+          />
 
           {/* Buttons */}
           <motion.div
