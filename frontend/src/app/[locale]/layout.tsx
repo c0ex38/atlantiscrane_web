@@ -17,6 +17,8 @@ import { getSettings } from "../lib/api";
 import { getSiteDictionary } from "../lib/api";
 import { SiteContentProvider } from "../components/site-content-provider";
 import { AnalyticsTracker } from "../components/AnalyticsTracker";
+import { deepMerge } from "../lib/api";
+import { translations } from "../lib/site-content";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -98,7 +100,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   const currentLocale = locale as Locale;
   const isArabic = currentLocale === "ar";
   const settings = await getSettings();
-  const content = await getSiteDictionary(currentLocale);
+  const fetchedContent = await getSiteDictionary(currentLocale);
+  const content = deepMerge(translations[currentLocale], fetchedContent);
   
   // Only apply arabic font variable if locale is 'ar'
   const fontVariables = cn(
