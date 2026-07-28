@@ -21,9 +21,24 @@ const languageOrder: Locale[] = ["tr", "en", "ar"];
 
 export default function Navbar({ locale }: NavbarProps) {
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const languageMenuRef = useRef<HTMLDivElement | null>(null);
   const pathname = usePathname();
   const t = useSiteContent(locale);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setIsLanguageOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,14 +68,14 @@ export default function Navbar({ locale }: NavbarProps) {
   ];
 
   return (
-    <header className="sticky top-4 z-50 px-4 sm:px-6 lg:px-8 flex justify-center">
+    <header className="sticky top-2 z-50 flex justify-center px-2 sm:top-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-5xl">
-        <div className="relative flex items-center justify-between rounded-full border border-white/40 bg-white/50 px-3 py-2.5 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(15,23,42,0.12)] hover:bg-white/60">
+        <div className="relative flex items-center justify-between rounded-2xl border border-white/40 bg-white/80 px-2 py-2 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(15,23,42,0.12)] hover:bg-white/90 sm:rounded-full sm:px-3 sm:py-2.5">
           <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/60 to-transparent" />
 
           <Link
             href={`/${locale}`}
-            className="group flex shrink-0 items-center pl-4 py-2"
+            className="group flex min-w-0 shrink items-center px-2 py-1.5 sm:shrink-0 sm:pl-4 sm:py-2"
             aria-label="Atlantis Crane"
           >
             <Image
@@ -70,12 +85,12 @@ export default function Navbar({ locale }: NavbarProps) {
               height={40}
               quality={100}
               unoptimized
-              className="h-8 w-auto transition-transform duration-300 group-hover:scale-[1.02]"
+              className="h-7 w-auto max-w-[120px] transition-transform duration-300 group-hover:scale-[1.02] sm:h-8 sm:max-w-none"
               priority
             />
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex px-4">
+          <nav className="hidden items-center gap-1 px-4 lg:flex">
             {navigation.map((item) => {
               const isHome = item.href === `/${locale}`;
               const hasHash = item.href.includes('#');
@@ -107,12 +122,25 @@ export default function Navbar({ locale }: NavbarProps) {
             })}
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3 pr-1">
+          <div className="flex shrink-0 items-center gap-1 sm:gap-3 pr-1">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen((value) => !value)}
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-700 transition-colors hover:bg-white lg:hidden"
+            >
+              {isMobileMenuOpen ? (
+                <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18" strokeWidth="2" strokeLinecap="round" /></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" strokeWidth="2" strokeLinecap="round" /></svg>
+              )}
+            </button>
             <div className="relative" ref={languageMenuRef}>
               <button
                 type="button"
                 onClick={() => setIsLanguageOpen((value) => !value)}
-                className="group flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold tracking-[0.15em] text-slate-700 transition duration-300 hover:bg-white/80 hover:text-[color:var(--accent-strong)]"
+                className="group flex items-center gap-1 rounded-full px-2 py-2 text-[11px] font-semibold tracking-[0.08em] text-slate-700 transition duration-300 hover:bg-white/80 hover:text-[color:var(--accent-strong)] sm:gap-1.5 sm:px-3 sm:text-xs sm:tracking-[0.15em]"
                 aria-expanded={isLanguageOpen}
                 aria-haspopup="menu"
               >
@@ -158,7 +186,7 @@ export default function Navbar({ locale }: NavbarProps) {
 
             <Link
               href={`/${locale}/contact`}
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-cta to-[#fdd14a] px-6 py-2.5 text-sm font-bold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)]"
+              className="group relative hidden items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-cta to-[#fdd14a] px-6 py-2.5 text-sm font-bold text-slate-900 shadow-[0_8px_20px_rgba(253,197,32,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_12px_25px_rgba(253,197,32,0.4)] sm:inline-flex"
             >
               <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               <div className="relative z-10 overflow-hidden h-[20px]">
@@ -171,6 +199,32 @@ export default function Navbar({ locale }: NavbarProps) {
               </div>
             </Link>
           </div>
+        </div>
+
+        <div className={`overflow-hidden transition-all duration-300 lg:hidden ${isMobileMenuOpen ? "mt-2 max-h-[520px] opacity-100" : "max-h-0 opacity-0"}`}>
+          <nav className="rounded-2xl border border-white/60 bg-white/95 p-2 shadow-xl backdrop-blur-xl">
+            {navigation.map((item) => {
+              const isActive = item.href === `/${locale}` ? pathname === item.href : pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition-colors ${
+                    isActive ? "bg-cta/20 text-slate-950" : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
+                  }`}
+                >
+                  {item.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              );
+            })}
+            <Link
+              href={`/${locale}/contact`}
+              className="mt-1 flex items-center justify-center rounded-xl bg-gradient-to-r from-cta to-[#fdd14a] px-4 py-3 text-sm font-black text-slate-900"
+            >
+              {t?.nav?.contact}
+            </Link>
+          </nav>
         </div>
       </div>
     </header>

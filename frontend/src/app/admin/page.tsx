@@ -131,13 +131,13 @@ export default function AdminDashboard() {
         
         {/* Recent Enquiries Card */}
         <div className="bg-card border border-border rounded-2xl shadow-sm flex flex-col hover:shadow-md transition-shadow duration-300">
-          <div className="px-6 py-5 border-b border-border flex items-center justify-between">
-            <h3 className="font-extrabold text-card-foreground flex items-center gap-2 text-sm uppercase tracking-wider">
+          <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-4 sm:px-6 sm:py-5">
+            <h3 className="flex min-w-0 items-center gap-2 text-xs font-extrabold uppercase tracking-wide text-card-foreground sm:text-sm sm:tracking-wider">
               <Mail className="h-4 w-4 text-primary" />
               <span>Son Gelen Teklif Talepleri</span>
             </h3>
-            <span className="text-xs font-bold text-primary hover:text-primary/80 hover:underline cursor-pointer transition-colors flex items-center gap-1">
-              Tümünü Gör <ArrowUpRight className="h-3 w-3" />
+            <span className="flex shrink-0 cursor-pointer items-center gap-1 text-xs font-bold text-primary transition-colors hover:text-primary/80 hover:underline">
+              <span className="hidden sm:inline">Tümünü Gör</span><ArrowUpRight className="h-3 w-3" />
             </span>
           </div>
 
@@ -188,8 +188,8 @@ export default function AdminDashboard() {
 
         {/* System Activity Logs Card */}
         <div className="bg-card border border-border rounded-2xl shadow-sm flex flex-col hover:shadow-md transition-shadow duration-300">
-          <div className="px-6 py-5 border-b border-border flex items-center justify-between">
-            <h3 className="font-extrabold text-card-foreground flex items-center gap-2 text-sm uppercase tracking-wider">
+          <div className="flex items-center justify-between border-b border-border px-4 py-4 sm:px-6 sm:py-5">
+            <h3 className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide text-card-foreground sm:text-sm sm:tracking-wider">
               <History className="h-4 w-4 text-primary" />
               <span>Son Eklenen Ürünler</span>
             </h3>

@@ -122,9 +122,9 @@ export default function ContactClient({ t, isRtl, locations }: ContactClientProp
         <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-amber-100/30 rounded-full blur-[100px]" />
       </div>
 
-      <div className="container-shell relative z-10 px-4 md:px-8 pt-12">
+      <div className="container-shell relative z-10 px-3 pt-8 sm:px-4 sm:pt-12 md:px-8">
         {/* Header Section */}
-        <div className="max-w-4xl mx-auto text-center mb-12">
+        <div className="mx-auto mb-8 max-w-4xl text-center sm:mb-12">
           <FadeUp delay={0.1}>
             <div className="inline-flex items-center gap-3 mb-6 bg-white/80 px-4 py-2 rounded-full border border-slate-200/80 shadow-sm backdrop-blur-md">
               <div className="flex gap-1.5">
@@ -135,10 +135,10 @@ export default function ContactClient({ t, isRtl, locations }: ContactClientProp
                 {t.contact.eyebrow}
               </span>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 mb-6 leading-[1.05]">
+            <h1 className="mb-4 text-3xl font-black leading-[1.05] tracking-tight text-slate-900 sm:text-4xl md:mb-6 md:text-6xl lg:text-7xl">
               {t.contact.title}
             </h1>
-            <p className="text-slate-600 text-lg md:text-xl leading-relaxed font-medium mx-auto max-w-2xl">
+            <p className="mx-auto max-w-2xl text-base font-medium leading-relaxed text-slate-600 sm:text-lg md:text-xl">
               {t.contact.description}
             </p>
           </FadeUp>
@@ -151,7 +151,7 @@ export default function ContactClient({ t, isRtl, locations }: ContactClientProp
           <div className={`grid grid-cols-1 lg:grid-cols-12 gap-6 ${isRtl ? "direction-rtl" : ""}`}>
             
             {/* LARGE MAP CARD */}
-            <ScaleIn delay={0.2} className="lg:col-span-8 relative h-[500px] md:h-[600px] rounded-[2.5rem] bg-slate-100 overflow-hidden shadow-2xl shadow-slate-200/50 border border-slate-200/80 group">
+            <ScaleIn delay={0.2} className="group relative h-[380px] overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100 shadow-2xl shadow-slate-200/50 sm:h-[500px] sm:rounded-[2.5rem] md:h-[600px] lg:col-span-8">
               {activeLoc?.mapUrl ? <AnimatePresence mode="wait">
                 <motion.iframe
                   key={activeTab}
@@ -218,10 +218,10 @@ export default function ContactClient({ t, isRtl, locations }: ContactClientProp
             </ScaleIn>
 
             {/* INFO & QUICK CONTACTS CARD */}
-            <ScaleIn delay={0.3} className="lg:col-span-4 rounded-[2.5rem] bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden flex flex-col justify-between text-white relative">
+            <ScaleIn delay={0.3} className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 text-white shadow-2xl sm:rounded-[2.5rem] lg:col-span-4">
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none" />
               
-              <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
+              <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 md:p-10">
                 {visibleLocations.map((location) => (
                   <div className="mb-8 last:mb-4" key={location.id}>
                     <h2 className="text-xl font-black mb-5 pb-3 border-b border-white/10 text-white">
@@ -255,10 +255,10 @@ export default function ContactClient({ t, isRtl, locations }: ContactClientProp
           </div>
 
           {/* BOTTOM ROW: FORM */}
-          <ScaleIn delay={0.4} className="rounded-[2.5rem] bg-white border border-slate-200 shadow-2xl shadow-slate-200/50 overflow-hidden relative">
+          <ScaleIn delay={0.4} className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-200/50 sm:rounded-[2.5rem]">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-cta to-blue-600" />
             
-            <div className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 p-8 md:p-12 lg:p-16 ${isRtl ? "direction-rtl" : ""}`}>
+            <div className={`grid grid-cols-1 gap-8 p-5 sm:p-8 md:grid-cols-12 md:gap-12 md:p-12 lg:p-16 ${isRtl ? "direction-rtl" : ""}`}>
               
               {/* Form Intro */}
               <div className={`md:col-span-4 flex flex-col justify-center ${isRtl ? "text-right" : "text-left"}`}>

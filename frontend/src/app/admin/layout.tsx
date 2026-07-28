@@ -376,7 +376,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <html lang="tr" className="h-full">
-      <body className="antialiased min-h-full bg-background text-foreground flex admin-theme">
+      <body className="antialiased min-h-full min-w-0 overflow-x-hidden bg-background text-foreground flex admin-theme">
         {/* Desktop Sidebar */}
         <aside className="hidden lg:flex flex-col w-[220px] bg-sidebar-bg text-sidebar-text h-screen fixed left-0 top-0 z-20 border-r border-sidebar-border-custom">
           <SidebarContent
@@ -396,7 +396,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         )}
 
         {/* Mobile Sidebar */}
-        <aside className={`lg:hidden flex flex-col w-[240px] bg-sidebar-bg text-sidebar-text h-screen fixed left-0 top-0 z-40 transition-transform duration-300 ease-out border-r border-sidebar-border-custom ${
+        <aside className={`lg:hidden flex flex-col w-[min(280px,86vw)] bg-sidebar-bg text-sidebar-text h-[100dvh] fixed left-0 top-0 z-40 transition-transform duration-300 ease-out border-r border-sidebar-border-custom ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}>
           <div className="absolute top-4 right-3">
@@ -417,10 +417,10 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         </aside>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col min-h-screen lg:pl-[220px]">
+        <div className="flex min-h-screen min-w-0 flex-1 flex-col lg:pl-[220px]">
           {/* Topbar */}
-          <header className="h-[60px] bg-card/70 backdrop-blur-xl border-b border-border/60 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-10">
-            <div className="flex items-center gap-3">
+          <header className="h-[56px] sm:h-[60px] bg-card/90 backdrop-blur-xl border-b border-border/60 flex items-center justify-between px-3 sm:px-6 sticky top-0 z-10">
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
               <button
                 onClick={() => setIsSidebarOpen(true)}
                 className="lg:hidden p-1.5 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted/50 transition-colors"
@@ -430,12 +430,12 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
               {currentTitle && (
                 <div className="flex items-center gap-2">
                   <div className="hidden sm:block w-0.5 h-4 bg-primary/60 rounded-full" />
-                  <span className="text-sm font-semibold text-foreground">{currentTitle}</span>
+                  <span className="truncate text-xs font-semibold text-foreground sm:text-sm">{currentTitle}</span>
                 </div>
               )}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               {/* Theme Toggle */}
               <div className="flex items-center bg-muted/50 p-0.5 rounded-lg border border-border/50">
                 {(["light", "dark", "system"] as const).map((t) => {
@@ -470,8 +470,8 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           </header>
 
           {/* Page Content */}
-          <main className="flex-1 p-4 sm:p-6 lg:p-8">
-            <div className="max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-3 duration-400 ease-out fill-mode-both">
+          <main className="min-w-0 flex-1 p-3 sm:p-6 lg:p-8">
+            <div className="mx-auto min-w-0 max-w-5xl animate-in fade-in slide-in-from-bottom-3 duration-400 ease-out fill-mode-both">
               {isRouteLoading ? (
                 <AdminLoadingState label="Sayfa yükleniyor..." />
               ) : (

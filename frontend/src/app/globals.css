@@ -132,6 +132,8 @@ html {
 }
 
 body {
+  min-width: 0;
+  overflow-x: clip;
   font-family: var(--font-sans);
   background:
     radial-gradient(circle at top, rgba(27, 27, 54, 0.05), transparent 28%),
@@ -185,6 +187,20 @@ body.admin-theme * {
 
 .container-shell {
   @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+@media (max-width: 639px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
 }
 
 .glass-panel {
