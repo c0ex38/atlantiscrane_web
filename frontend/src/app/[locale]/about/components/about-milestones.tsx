@@ -21,6 +21,9 @@ type AboutMilestonesProps = {
 
 export default function AboutMilestones({ items, eyebrow, content }: AboutMilestonesProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const visibleItems = items.filter((item) => item.year || item.title || item.description);
+
+  if (visibleItems.length === 0) return null;
 
   return (
     <section className="bg-slate-50 py-24 sm:py-32 border-t border-slate-100">
@@ -54,11 +57,11 @@ export default function AboutMilestones({ items, eyebrow, content }: AboutMilest
 
           {/* Right: accordion milestones */}
           <div className="space-y-0 divide-y divide-slate-200">
-            {items.map((item, index) => {
+            {visibleItems.map((item, index) => {
               const isOpen = openIndex === index;
               return (
                 <motion.div
-                  key={item.year}
+                  key={`${item.year}-${index}`}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-40px" }}

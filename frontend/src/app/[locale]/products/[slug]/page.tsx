@@ -8,6 +8,7 @@ import DetailLoadChart from "./components/detail-load-chart";
 import DetailSpecs from "./components/detail-specs";
 import DetailEquipments from "./components/detail-equipments";
 import { getProductBySlug, getSiteDictionary } from "../../../lib/api";
+import { buildPageSeoMetadata } from "../../../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -52,32 +53,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = dbProduct.title[currentLocale] || dbProduct.title.tr || dbProduct.title.en;
   const description = dbProduct.shortIntro?.[currentLocale] || dbProduct.shortIntro?.tr || "";
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.atlantiscrane.com";
-  
-  return {
-    title: `${title} - Atlantis Crane`,
-    description: description,
-    openGraph: {
-      title: `${title} - Atlantis Crane`,
-      description: description,
-      url: `${siteUrl}/${currentLocale}/products/${slug}`,
-      type: "website",
+  return buildPageSeoMetadata({
+    locale: currentLocale,
+    path: `/products/${slug}`,
+    overrides: {
+      title,
+      description,
+      image: dbProduct.image || undefined,
+      index: true,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: `${title} - Atlantis Crane`,
-      description: description,
-    },
-    alternates: {
-      canonical: `${siteUrl}/${currentLocale}/products/${slug}`,
-      languages: {
-        'tr': `${siteUrl}/tr/products/${slug}`,
-        'en': `${siteUrl}/en/products/${slug}`,
-        'ar': `${siteUrl}/ar/products/${slug}`,
-        'x-default': `${siteUrl}/tr/products/${slug}`,
-      },
-    }
-  };
+  });
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {

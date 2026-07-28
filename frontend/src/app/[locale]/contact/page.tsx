@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { isLocale, translations, localeDirections, type Locale } from "../../lib/site-content";
 import ContactClient from "./components/contact-client";
 import { getSettings, getSiteDictionary } from "../../lib/api";
+import { buildPageSeoMetadata } from "../../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -11,17 +12,12 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps) {
   const { locale } = await params;
-
-  if (!isLocale(locale)) {
-    return {};
-  }
-
-  const t = await getSiteDictionary(locale);
-
-  return {
-    title: `${t?.nav?.contact ?? "Contact"} | Atlantis Crane`,
-    description: t?.contact?.description,
-  };
+  if (!isLocale(locale)) return {};
+  return buildPageSeoMetadata({
+    locale: locale as Locale,
+    page: "contact",
+    path: "/contact",
+  });
 }
 
 export default async function ContactPage({ params }: PageProps) {

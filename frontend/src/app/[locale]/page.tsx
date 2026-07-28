@@ -8,6 +8,7 @@ import ExportNetwork from "../components/export-network";
 import ReferencesSection from "../components/references-section";
 import { isLocale, type Locale } from "../lib/site-content";
 import { getProducts, getProjects } from "../lib/api";
+import { buildPageSeoMetadata } from "../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,16 @@ type PageProps = {
 
 export async function generateStaticParams() {
   return [{ locale: "tr" }, { locale: "en" }, { locale: "ar" }];
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return buildPageSeoMetadata({
+    locale: locale as Locale,
+    page: "home",
+    path: "",
+  });
 }
 
 export default async function LocaleHome({ params }: PageProps) {

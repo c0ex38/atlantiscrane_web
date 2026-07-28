@@ -5,6 +5,7 @@ import ProductSlide from "./components/product-slide";
 import CtaSection from "../../components/cta-section";
 import ProductsSliderWrapper from "./components/products-slider-wrapper";
 import { getProducts, getSiteDictionary } from "../../lib/api";
+import { buildPageSeoMetadata } from "../../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -14,6 +15,16 @@ type PageProps = {
 
 export async function generateStaticParams() {
   return [{ locale: "tr" }, { locale: "en" }, { locale: "ar" }];
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return buildPageSeoMetadata({
+    locale: locale as Locale,
+    page: "products",
+    path: "/products",
+  });
 }
 
 // Product images mapped to each product index

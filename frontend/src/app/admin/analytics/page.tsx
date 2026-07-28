@@ -16,6 +16,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
+import { AdminLoadingState, AdminPageHeader, AdminPageShell } from "../components/AdminUI";
 
 export default function AnalyticsAdminPage() {
   const { apiFetch } = useAuth();
@@ -59,21 +60,15 @@ export default function AnalyticsAdminPage() {
   ];
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-      </div>
-    );
+    return <AdminLoadingState label="Ziyaretçi istatistikleri yükleniyor..." />;
   }
 
   return (
-    <div className="space-y-6 max-w-5xl animate-in fade-in duration-300">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
-        <div>
-          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Ziyaretçi İstatistikleri</h2>
-          <p className="text-xs text-muted-foreground mt-1">Sitenizi ziyaret eden kullanıcıların cihaz ve IP bilgilerini buradan takip edebilirsiniz.</p>
-        </div>
-      </div>
+    <AdminPageShell>
+      <AdminPageHeader
+        title="Ziyaretçi İstatistikleri"
+        description="Sitenizi ziyaret eden kullanıcıların cihaz ve IP bilgilerini buradan takip edebilirsiniz."
+      />
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -82,7 +77,7 @@ export default function AnalyticsAdminPage() {
           return (
             <div 
               key={i}
-              className="bg-card border border-border rounded-xl p-6 flex justify-between items-start"
+            className="bg-card border border-border rounded-2xl p-6 flex justify-between items-start shadow-sm"
             >
               <div className="space-y-2">
                 <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">
@@ -106,7 +101,7 @@ export default function AnalyticsAdminPage() {
       </div>
 
       {/* Chart Section */}
-      <div className="bg-card border border-border rounded-xl overflow-hidden flex flex-col p-6">
+      <div className="bg-card border border-border rounded-2xl overflow-hidden flex flex-col p-6 shadow-sm">
         <h3 className="font-bold text-card-foreground flex items-center gap-2 text-sm uppercase tracking-wide mb-6">
           <Globe className="h-4 w-4 text-primary" />
           <span>Son 30 Günün Ziyaretçi Trendi</span>
@@ -208,6 +203,6 @@ export default function AnalyticsAdminPage() {
           </table>
         </div>
       </div>
-    </div>
+    </AdminPageShell>
   );
 }

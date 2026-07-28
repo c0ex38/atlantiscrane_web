@@ -1,14 +1,20 @@
 import { MetadataRoute } from 'next';
+import { getSettings } from './lib/api';
+import { normalizeSiteUrl } from './lib/seo';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.atlantiscrane.com';
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const settings = await getSettings();
+  const globalSeo = settings?.seo_global || {};
+  const siteUrl = normalizeSiteUrl(globalSeo.siteUrl);
+  const allowIndexing = globalSeo.robotsIndex !== false;
 
-export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: '*',
-      allow: '/',
-      disallow: ['/admin', '/api/'],
+      allow: allowIndexing ? '/' : undefined,
+      disallow: allowIndexing ? ['/admin', '/api/'] : '/',
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: globalSeo.sitemapEnabled === false ? undefined : `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

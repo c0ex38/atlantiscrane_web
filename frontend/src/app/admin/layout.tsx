@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { AdminLoadingState } from "./components/AdminUI";
 import { 
   LayoutDashboard, 
   Settings, 
@@ -82,27 +83,38 @@ const pageTitle: Record<string, string> = {
   "/admin/analytics": "Ziyaretçi İstatistikleri",
 };
 
+type AdminBranding = {
+  siteTitle: string;
+  companyLogo: string;
+  favicon: string;
+};
+
 function SidebarContent({ 
   user, 
   pathname, 
   onLinkClick, 
-  onLogout 
+  onLogout,
+  branding,
 }: { 
   user: any; 
   pathname: string; 
   onLinkClick?: () => void; 
   onLogout: () => void;
+  branding: AdminBranding;
 }) {
   return (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-5 h-[68px] border-b border-white/8 shrink-0">
-        <div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center text-white font-black text-xs shadow-lg shadow-primary/40 shrink-0">
-          AC
-        </div>
-        <div className="min-w-0">
-          <p className="text-white font-bold text-[13px] leading-tight truncate">Atlantis Crane</p>
-          <p className="text-white/40 text-[10px] font-medium">Yönetim Paneli</p>
+      <div className="flex h-[68px] shrink-0 items-center border-b border-sidebar-border-custom px-5">
+        <div className="flex h-11 w-full max-w-[170px] items-center justify-start overflow-hidden rounded-lg bg-white px-2">
+          <img
+            src={branding.companyLogo || "/atlantis-logo.svg"}
+            alt={`${branding.siteTitle} logosu`}
+            className="max-h-10 w-auto max-w-full object-contain object-left"
+            onError={(event) => {
+              event.currentTarget.src = "/atlantis-logo.svg";
+            }}
+          />
         </div>
       </div>
 
@@ -110,7 +122,7 @@ function SidebarContent({
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5 custom-scrollbar">
         {menuGroups.map((group) => (
           <div key={group.label}>
-            <p className="text-[9px] font-black text-white/25 uppercase tracking-[0.15em] px-3 mb-1.5">{group.label}</p>
+            <p className="px-3 mb-1.5 text-[9px] font-black uppercase tracking-[0.15em] text-sidebar-text/35">{group.label}</p>
             <div className="space-y-0.5">
               {group.items.map((item) => {
                 const isActive = pathname === item.path;
@@ -123,13 +135,13 @@ function SidebarContent({
                     className={`flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 group relative ${
                       isActive
                         ? "bg-primary/15 text-primary border border-primary/20"
-                        : "text-white/50 hover:text-white/90 hover:bg-white/5"
+                        : "text-sidebar-text/60 hover:bg-sidebar-hover-bg hover:text-sidebar-text"
                     }`}
                   >
                     {isActive && (
                       <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-primary rounded-r-full" />
                     )}
-                    <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-primary" : "text-white/40 group-hover:text-white/70"}`} />
+                    <Icon className={`h-4 w-4 shrink-0 ${isActive ? "text-primary" : "text-sidebar-text/45 group-hover:text-sidebar-text/75"}`} />
                     <span className="truncate">{item.name}</span>
                     {isActive && <ChevronRight className="h-3 w-3 ml-auto text-primary/60 shrink-0" />}
                   </Link>
@@ -141,14 +153,14 @@ function SidebarContent({
       </nav>
 
       {/* Footer */}
-      <div className="shrink-0 p-3 border-t border-white/8">
-        <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg bg-white/5 mb-2">
+      <div className="shrink-0 border-t border-sidebar-border-custom p-3">
+        <div className="mb-2 flex items-center gap-2.5 rounded-lg bg-sidebar-hover-bg px-3 py-2.5">
           <div className="h-7 w-7 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-primary font-bold text-xs shrink-0">
             {user?.email?.charAt(0).toUpperCase() || "A"}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-white text-[11px] font-semibold truncate">{user?.email || "Admin"}</p>
-            <p className="text-white/35 text-[9px]">Yönetici</p>
+            <p className="truncate text-[11px] font-semibold text-sidebar-text">{user?.email || "Admin"}</p>
+            <p className="text-[9px] text-sidebar-text/40">Yönetici</p>
           </div>
         </div>
         <button
@@ -164,17 +176,137 @@ function SidebarContent({
 }
 
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading, logout, user } = useAuth();
+  const { isAuthenticated, isLoading, logout, user, apiFetch } = useAuth();
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
+  const routeLoadingStartedAt = React.useRef(0);
+  const routeLoadingFromPath = React.useRef<string | null>(null);
+  const routeLoadingFallback = React.useRef<number | null>(null);
 
   const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
+  const [branding, setBranding] = useState<AdminBranding>({
+    siteTitle: "Atlantis Crane",
+    companyLogo: "",
+    favicon: "",
+  });
 
   useEffect(() => {
     const saved = localStorage.getItem("admin-theme") as "light" | "dark" | "system";
     if (saved) setTheme(saved);
   }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    void apiFetch("/settings")
+      .then((response) => {
+        const data = (response as { data?: Record<string, any> })?.data || {};
+        setBranding({
+          siteTitle: data.site_title?.title || "Atlantis Crane",
+          companyLogo: data.company_logo?.logo || "",
+          favicon: data.site_favicon?.icon || "",
+        });
+      })
+      .catch(() => {
+        // Keep the safe default branding when settings are temporarily unavailable.
+      });
+  }, [apiFetch, isLoading]);
+
+  useEffect(() => {
+    const handleBrandingUpdate = (event: Event) => {
+      const detail = (event as CustomEvent<AdminBranding>).detail;
+      if (detail) setBranding(detail);
+    };
+
+    window.addEventListener("admin-branding-updated", handleBrandingUpdate);
+    return () => window.removeEventListener("admin-branding-updated", handleBrandingUpdate);
+  }, []);
+
+  useEffect(() => {
+    if (!branding.favicon) return;
+
+    let faviconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+    if (!faviconLink) {
+      faviconLink = document.createElement("link");
+      faviconLink.rel = "icon";
+      document.head.appendChild(faviconLink);
+    }
+    faviconLink.href = branding.favicon;
+  }, [branding.favicon]);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "admin-company-logo",
+      branding.companyLogo || "/atlantis-logo.svg",
+    );
+  }, [branding.companyLogo]);
+
+  useEffect(() => {
+    const handleAdminNavigation = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      const target = event.target as Element | null;
+      const anchor = target?.closest<HTMLAnchorElement>("a[href]");
+      if (!anchor || anchor.target === "_blank" || anchor.hasAttribute("download")) return;
+
+      const destination = new URL(anchor.href, window.location.href);
+      if (
+        destination.origin !== window.location.origin ||
+        !destination.pathname.startsWith("/admin") ||
+        destination.pathname === pathname
+      ) {
+        return;
+      }
+
+      routeLoadingStartedAt.current = performance.now();
+      routeLoadingFromPath.current = pathname;
+      setIsRouteLoading(true);
+
+      if (routeLoadingFallback.current) window.clearTimeout(routeLoadingFallback.current);
+      routeLoadingFallback.current = window.setTimeout(() => {
+        setIsRouteLoading(false);
+        routeLoadingFromPath.current = null;
+      }, 8000);
+    };
+
+    document.addEventListener("click", handleAdminNavigation, true);
+    return () => document.removeEventListener("click", handleAdminNavigation, true);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (
+      !isRouteLoading ||
+      !routeLoadingFromPath.current ||
+      routeLoadingFromPath.current === pathname
+    ) {
+      return;
+    }
+
+    const minimumVisibleMs = 650;
+    const elapsed = performance.now() - routeLoadingStartedAt.current;
+    const remaining = Math.max(0, minimumVisibleMs - elapsed);
+    const timer = window.setTimeout(() => {
+      setIsRouteLoading(false);
+      routeLoadingFromPath.current = null;
+      if (routeLoadingFallback.current) {
+        window.clearTimeout(routeLoadingFallback.current);
+        routeLoadingFallback.current = null;
+      }
+    }, remaining);
+
+    return () => window.clearTimeout(timer);
+  }, [isRouteLoading, pathname]);
 
   useEffect(() => {
     if (theme === "system") {
@@ -198,7 +330,16 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   }, [resolvedTheme]);
 
   const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
-    setTheme(newTheme);
+    const applyTheme = () => setTheme(newTheme);
+    const transitionDocument = document as Document & {
+      startViewTransition?: (callback: () => void) => unknown;
+    };
+
+    if (transitionDocument.startViewTransition) {
+      transitionDocument.startViewTransition(applyTheme);
+    } else {
+      applyTheme();
+    }
     localStorage.setItem("admin-theme", newTheme);
   };
 
@@ -242,6 +383,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             user={user}
             pathname={pathname}
             onLogout={() => void logout()}
+            branding={branding}
           />
         </aside>
 
@@ -260,7 +402,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           <div className="absolute top-4 right-3">
             <button
               onClick={() => setIsSidebarOpen(false)}
-              className="p-1.5 rounded-lg text-white/40 hover:text-white hover:bg-white/10 transition-colors"
+              className="rounded-lg p-1.5 text-sidebar-text/45 transition-colors hover:bg-sidebar-hover-bg hover:text-sidebar-text"
             >
               <X className="h-4 w-4" />
             </button>
@@ -270,6 +412,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             pathname={pathname}
             onLinkClick={() => setIsSidebarOpen(false)}
             onLogout={() => { setIsSidebarOpen(false); void logout(); }}
+            branding={branding}
           />
         </aside>
 
@@ -329,7 +472,11 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
           {/* Page Content */}
           <main className="flex-1 p-4 sm:p-6 lg:p-8">
             <div className="max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-3 duration-400 ease-out fill-mode-both">
-              {children}
+              {isRouteLoading ? (
+                <AdminLoadingState label="Sayfa yükleniyor..." />
+              ) : (
+                children
+              )}
             </div>
           </main>
         </div>

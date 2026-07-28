@@ -3,14 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { 
-  Mail, 
   Trash2, 
-  Check, 
-  AlertCircle,
+  Check,
   Clock,
-  LayoutGrid,
-  List
 } from "lucide-react";
+import { AdminEmptyState, AdminLoadingState, AdminNotice, AdminPageHeader, AdminPageShell, AdminViewToggle } from "../components/AdminUI";
 
 interface Enquiry {
   id: string;
@@ -72,59 +69,22 @@ export default function EnquiriesAdminPage() {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5">
-        <div>
-          <h2 className="text-2xl font-black text-foreground tracking-tight flex items-center gap-2">
-            <Mail className="h-6 w-6 text-primary" />
-            Gelen Talepler
-          </h2>
-          <p className="text-sm text-muted-foreground mt-1">İletişim formundan gelen mesajları ve teklif taleplerini yönetin.</p>
-        </div>
-        <div className="flex items-center gap-3">
-          {/* View Toggle */}
-          <div className="bg-muted p-1 rounded-xl flex items-center shadow-inner border border-border/50">
-            <button
-              onClick={() => setViewMode("grid")}
-              className={`p-1.5 rounded-lg transition-all ${viewMode === "grid" ? "bg-card shadow-sm text-primary" : "text-muted-foreground hover:text-foreground"}`}
-              title="Kart Görünümü"
-            >
-              <LayoutGrid className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setViewMode("table")}
-              className={`p-1.5 rounded-lg transition-all ${viewMode === "table" ? "bg-card shadow-sm text-primary" : "text-muted-foreground hover:text-foreground"}`}
-              title="Tablo Görünümü"
-            >
-              <List className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      </div>
+    <AdminPageShell>
+      <AdminPageHeader
+        title="Gelen Talepler"
+        description="İletişim formundan gelen mesajları ve teklif taleplerini yönetin."
+        actions={<AdminViewToggle value={viewMode} onChange={setViewMode} />}
+      />
 
       {/* Notifications */}
-      {error && (
-        <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 text-destructive rounded-2xl text-sm font-medium animate-in slide-in-from-top-2">
-          <AlertCircle className="h-5 w-5 shrink-0" />
-          <span>{error}</span>
-        </div>
-      )}
-      {success && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl text-sm font-medium animate-in slide-in-from-top-2">
-          <Check className="h-5 w-5 shrink-0" />
-          <span>{success}</span>
-        </div>
-      )}
+      {error && <AdminNotice type="error">{error}</AdminNotice>}
+      {success && <AdminNotice type="success">{success}</AdminNotice>}
 
       {/* Display */}
       {isLoading ? (
-        <div className="flex items-center justify-center py-24">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-        </div>
+        <AdminLoadingState label="Talepler yükleniyor..." />
       ) : enquiries.length === 0 ? (
-        <div className="soft-card p-16 text-center">
-          <p className="text-[15px] text-muted-foreground font-medium">Henüz gelen bir talep bulunmuyor.</p>
-        </div>
+        <AdminEmptyState title="Henüz gelen bir talep bulunmuyor." description="İletişim formundan gönderilen mesajlar burada listelenecek." />
       ) : viewMode === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in-95 duration-300">
           {enquiries.map((enquiry) => (
@@ -250,6 +210,6 @@ export default function EnquiriesAdminPage() {
           </table>
         </div>
       )}
-    </div>
+    </AdminPageShell>
   );
 }

@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Building2, Tag, MapPin } from "lucide-react";
 import { isLocale, type Locale } from "../../../lib/site-content";
 import CtaSection from "../../../components/cta-section";
 import { getSiteDictionary } from "../../../lib/api";
+import { buildPageSeoMetadata } from "../../../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +25,30 @@ async function getProjectById(id: string) {
   } catch {
     return null;
   }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale, id } = await params;
+  if (!isLocale(locale)) return {};
+
+  const project = await getProjectById(id);
+  if (!project || !project.isActive) return {};
+
+  const currentLocale = locale as Locale;
+  return buildPageSeoMetadata({
+    locale: currentLocale,
+    path: `/projects/${id}`,
+    overrides: {
+      title: project.title?.[currentLocale] || project.title?.tr || project.title?.en || "",
+      description:
+        project.description?.[currentLocale] ||
+        project.description?.tr ||
+        project.description?.en ||
+        "",
+      image: project.image || undefined,
+      index: true,
+    },
+  });
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {

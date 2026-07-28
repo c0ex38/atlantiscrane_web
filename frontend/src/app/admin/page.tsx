@@ -17,6 +17,7 @@ import {
   ArrowUpRight
 } from "lucide-react";
 import Link from "next/link";
+import { AdminPageHeader, AdminPageShell, adminPrimaryButtonClass } from "./components/AdminUI";
 
 export default function AdminDashboard() {
   const { user, apiFetch } = useAuth();
@@ -79,29 +80,20 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-8">
-      
-      {/* Top Banner (Welcome message) */}
-      <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 bg-card border border-border p-6 rounded-2xl shadow-sm relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        <div className="relative z-10">
-          <h2 className="text-xl sm:text-2xl font-extrabold text-card-foreground flex items-center gap-2 tracking-tight">
-            Hoş geldin, <span className="text-primary">{user?.email || "Yönetici"}</span> 👋
-          </h2>
-          <p className="text-[13px] sm:text-sm text-muted-foreground mt-1.5 font-medium max-w-xl leading-relaxed">
-            Atlantis Crane web sitesinin içerik ve teklif yönetim paneline buradan erişebilirsiniz. Sol menüyü kullanarak işlemleri gerçekleştirebilirsiniz.
-          </p>
-        </div>
-        <div className="flex gap-3 relative z-10">
+    <AdminPageShell className="space-y-6 sm:space-y-8">
+      <AdminPageHeader
+        title={`Hoş geldin, ${user?.email || "Yönetici"} 👋`}
+        description="Atlantis Crane web sitesinin içerik ve teklif yönetim paneline buradan erişebilirsiniz. Sol menüyü kullanarak işlemleri gerçekleştirebilirsiniz."
+        actions={
           <Link
             href="/admin/products"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-[13px] font-bold shadow-md shadow-primary/20 active:scale-95 transition-all duration-200 cursor-pointer"
+            className={adminPrimaryButtonClass}
           >
             <Plus className="h-[18px] w-[18px]" />
             <span>Yeni Ürün Ekle</span>
           </Link>
-        </div>
-      </div>
+        }
+      />
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
@@ -230,7 +222,6 @@ export default function AdminDashboard() {
         </div>
 
       </div>
-    </div>
+    </AdminPageShell>
   );
 }
-

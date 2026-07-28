@@ -84,10 +84,10 @@
   --chart-5: #168A4A;
   --background: #F2F0EF;
   --foreground: #111010;
-  --sidebar-bg: #111010;
-  --sidebar-text: #E9E6E4;
-  --sidebar-border: rgba(222, 218, 216, 0.1);
-  --sidebar-hover-bg: rgba(233, 230, 228, 0.05);
+  --sidebar-bg: #FFFFFF;
+  --sidebar-text: #24201F;
+  --sidebar-border: #DEDAD8;
+  --sidebar-hover-bg: rgba(255, 39, 0, 0.06);
 }
 
 .admin-theme[data-theme='dark'] {
@@ -122,7 +122,7 @@
   --background: #0E0D0D;
   --foreground: #F7F5F4;
   --sidebar-bg: #111010;
-  --sidebar-text: #B8B3B0;
+  --sidebar-text: #E9E6E4;
   --sidebar-border: #302D2C;
   --sidebar-hover-bg: rgba(255, 255, 255, 0.05);
 }
@@ -147,6 +147,31 @@ body.admin-theme {
     radial-gradient(circle at 20% 20%, rgba(27, 27, 54, 0.03), transparent 20%),
     radial-gradient(circle at bottom right, rgba(255, 39, 0, 0.12), transparent 24%),
     linear-gradient(180deg, var(--bg), var(--bg-alt));
+}
+
+body.admin-theme,
+body.admin-theme * {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 280ms;
+  transition-timing-function: ease;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+  animation-timing-function: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.admin-theme,
+  body.admin-theme * {
+    transition-duration: 0ms !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0ms;
+  }
 }
 
 [lang="ar"] {

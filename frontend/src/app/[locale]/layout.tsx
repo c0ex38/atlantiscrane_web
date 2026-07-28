@@ -21,6 +21,7 @@ import { SiteContentProvider } from "../components/site-content-provider";
 import { AnalyticsTracker } from "../components/AnalyticsTracker";
 import { deepMerge } from "../lib/api";
 import { translations } from "../lib/site-content";
+import { buildBaseSeoMetadata } from "../lib/seo";
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -52,44 +53,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  
-  const t = await getSiteDictionary(locale as Locale);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.atlantiscrane.com";
-  const title = t.seo?.title || "Atlantis Crane";
-  const description = t.seo?.description || "";
-  const keywords = t.seo?.keywords || "";
-
-  return {
-    metadataBase: new URL(siteUrl),
-    title: {
-      template: `%s | ${title}`,
-      default: title,
-    },
-    description: description,
-    keywords: keywords,
-    openGraph: {
-      title: title,
-      description: description,
-      url: `${siteUrl}/${locale}`,
-      siteName: title,
-      locale: locale,
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: title,
-      description: description,
-    },
-    alternates: {
-      canonical: `${siteUrl}/${locale}`,
-      languages: {
-        'tr': `${siteUrl}/tr`,
-        'en': `${siteUrl}/en`,
-        'ar': `${siteUrl}/ar`,
-        'x-default': `${siteUrl}/tr`,
-      },
-    }
-  };
+  return buildBaseSeoMetadata(locale as Locale);
 }
 
 export default async function LocaleLayout({ children, params }: Props) {

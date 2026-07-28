@@ -8,6 +8,7 @@ import AboutMilestones from "./components/about-milestones";
 import AboutMission from "./components/about-mission";
 import CtaSection from "../../components/cta-section";
 import { getSettings, getSiteDictionary } from "../../lib/api";
+import { buildPageSeoMetadata } from "../../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,16 @@ type PageProps = {
 
 export async function generateStaticParams() {
   return [{ locale: "tr" }, { locale: "en" }, { locale: "ar" }];
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return buildPageSeoMetadata({
+    locale: locale as Locale,
+    page: "about",
+    path: "/about",
+  });
 }
 
 export default async function AboutPage({ params }: PageProps) {

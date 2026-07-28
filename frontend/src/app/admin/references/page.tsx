@@ -6,15 +6,11 @@ import {
   Plus, 
   Edit2, 
   Trash2, 
-  Save, 
-  X, 
-  Check, 
-  AlertCircle,
-  LayoutGrid,
-  List,
+  Check,
   Layers
 } from "lucide-react";
 import { FileUpload } from "../components/FileUpload";
+import { AdminEditorModal, AdminEmptyState, AdminLanguageTabs, AdminLoadingState, AdminNotice, AdminPageHeader, AdminPageShell, AdminViewToggle, adminPrimaryButtonClass } from "../components/AdminUI";
 
 interface Reference {
   id: string;
@@ -138,63 +134,32 @@ export default function ReferencesAdminPage() {
   };
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5">
-        <div>
-          <h2 className="text-2xl font-black text-foreground tracking-tight">Referans Yönetimi</h2>
-          <p className="text-sm text-muted-foreground mt-1">Gemi inşa ve global vinç teslimat referanslarını yönetin.</p>
-        </div>
-        <div className="flex items-center gap-3">
-          {/* View Toggle */}
-          <div className="bg-muted p-1 rounded-xl flex items-center shadow-inner border border-border/50">
-            <button
-              onClick={() => setViewMode("grid")}
-              className={`p-1.5 rounded-lg transition-all ${viewMode === "grid" ? "bg-card shadow-sm text-primary" : "text-muted-foreground hover:text-foreground"}`}
-              title="Kart Görünümü"
-            >
-              <LayoutGrid className="h-4 w-4" />
-            </button>
-            <button
-              onClick={() => setViewMode("table")}
-              className={`p-1.5 rounded-lg transition-all ${viewMode === "table" ? "bg-card shadow-sm text-primary" : "text-muted-foreground hover:text-foreground"}`}
-              title="Tablo Görünümü"
-            >
-              <List className="h-4 w-4" />
-            </button>
-          </div>
+    <AdminPageShell>
+      <AdminPageHeader
+        title="Referans Yönetimi"
+        description="Gemi inşa ve global vinç teslimat referanslarını yönetin."
+        actions={<>
+          <AdminViewToggle value={viewMode} onChange={setViewMode} />
           <button
+            type="button"
             onClick={handleOpenAddModal}
-            className="flex items-center gap-2 px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold rounded-xl shadow-md shadow-primary/20 transition-all active:scale-95 cursor-pointer"
+            className={adminPrimaryButtonClass}
           >
             <Plus className="h-[18px] w-[18px]" />
             <span>Yeni Referans Ekle</span>
           </button>
-        </div>
-      </div>
+        </>}
+      />
 
       {/* Notifications */}
-      {error && (
-        <div className="flex items-center gap-3 p-4 bg-destructive/10 border border-destructive/20 text-destructive rounded-2xl text-sm font-medium animate-in slide-in-from-top-2">
-          <AlertCircle className="h-5 w-5 shrink-0" />
-          <span>{error}</span>
-        </div>
-      )}
-      {success && (
-        <div className="flex items-center gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl text-sm font-medium animate-in slide-in-from-top-2">
-          <Check className="h-5 w-5 shrink-0" />
-          <span>{success}</span>
-        </div>
-      )}
+      {error && <AdminNotice type="error">{error}</AdminNotice>}
+      {success && <AdminNotice type="success">{success}</AdminNotice>}
 
       {/* Listing Grid */}
       {isLoading ? (
-        <div className="flex items-center justify-center py-24">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-        </div>
+        <AdminLoadingState label="Referanslar yükleniyor..." />
       ) : references.length === 0 ? (
-        <div className="soft-card p-16 text-center">
-          <p className="text-[15px] text-muted-foreground font-medium">Henüz kayıtlı referans bulunmuyor.</p>
-        </div>
+        <AdminEmptyState title="Henüz kayıtlı referans bulunmuyor." description="İlk referans kaydını oluşturmak için Yeni Referans Ekle butonunu kullanın." />
       ) : viewMode === "grid" ? (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 animate-in fade-in zoom-in-95 duration-300">
           {references.map((reference) => (
@@ -304,21 +269,14 @@ export default function ReferencesAdminPage() {
 
       {/* Editor Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="soft-card border-none w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col animate-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-border/50 flex items-center justify-between bg-card/50 backdrop-blur-xl">
-              <h3 className="text-xl font-black text-card-foreground tracking-tight">
-                {editingReference ? "Referansı Düzenle" : "Yeni Referans Ekle"}
-              </h3>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="p-1.5 hover:bg-muted rounded-lg text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <form onSubmit={handleSave} className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+        <AdminEditorModal
+          open={isModalOpen}
+          title={editingReference ? "Referansı Düzenle" : "Yeni Referans Ekle"}
+          description="Referans görselini, görünürlüğünü ve çok dilli firma bilgisini düzenleyin."
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleSave}
+        >
+            <div className="space-y-6">
               
               {/* Image & Status */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -347,25 +305,7 @@ export default function ReferencesAdminPage() {
                 </div>
               </div>
 
-              {/* Language Tabs */}
-              <div className="border-b border-border/50">
-                <div className="flex gap-2">
-                  {(["tr", "en", "ar"] as const).map((lang) => (
-                    <button
-                      key={lang}
-                      type="button"
-                      onClick={() => setActiveLang(lang)}
-                      className={`px-5 py-3 text-[13px] font-black uppercase tracking-widest border-b-2 transition-all ${
-                        activeLang === lang
-                          ? "border-primary text-primary"
-                          : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-t-lg"
-                      }`}
-                    >
-                      {lang === "tr" ? "Türkçe" : lang === "en" ? "English" : "العربية (Arabic)"}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <AdminLanguageTabs value={activeLang} onChange={setActiveLang} />
 
               {/* Multilingual inputs */}
               <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-300">
@@ -380,27 +320,9 @@ export default function ReferencesAdminPage() {
                   />
                 </div>
               </div>
-            </form>
-
-            <div className="p-6 border-t border-border/50 bg-muted/30 flex items-center justify-end gap-3 rounded-b-2xl">
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="px-5 py-2.5 border border-border bg-card hover:bg-muted rounded-xl text-[13px] font-bold text-foreground transition-all shadow-sm active:scale-95"
-              >
-                İptal
-              </button>
-              <button
-                onClick={handleSave}
-                className="flex items-center gap-2 px-6 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-[13px] font-bold rounded-xl shadow-md shadow-primary/20 transition-all active:scale-95 cursor-pointer"
-              >
-                <Save className="h-4 w-4" />
-                <span>Kaydet</span>
-              </button>
             </div>
-          </div>
-        </div>
+        </AdminEditorModal>
       )}
-    </div>
+    </AdminPageShell>
   );
 }

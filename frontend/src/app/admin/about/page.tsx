@@ -2,9 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Save, Check, AlertCircle } from "lucide-react";
-
-const localeNames = { tr: "Türkçe", en: "English", ar: "العربية" } as const;
+import { AdminSectionTabs } from "../components/AdminSectionTabs";
+import { AdminLanguageTabs, AdminLoadingState, AdminNotice, AdminPageHeader, AdminPageShell, AdminSaveBar } from "../components/AdminUI";
+type AboutSection = "hero" | "story" | "mission";
+const aboutTabs = [
+  { id: "hero", label: "Giriş Alanı", description: "Hakkımızda sayfasının üst başlık ve açıklamasını düzenleyin." },
+  { id: "story", label: "Hikayemiz", description: "Şirket hikayesi, paragraflar ve deneyim rozetini yönetin." },
+  { id: "mission", label: "Misyonumuz", description: "Misyon bölümünün başlık ve açıklamasını düzenleyin." },
+] as const;
 
 export default function AboutAdminPage() {
   const { apiFetch } = useAuth();
@@ -14,6 +19,7 @@ export default function AboutAdminPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   const [activeLang, setActiveLang] = useState<"tr" | "en" | "ar">("tr");
+  const [activeSection, setActiveSection] = useState<AboutSection>("hero");
   const [aboutPage, setAboutPage] = useState<Record<string, any>>({
     tr: {
       hero: { title: "", description: "" },
@@ -92,11 +98,7 @@ export default function AboutAdminPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
-      </div>
-    );
+    return <AdminLoadingState label="Hakkımızda içerikleri yükleniyor..." />;
   }
 
   const currentContent = aboutPage[activeLang] || {};
@@ -105,50 +107,23 @@ export default function AboutAdminPage() {
   const mission = currentContent.mission || {};
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-border pb-5">
-        <div>
-          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Hakkımızda İçerik Yönetimi</h2>
-          <p className="text-xs text-muted-foreground mt-1">Hakkımızda sayfasındaki başlık, hikaye, vizyon ve misyon metinlerini yönetin.</p>
-        </div>
-
-        {/* Language Tabs */}
-        <div className="flex gap-1 bg-muted p-0.5 rounded-lg border border-border self-start sm:self-auto">
-          {(["tr", "en", "ar"] as const).map((lang) => (
-            <button
-              key={lang}
-              type="button"
-              onClick={() => setActiveLang(lang)}
-              className={`px-3 py-1 text-xs font-bold rounded-md transition-all uppercase ${
-                activeLang === lang
-                  ? "bg-card text-card-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-card-foreground"
-              }`}
-            >
-              {localeNames[lang]}
-            </button>
-          ))}
-        </div>
-      </div>
+    <AdminPageShell>
+      <AdminPageHeader
+        title="Hakkımızda İçerik Yönetimi"
+        description="Hakkımızda sayfasındaki başlık, hikaye, vizyon ve misyon metinlerini yönetin."
+        actions={<AdminLanguageTabs value={activeLang} onChange={setActiveLang} />}
+      />
 
       {/* Notifications */}
-      {error && (
-        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
-          <AlertCircle className="h-5 w-5 shrink-0" />
-          <span>{error}</span>
-        </div>
-      )}
-      {success && (
-        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
-          <Check className="h-5 w-5 shrink-0" />
-          <span>{success}</span>
-        </div>
-      )}
+      {error && <AdminNotice type="error">{error}</AdminNotice>}
+      {success && <AdminNotice type="success">{success}</AdminNotice>}
+
+      <AdminSectionTabs tabs={aboutTabs} activeTab={activeSection} onChange={setActiveSection} />
 
       <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* Hero Section */}
-        <div className="p-6 sm:p-8 space-y-5">
+        {activeSection === "hero" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">1. Giriş Alanı (Hero)</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -171,10 +146,10 @@ export default function AboutAdminPage() {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Story Section */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+        {activeSection === "story" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">2. Hikayemiz</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -248,10 +223,10 @@ export default function AboutAdminPage() {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Mission Section */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+        {activeSection === "mission" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">3. Misyonumuz</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -288,20 +263,10 @@ export default function AboutAdminPage() {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
-        {/* Save Button */}
-        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
-          <button
-            type="submit"
-            disabled={isSaving}
-            className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95"
-          >
-            <Save className="h-4 w-4" />
-            <span>{isSaving ? "Kaydediliyor..." : "İçerikleri Kaydet"}</span>
-          </button>
-        </div>
+        <AdminSaveBar isSaving={isSaving} label="İçerikleri Kaydet" />
       </form>
-    </div>
+    </AdminPageShell>
   );
 }

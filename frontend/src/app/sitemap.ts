@@ -1,36 +1,45 @@
 import { MetadataRoute } from 'next';
-import { getProducts, getProjects } from './lib/api';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.atlantiscrane.com';
+import { getProducts, getProjects, getSettings } from './lib/api';
+import { normalizeSiteUrl, type SeoPageKey } from './lib/seo';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const locales = ['tr', 'en', 'ar'];
+  const settings = await getSettings();
+  const globalSeo = settings?.seo_global || {};
+  if (globalSeo.sitemapEnabled === false) return [];
+
+  const siteUrl = normalizeSiteUrl(globalSeo.siteUrl);
+  const defaultLocale = globalSeo.defaultLocale || 'tr';
   
   // Static Routes
-  const staticRoutes = [
-    '',
-    '/about',
-    '/products',
-    '/projects',
-    '/references',
-    '/contact',
+  const staticRoutes: { route: string; page: SeoPageKey; priority: number }[] = [
+    { route: '', page: 'home', priority: 1 },
+    { route: '/about', page: 'about', priority: 0.8 },
+    { route: '/products', page: 'products', priority: 0.9 },
+    { route: '/projects', page: 'projects', priority: 0.8 },
+    { route: '/references', page: 'references', priority: 0.7 },
+    { route: '/contact', page: 'contact', priority: 0.7 },
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
 
   // 1. Add Static Routes
   locales.forEach((locale) => {
-    staticRoutes.forEach((route) => {
+    staticRoutes.forEach(({ route, page, priority }) => {
+      const pageSeo = settings?.site_content?.[locale]?.seo?.pages?.[page];
+      if (pageSeo?.index === false || globalSeo.robotsIndex === false) return;
+
       sitemapEntries.push({
-        url: `${SITE_URL}/${locale}${route}`,
+        url: `${siteUrl}/${locale}${route}`,
         lastModified: new Date(),
         changeFrequency: route === '' ? 'daily' : 'weekly',
-        priority: route === '' ? 1.0 : 0.8,
+        priority,
         alternates: {
           languages: {
-            'tr': `${SITE_URL}/tr${route}`,
-            'en': `${SITE_URL}/en${route}`,
-            'ar': `${SITE_URL}/ar${route}`,
+            'tr': `${siteUrl}/tr${route}`,
+            'en': `${siteUrl}/en${route}`,
+            'ar': `${siteUrl}/ar${route}`,
+            'x-default': `${siteUrl}/${defaultLocale}${route}`,
           },
         },
       });
@@ -58,15 +67,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (product.isActive) {
       locales.forEach((locale) => {
         sitemapEntries.push({
-          url: `${SITE_URL}/${locale}/products/${product.slug}`,
+          url: `${siteUrl}/${locale}/products/${product.slug}`,
           lastModified: new Date(product.updatedAt),
           changeFrequency: 'weekly',
           priority: 0.9,
           alternates: {
             languages: {
-              'tr': `${SITE_URL}/tr/products/${product.slug}`,
-              'en': `${SITE_URL}/en/products/${product.slug}`,
-              'ar': `${SITE_URL}/ar/products/${product.slug}`,
+              'tr': `${siteUrl}/tr/products/${product.slug}`,
+              'en': `${siteUrl}/en/products/${product.slug}`,
+              'ar': `${siteUrl}/ar/products/${product.slug}`,
+              'x-default': `${siteUrl}/${defaultLocale}/products/${product.slug}`,
             },
           },
         });
@@ -74,10 +84,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   });
 
-  // 3. Add Dynamic Projects (Currently projects don't have slugs in the route, but they are shown on the /projects page)
-  // If there's a detailed project page, we'd map it here. Assuming we only have a list page for now.
-  // Wait, let's check if there is a detail page for projects. In the current layout, it seems projects are only listed on /projects.
-  // We'll leave it as is. If we add a /[locale]/projects/[slug] in the future, we can add it here.
+  // 3. Add Dynamic Projects
+  projects.forEach((project: any) => {
+    if (!project.isActive) return;
+    locales.forEach((locale) => {
+      sitemapEntries.push({
+        url: `${siteUrl}/${locale}/projects/${project.id}`,
+        lastModified: new Date(project.updatedAt),
+        changeFrequency: 'monthly',
+        priority: 0.7,
+        alternates: {
+          languages: {
+            'tr': `${siteUrl}/tr/projects/${project.id}`,
+            'en': `${siteUrl}/en/projects/${project.id}`,
+            'ar': `${siteUrl}/ar/projects/${project.id}`,
+            'x-default': `${siteUrl}/${defaultLocale}/projects/${project.id}`,
+          },
+        },
+      });
+    });
+  });
 
   return sitemapEntries;
 }

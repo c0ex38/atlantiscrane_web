@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { translations, type Locale } from "../lib/site-content";
+import { type Locale } from "../lib/site-content";
 import { useSiteContent } from "./site-content-provider";
 
 type HistoryTimelineProps = {
@@ -11,7 +11,11 @@ type HistoryTimelineProps = {
 
 export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
   const t = useSiteContent(locale);
-  const { items, eyebrow, title } = t.history;
+  const { eyebrow, title } = t.history;
+  const items = useMemo(
+    () => t.history.items.filter((item) => item.year || item.title || item.description),
+    [t.history.items],
+  );
   
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -50,6 +54,8 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
 
   // Map scroll progress to horizontal translation (translateX)
   const x = useTransform(smoothProgress, [0, 1], ["0px", `-${scrollRange}px`]);
+
+  if (items.length === 0) return null;
 
   return (
     <section 
@@ -106,7 +112,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
 
               return (
                 <div 
-                  key={item.year} 
+                  key={`${item.year}-${index}`}
                   className="w-[360px] h-[480px] relative shrink-0 flex items-center justify-center"
                 >
                   {/* Connection Dot Radar Pulse */}
@@ -200,10 +206,10 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
 
         {/* Mobile Horizontal Touch-swipe Carousel */}
         <div className="md:hidden w-full overflow-x-auto snap-x snap-mandatory scrollbar-none py-6 px-6 flex gap-6 scroll-smooth">
-          {items.map((item) => {
+          {items.map((item, index) => {
             return (
               <div 
-                key={item.year} 
+                key={`${item.year}-${index}`}
                 className="snap-center shrink-0 w-[85vw] max-w-[320px] bg-white border border-slate-200 rounded-xl p-6 shadow-[0_8px_20px_rgba(0,0,0,0.02)] relative overflow-hidden"
               >
                 <div className="space-y-3">

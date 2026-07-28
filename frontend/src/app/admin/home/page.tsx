@@ -2,12 +2,21 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Save, Check, AlertCircle } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { translations } from "../../lib/site-content";
 import { deepMerge } from "../../lib/api";
 import { FileUpload } from "../components/FileUpload";
+import { AdminSectionTabs } from "../components/AdminSectionTabs";
+import { AdminLanguageTabs, AdminLoadingState, AdminNotice, AdminPageHeader, AdminPageShell, AdminSaveBar } from "../components/AdminUI";
+type HomeSection = "hero" | "about" | "history" | "standards" | "export";
 
-const localeNames = { tr: "Türkçe", en: "English", ar: "العربية" } as const;
+const homeTabs = [
+  { id: "hero", label: "Giriş Alanı", description: "Ana sayfanın ilk ekranındaki video, başlık ve butonları düzenleyin." },
+  { id: "about", label: "Hakkımızda", description: "Ana sayfadaki kısa hakkımızda tanıtımını ve yönlendirme butonlarını düzenleyin." },
+  { id: "history", label: "Tarihçe", description: "Tarihçe başlıklarını ve zaman çizelgesi kartlarını yönetin." },
+  { id: "standards", label: "Standartlar", description: "Mühendislik standartları bölümünün başlık ve maddelerini düzenleyin." },
+  { id: "export", label: "İhracat Ağı", description: "İhracat haritası başlıklarını, etiketlerini ve ülke sayılarını yönetin." },
+] as const;
 
 function blankContent(value: any): any {
   if (typeof value === "string") return "";
@@ -25,6 +34,7 @@ export default function HomeAdminPage() {
   const [success, setSuccess] = useState<string | null>(null);
 
   const [activeLang, setActiveLang] = useState<"tr" | "en" | "ar">("tr");
+  const [activeSection, setActiveSection] = useState<HomeSection>("hero");
   const [siteContent, setSiteContent] = useState<Record<string, any>>({
     tr: blankContent(translations.tr),
     en: blankContent(translations.en),
@@ -106,65 +116,54 @@ export default function HomeAdminPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
-      </div>
-    );
+    return <AdminLoadingState label="Anasayfa içerikleri yükleniyor..." />;
   }
 
   const currentContent = siteContent[activeLang] || {};
   const hero = currentContent.hero || {};
   const about = currentContent.about || {};
   const history = currentContent.history || {};
+  const historyItems = Array.isArray(history.items) ? history.items : [];
   const standards = currentContent.standards || {};
   const exportNetwork = currentContent.exportNetwork || {};
 
-  return (
-    <div className="space-y-5">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="text-xl font-bold text-foreground tracking-tight">Anasayfa İçerik Yönetimi</h2>
-          <p className="text-xs text-muted-foreground mt-0.5">Anasayfadaki banner, video, yazı ve butonları yönetin.</p>
-        </div>
+  const addHistoryItem = () => {
+    updateField("history", "items", [
+      ...historyItems,
+      { year: "", title: "", description: "" },
+    ]);
+  };
 
-        {/* Language Tabs */}
-        <div className="flex gap-0.5 bg-muted/50 p-0.5 rounded-lg border border-border/60 self-start sm:self-auto">
-          {(["tr", "en", "ar"] as const).map((lang) => (
-            <button
-              key={lang}
-              type="button"
-              onClick={() => setActiveLang(lang)}
-              className={`px-3 py-1 text-xs font-bold rounded-md transition-all uppercase ${
-                activeLang === lang
-                  ? "bg-card text-card-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-card-foreground"
-              }`}
-            >
-              {localeNames[lang]}
-            </button>
-          ))}
-        </div>
-      </div>
+  const removeHistoryItem = (index: number) => {
+    updateField(
+      "history",
+      "items",
+      historyItems.filter((_: unknown, itemIndex: number) => itemIndex !== index),
+    );
+  };
+
+  return (
+    <AdminPageShell>
+      <AdminPageHeader
+        title="Anasayfa İçerik Yönetimi"
+        description="Anasayfadaki banner, video, yazı ve butonları yönetin."
+        actions={<AdminLanguageTabs value={activeLang} onChange={setActiveLang} />}
+      />
 
       {/* Notifications */}
-      {error && (
-        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
-          <AlertCircle className="h-5 w-5 shrink-0" />
-          <span>{error}</span>
-        </div>
-      )}
-      {success && (
-        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
-          <Check className="h-5 w-5 shrink-0" />
-          <span>{success}</span>
-        </div>
-      )}
+      {error && <AdminNotice type="error">{error}</AdminNotice>}
+      {success && <AdminNotice type="success">{success}</AdminNotice>}
+
+      <AdminSectionTabs
+        tabs={homeTabs}
+        activeTab={activeSection}
+        onChange={setActiveSection}
+      />
 
       <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* Hero Section */}
-        <div className="p-6 sm:p-8 space-y-5">
+        {activeSection === "hero" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">1. Giriş Alanı (Hero)</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -233,10 +232,10 @@ export default function HomeAdminPage() {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* About Section */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+        {activeSection === "about" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">2. Hakkımızda Önizleme Bölümü</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -306,11 +305,11 @@ export default function HomeAdminPage() {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
 
         {/* History Section */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+        {activeSection === "history" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">3. Tarihçe (History)</h3>
           
           <div className="grid grid-cols-1 gap-6">
@@ -326,35 +325,74 @@ export default function HomeAdminPage() {
             </div>
             
             <div className="space-y-4">
-              <label className="block text-xs font-bold text-muted-foreground">Tarihçe Öğeleri (Yıl ve Açıklama)</label>
-              {[0, 1, 2, 3, 4, 5, 6].map((idx) => {
-                const items = history.items || [];
-                const item = items[idx] || {};
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <label className="block text-xs font-bold text-muted-foreground">Tarihçe Kartları</label>
+                  <p className="mt-1 text-[11px] text-muted-foreground/70">
+                    {historyItems.length} kart bulunuyor. İhtiyacınız kadar ekleyip kaldırabilirsiniz.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={addHistoryItem}
+                  className="inline-flex items-center justify-center gap-2 self-start rounded-lg border border-primary/25 bg-primary/5 px-3 py-2 text-xs font-bold text-primary transition-colors hover:bg-primary/10 sm:self-auto"
+                >
+                  <Plus className="h-4 w-4" />
+                  Yeni Kart Ekle
+                </button>
+              </div>
+
+              {historyItems.length === 0 && (
+                <div className="rounded-xl border border-dashed border-border bg-muted/20 px-5 py-8 text-center">
+                  <p className="text-sm font-semibold text-foreground">Henüz tarihçe kartı yok.</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Kart eklenmezse tarihçe bölümü sitede gösterilmez.
+                  </p>
+                </div>
+              )}
+
+              {historyItems.map((item: Record<string, string>, idx: number) => {
                 const updateItem = (field: string, val: string) => {
-                  const newItems = [...items];
+                  const newItems = [...historyItems];
                   newItems[idx] = { ...item, [field]: val };
                   updateField("history", "items", newItems);
                 };
                 return (
-                  <div key={idx} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border border-border rounded-xl bg-muted/30">
-                    <div className="md:col-span-2">
-                      <input placeholder="Yıl" type="text" value={item.year || ""} onChange={(e) => updateItem("year", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
+                  <div key={idx} className="rounded-xl border border-border bg-muted/30 p-4">
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                        Kart {idx + 1}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => removeHistoryItem(idx)}
+                        className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-semibold text-red-600 transition-colors hover:bg-red-50"
+                        aria-label={`${idx + 1}. tarihçe kartını kaldır`}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" />
+                        Kaldır
+                      </button>
                     </div>
-                    <div className="md:col-span-4">
-                      <input placeholder="Başlık" type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
-                    </div>
-                    <div className="md:col-span-6">
-                      <input placeholder="Açıklama" type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+                      <div className="md:col-span-2">
+                        <input placeholder="Yıl" aria-label={`${idx + 1}. kart yılı`} type="text" value={item.year || ""} onChange={(e) => updateItem("year", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
+                      </div>
+                      <div className="md:col-span-4">
+                        <input placeholder="Başlık" aria-label={`${idx + 1}. kart başlığı`} type="text" value={item.title || ""} onChange={(e) => updateItem("title", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
+                      </div>
+                      <div className="md:col-span-6">
+                        <input placeholder="Açıklama" aria-label={`${idx + 1}. kart açıklaması`} type="text" value={item.description || ""} onChange={(e) => updateItem("description", e.target.value)} className="w-full px-3 py-2.5 bg-background border border-border/70 outline-none rounded-lg text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-primary/50 focus:ring-2 focus:ring-primary/10 transition-all" />
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Standards Section */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+        {activeSection === "standards" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">4. Mühendislik Standartları</h3>
           
           <div className="grid grid-cols-1 gap-6">
@@ -392,10 +430,10 @@ export default function HomeAdminPage() {
               })}
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Export Network Section */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
+        {activeSection === "export" && <div className="p-6 sm:p-8 space-y-5">
           <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40 mb-1">5. İhracat Ağı</h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -445,20 +483,10 @@ export default function HomeAdminPage() {
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
-        {/* Save Button */}
-        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
-          <button
-            type="submit"
-            disabled={isSaving}
-            className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95"
-          >
-            <Save className="h-4 w-4" />
-            <span>{isSaving ? "Kaydediliyor..." : "İçerikleri Kaydet"}</span>
-          </button>
-        </div>
+        <AdminSaveBar isSaving={isSaving} label="İçerikleri Kaydet" />
       </form>
-    </div>
+    </AdminPageShell>
   );
 }

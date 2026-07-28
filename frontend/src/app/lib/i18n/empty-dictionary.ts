@@ -28,8 +28,30 @@ const emptyDictionary = {
   },
   "seo": {
     "title": "",
+    "titleTemplate": "",
     "description": "",
-    "keywords": ""
+    "keywords": "",
+    "author": "",
+    "publisher": "",
+    "pages": {
+      "home": { "title": "", "description": "", "keywords": "", "index": true },
+      "about": { "title": "", "description": "", "keywords": "", "index": true },
+      "products": { "title": "", "description": "", "keywords": "", "index": true },
+      "projects": { "title": "", "description": "", "keywords": "", "index": true },
+      "references": { "title": "", "description": "", "keywords": "", "index": true },
+      "contact": { "title": "", "description": "", "keywords": "", "index": true }
+    },
+    "openGraph": {
+      "title": "",
+      "description": "",
+      "image": ""
+    },
+    "twitter": {
+      "title": "",
+      "description": "",
+      "image": "",
+      "card": "summary_large_image"
+    }
   },
   "hero": {
     "videoUrl": "",

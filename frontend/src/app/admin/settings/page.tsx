@@ -2,8 +2,16 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Save, Check, AlertCircle } from "lucide-react";
 import { FileUpload } from "../components/FileUpload";
+import { AdminSectionTabs } from "../components/AdminSectionTabs";
+import { AdminLoadingState, AdminNotice, AdminPageHeader, AdminPageShell, AdminSaveBar } from "../components/AdminUI";
+
+type SettingsSection = "identity" | "contact" | "addresses";
+const settingsTabs = [
+  { id: "identity", label: "Genel Kimlik", description: "Sitenin marka adı, ana logosu ve tarayıcı ikonunu yönetin." },
+  { id: "contact", label: "İletişim Kanalları", description: "Sitenin genelinde kullanılan e-posta ve telefon bilgisini düzenleyin." },
+  { id: "addresses", label: "Ofis Adresleri", description: "İstanbul ve Dubai ofis adreslerini üç dilde yönetin." },
+] as const;
 
 export default function SettingsAdminPage() {
   const { apiFetch } = useAuth();
@@ -11,10 +19,12 @@ export default function SettingsAdminPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<SettingsSection>("identity");
 
   // Form inputs
   const [siteTitle, setSiteTitle] = useState("");
   const [companyLogo, setCompanyLogo] = useState("");
+  const [favicon, setFavicon] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [istanbulAddress, setIstanbulAddress] = useState<Record<string, string>>({ tr: "", en: "", ar: "" });
@@ -33,6 +43,7 @@ export default function SettingsAdminPage() {
       
       if (data.site_title) setSiteTitle(data.site_title.title || "");
       if (data.company_logo) setCompanyLogo(data.company_logo.logo || "");
+      if (data.site_favicon) setFavicon(data.site_favicon.icon || "");
       if (data.contact_email) setEmail(data.contact_email.email || "");
       if (data.contact_phone) setPhone(data.contact_phone.phone || "");
       
@@ -67,6 +78,7 @@ export default function SettingsAdminPage() {
       settings: {
         site_title: { title: siteTitle },
         company_logo: { logo: companyLogo },
+        site_favicon: { icon: favicon },
         contact_email: { email },
         contact_phone: { phone },
         address_istanbul: istanbulAddress,
@@ -79,6 +91,9 @@ export default function SettingsAdminPage() {
         method: "POST",
         body: JSON.stringify(payload),
       });
+      window.dispatchEvent(new CustomEvent("admin-branding-updated", {
+        detail: { siteTitle, companyLogo, favicon },
+      }));
       setSuccess("Sistem ayarları başarıyla güncellendi.");
     } catch (e: any) {
       setError(e.message || "Ayarlar kaydedilemedi.");
@@ -88,43 +103,29 @@ export default function SettingsAdminPage() {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center py-24">
-        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-primary border-t-transparent"></div>
-      </div>
-    );
+    return <AdminLoadingState label="Sistem ayarları yükleniyor..." />;
   }
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <div className="flex items-center justify-between border-b border-border pb-5">
-        <div>
-          <h2 className="text-2xl font-black text-card-foreground tracking-tight">Sistem Ayarları</h2>
-          <p className="text-xs text-muted-foreground mt-1">İletişim, adresler ve global şirket parametrelerini güncelleyin.</p>
-        </div>
-      </div>
+    <AdminPageShell>
+      <AdminPageHeader
+        title="Genel Sistem Ayarları"
+        description="Marka kimliği, iletişim ve global şirket bilgilerini yönetin."
+      />
 
       {/* Notifications */}
-      {error && (
-        <div className="flex items-center gap-3 p-3.5 bg-red-50/80 border border-red-200/70 text-red-700 rounded-xl text-sm font-medium">
-          <AlertCircle className="h-5 w-5 shrink-0" />
-          <span>{error}</span>
-        </div>
-      )}
-      {success && (
-        <div className="flex items-center gap-3 p-3.5 bg-green-50/80 border border-green-200/70 text-green-700 rounded-xl text-sm font-medium">
-          <Check className="h-5 w-5 shrink-0" />
-          <span>{success}</span>
-        </div>
-      )}
+      {error && <AdminNotice type="error">{error}</AdminNotice>}
+      {success && <AdminNotice type="success">{success}</AdminNotice>}
+
+      <AdminSectionTabs tabs={settingsTabs} activeTab={activeSection} onChange={setActiveSection} />
 
       <form onSubmit={handleSave} className="space-y-0 bg-card border border-border/70 rounded-2xl overflow-hidden shadow-sm">
         
         {/* General Identity */}
-        <div className="p-6 sm:p-8 space-y-5">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">Genel Kimlik</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
+        {activeSection === "identity" && <div className="p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40">1. Genel Kimlik</h3>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="md:col-span-2">
               <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Site Başlığı (Title)</label>
               <input
                 type="text"
@@ -143,13 +144,28 @@ export default function SettingsAdminPage() {
                 accept="image/*"
                 placeholder="/logo.png"
               />
+              <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
+                Web sitesinde ve admin panelinin sol üst marka alanında kullanılır.
+              </p>
+            </div>
+            <div>
+              <FileUpload
+                label="Favicon / Tarayıcı İkonu"
+                value={favicon}
+                onChange={setFavicon}
+                accept=".ico,image/png,image/svg+xml,image/webp,image/x-icon"
+                placeholder="/favicon.ico"
+              />
+              <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
+                Tarayıcı sekmelerinde görünür. Kare PNG, SVG veya ICO dosyası önerilir.
+              </p>
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Contact Info */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">İletişim Kanalları</h3>
+        {activeSection === "contact" && <div className="p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40">2. İletişim Kanalları</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">E-posta Adresi</label>
@@ -174,11 +190,12 @@ export default function SettingsAdminPage() {
               />
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Physical Addresses */}
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">İstanbul Genel Merkez Adresi</h3>
+        {activeSection === "addresses" && <>
+        <div className="p-6 sm:p-8 space-y-5">
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40">3. İstanbul Genel Merkez Adresi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Türkçe</label>
@@ -191,7 +208,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">English</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">ENGLISH</label>
               <textarea
                 rows={3}
                 required
@@ -214,7 +231,7 @@ export default function SettingsAdminPage() {
         </div>
 
         <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
-          <h3 className="text-sm font-black text-card-foreground uppercase tracking-wider">Dubai Bölge Ofisi Adresi</h3>
+          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40">4. Dubai Bölge Ofisi Adresi</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Türkçe</label>
@@ -227,7 +244,7 @@ export default function SettingsAdminPage() {
               />
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">English</label>
+              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">ENGLISH</label>
               <textarea
                 rows={3}
                 required
@@ -248,19 +265,10 @@ export default function SettingsAdminPage() {
             </div>
           </div>
         </div>
+        </>}
 
-        {/* Save Button */}
-        <div className="border-t border-border/50 p-4 sm:p-6 flex justify-end bg-muted/20">
-          <button
-            type="submit"
-            disabled={isSaving}
-            className="flex items-center gap-2 px-5 py-2 bg-primary hover:bg-primary/90 disabled:opacity-50 text-white text-[13px] font-bold rounded-lg shadow-md shadow-primary/20 transition-all active:scale-95"
-          >
-            <Save className="h-4 w-4" />
-            <span>{isSaving ? "Kaydediliyor..." : "Ayarları Kaydet"}</span>
-          </button>
-        </div>
+        <AdminSaveBar isSaving={isSaving} label="Ayarları Kaydet" />
       </form>
-    </div>
+    </AdminPageShell>
   );
 }

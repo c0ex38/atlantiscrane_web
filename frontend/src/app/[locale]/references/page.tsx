@@ -3,6 +3,7 @@ import Image from "next/image";
 import { isLocale, translations, type Locale } from "../../lib/site-content";
 import CtaSection from "../../components/cta-section";
 import { getReferences, getSiteDictionary } from "../../lib/api";
+import { buildPageSeoMetadata } from "../../lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,16 @@ type PageProps = {
 
 export async function generateStaticParams() {
   return [{ locale: "tr" }, { locale: "en" }, { locale: "ar" }];
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return buildPageSeoMetadata({
+    locale: locale as Locale,
+    page: "references",
+    path: "/references",
+  });
 }
 
 export default async function ReferencesPage({ params }: PageProps) {
