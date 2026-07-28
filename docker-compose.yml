@@ -42,7 +42,7 @@ services:
     ports:
       - "3001:3001"
     labels:
-      - "traefik.docker.network=${COOLIFY_RESOURCE_UUID:-atlantis_network}"
+      - "traefik.docker.network=bmjoccw1s3hl4ov9lspaspko"
       - "traefik.http.services.atlantis-backend.loadbalancer.server.port=3001"
     volumes:
       - backend_uploads:/workspace/backend/uploads
