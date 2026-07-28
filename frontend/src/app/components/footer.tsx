@@ -20,6 +20,7 @@ export default function Footer({ locale, settings }: FooterProps) {
 
   const email = settings?.contact_email?.email || t?.contact?.email || "";
   const phone = settings?.contact_phone?.phone || t?.contact?.phone || "";
+  const companyLogo = settings?.company_logo?.logo || "/atlantis-logo.svg";
   const hasConfiguredLocations = Array.isArray(settings?.office_addresses?.items);
   const configuredLocations = hasConfiguredLocations
     ? settings.office_addresses.items
@@ -43,47 +44,54 @@ export default function Footer({ locale, settings }: FooterProps) {
   const footerData = settings?.site_common?.[locale]?.footer || t.footer;
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-[#141429] pt-24 pb-8 text-slate-300">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-[#141429] pb-6 pt-12 text-slate-300 sm:pb-8 sm:pt-20 lg:pt-24">
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#1b1b36]/55 to-transparent pointer-events-none" />
       <div className="container-shell relative z-10">
-        <div className="grid gap-12 lg:grid-cols-[2fr_1fr_1fr] mb-20">
+        <div className="mb-10 grid gap-8 md:grid-cols-2 lg:mb-20 lg:grid-cols-[1.6fr_0.8fr_1.2fr] lg:gap-12">
 
           {/* Brand Info */}
-          <div className="space-y-6">
+          <div className="space-y-5 md:col-span-2 lg:col-span-1">
             <Link
               href={`/${locale}`}
               className="inline-flex flex-col items-start gap-2 group"
             >
               <Image
-                src="/atlantis-logo.svg"
+                src={companyLogo}
                 alt="Atlantis Crane Logo"
                 width={200}
                 height={48}
                 quality={100}
                 unoptimized
-                className="h-12 w-auto brightness-0 invert opacity-90 transition-opacity group-hover:opacity-100"
+                className="h-10 w-auto max-w-[190px] object-contain object-left brightness-0 invert opacity-90 transition-opacity group-hover:opacity-100 sm:h-12 sm:max-w-none"
               />
-              <span className="block text-sm text-cta font-bold tracking-wider pl-1 mt-1">
+              <span className="mt-1 block pl-1 text-xs font-bold tracking-wider text-cta sm:text-sm">
                 {t.brandClaim}
               </span>
             </Link>
 
-            <p className="max-w-md text-sm leading-7 text-slate-400 font-medium">
+            <p className="max-w-lg text-sm font-medium leading-6 text-slate-400 sm:leading-7">
               {footerData?.description || ""}
             </p>
+            <Link
+              href={`/${locale}/contact`}
+              className="inline-flex items-center gap-2 rounded-full border border-cta/30 bg-cta/10 px-4 py-2 text-xs font-bold text-cta transition-colors hover:bg-cta hover:text-slate-950"
+            >
+              {t?.nav?.contact}
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6 border-b border-slate-700 pb-4 inline-block">
+          <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-5 sm:p-6 lg:border-0 lg:bg-transparent lg:p-0">
+            <h3 className="mb-5 inline-block border-b border-slate-700 pb-3 text-xs font-bold uppercase tracking-[0.18em] text-white sm:text-sm">
               {t?.footer?.quickLinks}
             </h3>
-            <ul className="space-y-4">
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-3 lg:grid-cols-1 lg:space-y-1">
               {footerLinks.map((item) => (
                 <li key={item.label}>
                   <Link
                     href={item.href}
-                    className="text-sm font-medium text-slate-400 hover:text-cta transition-colors flex items-center gap-3 group"
+                    className="group flex items-center gap-2 text-sm font-medium text-slate-400 transition-colors hover:text-cta"
                   >
                     <span className="w-0 h-[2px] bg-cta transition-all duration-300 group-hover:w-4"></span>
                     {item.label}
@@ -94,11 +102,11 @@ export default function Footer({ locale, settings }: FooterProps) {
           </div>
 
           {/* Contact */}
-          <div>
-            <h3 className="text-white text-sm font-bold uppercase tracking-[0.2em] mb-6 border-b border-slate-700 pb-4 inline-block">
+          <div className="rounded-2xl border border-white/8 bg-white/[0.025] p-5 sm:p-6 lg:border-0 lg:bg-transparent lg:p-0">
+            <h3 className="mb-5 inline-block border-b border-slate-700 pb-3 text-xs font-bold uppercase tracking-[0.18em] text-white sm:text-sm">
               {t?.nav?.contact}
             </h3>
-            <div className="space-y-5 text-sm font-medium text-slate-400">
+            <div className="space-y-4 break-words text-sm font-medium text-slate-400">
               {locations.map((location: string) => (
                 <p key={location} className="flex items-start gap-3">
                   <svg className="w-5 h-5 text-cta shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -119,11 +127,11 @@ export default function Footer({ locale, settings }: FooterProps) {
         </div>
 
         {/* Spacer to make room for the Huge Background Text in the flow to prevent overlapping */}
-        <div className="h-[10vw] min-h-[80px] max-h-[140px] pointer-events-none" />
+        <div className="hidden h-[8vw] max-h-[110px] min-h-[60px] pointer-events-none sm:block" />
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-slate-800 gap-6">
-          <p className="text-slate-400 text-sm">
+        <div className="flex flex-col items-center justify-between gap-5 border-t border-slate-800 pt-6 text-center md:flex-row md:text-left">
+          <p className="text-xs leading-relaxed text-slate-400 sm:text-sm">
             {t?.footer?.allRightsReserved} | {t?.footer?.designedBy}{" "}
             <a
               href="https://kncdesign.com.tr"
@@ -138,13 +146,13 @@ export default function Footer({ locale, settings }: FooterProps) {
 
           <button
             onClick={scrollToTop}
-            className="flex h-12 w-12 items-center justify-center rounded-full bg-white/8 text-cta hover:bg-cta hover:text-slate-900 transition-colors z-20"
+            className="z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white/8 text-cta transition-colors hover:bg-cta hover:text-slate-900 sm:h-12 sm:w-12"
             aria-label="Scroll to top"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 15l7-7 7 7" /></svg>
           </button>
 
-          <p className="text-xs font-bold text-slate-500 uppercase tracking-widest flex items-center gap-3">
+          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-slate-500 sm:text-xs">
             <span className="w-2 h-2 rounded-full bg-cta animate-pulse"></span>
             {localeLabels[locale]}
           </p>
@@ -152,7 +160,7 @@ export default function Footer({ locale, settings }: FooterProps) {
       </div>
 
       {/* Huge Background Text - Positioned above the bottom bar */}
-      <div className="absolute bottom-[120px] left-0 right-0 overflow-hidden flex justify-center items-end pointer-events-none opacity-[0.03] select-none">
+      <div className="pointer-events-none absolute bottom-[110px] left-0 right-0 hidden select-none items-end justify-center overflow-hidden opacity-[0.03] sm:flex">
         <h1 className="text-[18vw] font-black leading-none text-white whitespace-nowrap mb-[-4%]">
           ATLANTIS
         </h1>

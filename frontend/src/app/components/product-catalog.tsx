@@ -26,21 +26,21 @@ export default function ProductCatalog({ locale, products }: ProductCatalogProps
     }));
 
   return (
-    <section id={sectionIds.products} className="bg-white py-20 sm:py-24">
+    <section id={sectionIds.products} className="bg-white py-12 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 flex flex-col items-center justify-center gap-6 text-center max-w-3xl mx-auto">
-          <div className="space-y-4 flex flex-col items-center">
+        <div className="mx-auto mb-7 flex max-w-3xl flex-col items-center justify-center gap-4 text-center sm:mb-12 sm:gap-6">
+          <div className="flex flex-col items-center space-y-2 sm:space-y-4">
             <div className="inline-flex items-center gap-3">
               <span className="h-px w-10 bg-cta" />
               <p 
-                className="text-lg md:text-xl font-medium italic text-cta"
+                className="text-base font-medium italic text-cta sm:text-lg md:text-xl"
                 style={{ fontFamily: "var(--font-serif), serif", textTransform: "none", letterSpacing: "normal" }}
               >
                 {t?.products?.eyebrow}
               </p>
               <span className="h-px w-10 bg-cta" />
             </div>
-            <h2 className="text-5xl font-black uppercase leading-[0.9] tracking-tight text-[color:var(--text)] sm:text-6xl lg:text-[5rem]">
+            <h2 className="text-3xl font-black uppercase leading-[0.92] tracking-tight text-[color:var(--text)] min-[390px]:text-4xl sm:text-6xl lg:text-[5rem]">
               <span className="block">{(t?.products?.title || "").split(" ").slice(0, 1).join(" ")}</span>
               <span className="block text-slate-200">
                 {(t?.products?.title || "").split(" ").slice(1).join(" ")}
@@ -48,33 +48,33 @@ export default function ProductCatalog({ locale, products }: ProductCatalogProps
             </h2>
           </div>
 
-          <div className="flex justify-center mt-2">
+          <div className="flex justify-center sm:mt-2">
             <Link
               href={`/${locale}/products`}
-              className="group inline-flex items-center text-xs font-black uppercase tracking-[0.15em] text-slate-900 transition hover:opacity-80"
+              className="group inline-flex items-center text-[11px] font-black uppercase tracking-[0.12em] text-slate-900 transition hover:opacity-80 sm:text-xs sm:tracking-[0.15em]"
             >
               <span className="mr-4">{t?.products?.exploreAll}</span>
-              <span className="flex h-12 w-12 items-center justify-center bg-cta text-slate-950 transition-transform group-hover:translate-x-1">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-cta text-slate-950 transition-transform group-hover:translate-x-1 sm:h-12 sm:w-12 sm:rounded-none">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </span>
             </Link>
           </div>
         </div>
 
-        <div className="flex w-full flex-col md:flex-row">
+        <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scrollbar-none md:mx-0 md:snap-none md:flex-row md:gap-0 md:overflow-visible md:px-0 md:pb-0">
           {items.map((item, index) => {
             // Unsplash placeholder images matching the crane/industrial theme
             const bgImage = "/about-facility.png";
 
             return (
               <article
-                key={item.title}
-                className="group relative h-[380px] flex-1 overflow-hidden transition-[flex] duration-1000 ease-in-out sm:h-[500px] md:hover:flex-[1.6] lg:h-[580px] lg:hover:flex-[1.8]"
+                key={item.id || item.slug || item.title}
+                className="group relative h-[340px] w-[82vw] max-w-[310px] shrink-0 snap-center overflow-hidden rounded-2xl transition-[flex] duration-1000 ease-in-out sm:h-[430px] md:h-[500px] md:w-auto md:max-w-none md:flex-1 md:rounded-none md:hover:flex-[1.6] lg:h-[580px] lg:hover:flex-[1.8]"
                 style={{ willChange: "flex" }}
               >
                 {/* Background Image */}
                 <Image
-                  src={bgImage}
+                  src={item.image || bgImage}
                   alt={item.title}
                   fill
                   quality={100}

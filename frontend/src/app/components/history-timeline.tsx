@@ -60,13 +60,13 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
   return (
     <section 
       ref={containerRef} 
-      className="relative bg-[color:var(--bg)] min-h-[110vh] md:h-[220vh] overflow-visible border-t border-slate-100"
+      className="relative overflow-hidden border-t border-slate-100 bg-[color:var(--bg)] md:h-[220vh] md:overflow-visible"
     >
       {/* Pinned Sticky container for desktop - offset top to prevent overlapping with floating navbar */}
-      <div className="md:sticky md:top-[96px] md:h-[calc(100vh-96px)] md:overflow-hidden flex flex-col justify-center py-20 md:py-0 z-10">
+      <div className="z-10 flex flex-col justify-center py-12 sm:py-16 md:sticky md:top-[96px] md:h-[calc(100vh-96px)] md:overflow-hidden md:py-0">
         
         {/* Header container */}
-        <div className="container-shell mb-8 md:mb-12">
+        <div className="container-shell mb-5 sm:mb-8 md:mb-12">
           <div className="max-w-3xl mx-auto text-center">
             <motion.p 
               initial={{ opacity: 0, y: 15 }}
@@ -83,7 +83,7 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[color:var(--text)] tracking-tight"
+              className="text-3xl font-extrabold tracking-tight text-[color:var(--text)] sm:text-4xl md:text-5xl lg:text-6xl"
             >
               {title}
             </motion.h2>
@@ -205,12 +205,12 @@ export default function HistoryTimeline({ locale }: HistoryTimelineProps) {
         </div>
 
         {/* Mobile Horizontal Touch-swipe Carousel */}
-        <div className="md:hidden w-full overflow-x-auto snap-x snap-mandatory scrollbar-none py-6 px-6 flex gap-6 scroll-smooth">
+        <div className="flex w-full snap-x snap-mandatory gap-4 overflow-x-auto px-4 py-4 scroll-smooth scrollbar-none sm:px-6 md:hidden">
           {items.map((item, index) => {
             return (
               <div 
                 key={`${item.year}-${index}`}
-                className="snap-center shrink-0 w-[85vw] max-w-[320px] bg-white border border-slate-200 rounded-xl p-6 shadow-[0_8px_20px_rgba(0,0,0,0.02)] relative overflow-hidden"
+                className="relative w-[82vw] max-w-[310px] shrink-0 snap-center overflow-hidden rounded-xl border border-slate-200 bg-white p-5 shadow-[0_8px_20px_rgba(0,0,0,0.02)]"
               >
                 <div className="space-y-3">
                   <span className="block text-xl font-black text-cta">

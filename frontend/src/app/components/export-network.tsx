@@ -34,17 +34,6 @@ const countryCodes = {
   "أذربيجان": "az",
 } as const;
 
-// Country flag emojis matching the codes
-const countryFlags = {
-  "ae": "🇦🇪",
-  "tr": "🇹🇷",
-  "sa": "🇸🇦",
-  "us": "🇺🇸",
-  "qa": "🇶🇦",
-  "no": "🇳🇴",
-  "az": "🇦🇿"
-} as const;
-
 export default function ExportNetwork({ locale }: ExportNetworkProps) {
   const t = useSiteContent(locale);
   const { eyebrow, title, subtitle, listTitle, craneLabel, items } = t.exportNetwork;
@@ -196,10 +185,10 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
   );
 
   return (
-    <section className="bg-[color:var(--bg)] py-24 sm:py-32">
+    <section className="bg-[color:var(--bg)] py-14 sm:py-24">
       <div className="container-shell">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
+        <div className="mx-auto mb-8 max-w-3xl text-center sm:mb-12 md:mb-16">
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -215,7 +204,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-[color:var(--text)] tracking-tight mb-6"
+            className="mb-4 text-3xl font-black tracking-tight text-[color:var(--text)] sm:text-4xl md:mb-6 md:text-5xl lg:text-6xl"
           >
             {title}
           </motion.h2>
@@ -236,62 +225,9 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
-          className="bg-white border border-slate-100 shadow-[0_30px_80px_rgba(27,27,54,0.05)] p-8 sm:p-12 rounded-2xl relative"
+          className="relative rounded-2xl border border-slate-100 bg-white p-2 shadow-[0_30px_80px_rgba(27,27,54,0.05)] sm:p-5"
         >
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-            
-            {/* Left Column: List */}
-            <div className="w-full lg:w-1/3 z-10">
-              <h3 className="text-sm font-black text-[color:var(--text)] uppercase tracking-widest mb-8 pb-4 border-b border-slate-200">
-                {listTitle}
-              </h3>
-              
-              <ul className="space-y-3">
-                {items.map((item, index) => {
-                  const code = countryCodes[item.country as keyof typeof countryCodes];
-                  const isHovered = hoveredCountry === code;
-                  const isClicked = clickedCountry === code;
-                  const isActive = isHovered || isClicked;
-                  const flag = countryFlags[code as keyof typeof countryFlags] || "🌐";
-
-                  return (
-                    <motion.li 
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.5, delay: 0.05 * index }}
-                      key={index} 
-                      onMouseEnter={() => setHoveredCountry(code)}
-                      onMouseLeave={() => setHoveredCountry(null)}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setClickedCountry(isClicked ? null : code);
-                      }}
-                      className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-all duration-300 ${
-                        isActive ? "bg-[color:var(--bg)] shadow-sm scale-[1.02] border border-cta" : "hover:bg-slate-50 border border-transparent"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xl select-none">{flag}</span>
-                        <span className={`text-sm font-bold transition-colors duration-300 ${
-                          isActive ? "text-[color:var(--text)]" : "text-slate-600"
-                        }`}>
-                          {item.country}
-                        </span>
-                      </div>
-                      <span className={`inline-flex items-center justify-center px-3 py-1.5 text-xs font-black min-w-[80px] text-center rounded-md transition-colors duration-300 ${
-                        isActive ? "bg-[#e0aa00] text-white" : "bg-cta text-slate-900"
-                      }`}>
-                        {item.count} {craneLabel}
-                      </span>
-                    </motion.li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* Right Column: Interactive SVG Map */}
-            <div className="w-full lg:w-2/3 relative flex items-center justify-center overflow-hidden min-h-[300px] md:min-h-[500px] rounded-2xl bg-slate-50/50 border border-slate-100/50">
+            <div className="relative flex min-h-[260px] w-full items-center justify-center overflow-hidden rounded-xl border border-slate-100/70 bg-slate-50/50 sm:min-h-[400px] md:min-h-[520px]">
               
               {/* Clicked Country Info Popup */}
               <AnimatePresence>
@@ -300,7 +236,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                     initial={{ opacity: 0, scale: 0.9, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                    className="absolute bottom-4 right-4 z-20 bg-white border border-slate-200 shadow-xl rounded-2xl p-6 min-w-[200px] max-w-[calc(100%-32px)] md:max-w-[240px]"
+                    className="absolute bottom-3 left-3 right-3 z-20 rounded-xl border border-slate-200 bg-white p-4 shadow-xl sm:bottom-5 sm:left-auto sm:right-5 sm:min-w-[220px] sm:max-w-[260px] sm:rounded-2xl sm:p-5"
                   >
                     <button 
                       onClick={(e) => {
@@ -330,7 +266,7 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
                 <motion.div 
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 0.75 }}
-                  className="absolute bottom-4 right-4 z-20 bg-slate-900/5 backdrop-blur-[2px] border border-slate-200/50 rounded-xl px-4 py-2 pointer-events-none text-xs text-slate-500 font-medium"
+                  className="pointer-events-none absolute bottom-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-full border border-slate-200/70 bg-white/85 px-3 py-1.5 text-[10px] font-semibold text-slate-500 shadow-sm backdrop-blur sm:bottom-5 sm:text-xs"
                 >
                   💡 {t?.common?.mapInstruction}
                 </motion.div>
@@ -338,12 +274,10 @@ export default function ExportNetwork({ locale }: ExportNetworkProps) {
 
               <div 
                 ref={mapContainerRef}
-                className="w-full h-full transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.01] [&>svg]:w-full [&>svg]:h-auto [&>svg]:max-h-[500px]"
+                className="flex h-full w-full items-center justify-center px-1 transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] hover:scale-[1.01] sm:px-4 [&>svg]:h-auto [&>svg]:max-h-[500px] [&>svg]:w-full"
                 dangerouslySetInnerHTML={{ __html: svgContent }}
               />
             </div>
-
-          </div>
         </motion.div>
       </div>
     </section>
