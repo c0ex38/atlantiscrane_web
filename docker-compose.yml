@@ -67,6 +67,9 @@ services:
       INTERNAL_API_URL: http://backend:3001/api/v1
     ports:
       - "3000:3000"
+    labels:
+      - "traefik.docker.network=bmjoccw1s3hl4ov9lspaspko"
+      - "traefik.http.services.atlantis-frontend.loadbalancer.server.port=3000"
     networks:
       - atlantis_network
 
