@@ -68,14 +68,22 @@ export default function Navbar({ locale }: NavbarProps) {
   ];
 
   return (
-    <header className="sticky top-2 z-50 flex justify-center px-2 sm:top-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-5xl">
-        <div className="relative flex items-center justify-between rounded-2xl border border-white/40 bg-white/80 px-2 py-2 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(15,23,42,0.12)] hover:bg-white/90 sm:rounded-full sm:px-3 sm:py-2.5">
+    <header className="sticky top-2 z-50 flex justify-center px-3 sm:top-4 sm:px-6 lg:px-8">
+      {isMobileMenuOpen && (
+        <button
+          type="button"
+          aria-label="Mobil menüyü kapat"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 z-[-1] cursor-default bg-slate-950/35 backdrop-blur-[2px] lg:hidden"
+        />
+      )}
+      <div className="relative w-full max-w-5xl">
+        <div className="relative flex h-[58px] items-center justify-between rounded-2xl border border-white/70 bg-white/90 px-2.5 shadow-[0_10px_35px_rgba(15,23,42,0.12)] backdrop-blur-xl backdrop-saturate-150 transition-all duration-300 hover:bg-white/95 sm:h-auto sm:rounded-full sm:px-3 sm:py-2.5">
           <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/60 to-transparent" />
 
           <Link
             href={`/${locale}`}
-            className="group flex min-w-0 shrink items-center px-2 py-1.5 sm:shrink-0 sm:pl-4 sm:py-2"
+            className="group flex min-w-0 shrink items-center px-1.5 py-1 sm:shrink-0 sm:pl-4 sm:py-2"
             aria-label="Atlantis Crane"
           >
             <Image
@@ -85,7 +93,7 @@ export default function Navbar({ locale }: NavbarProps) {
               height={40}
               quality={100}
               unoptimized
-              className="h-7 w-auto max-w-[120px] transition-transform duration-300 group-hover:scale-[1.02] sm:h-8 sm:max-w-none"
+              className="h-7 w-auto max-w-[132px] object-contain transition-transform duration-300 group-hover:scale-[1.02] sm:h-8 sm:max-w-none"
               priority
             />
           </Link>
@@ -128,10 +136,14 @@ export default function Navbar({ locale }: NavbarProps) {
               onClick={() => setIsMobileMenuOpen((value) => !value)}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-700 transition-colors hover:bg-white lg:hidden"
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border transition-all lg:hidden ${
+                isMobileMenuOpen
+                  ? "border-slate-200 bg-slate-100 text-slate-900"
+                  : "border-transparent text-slate-700 hover:border-slate-200 hover:bg-slate-50"
+              }`}
             >
               {isMobileMenuOpen ? (
-                <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18" strokeWidth="2" strokeLinecap="round" /></svg>
+                <svg viewBox="0 0 24 24" fill="none" className="h-[18px] w-[18px]" stroke="currentColor"><path d="M6 6l12 12M18 6L6 18" strokeWidth="2" strokeLinecap="round" /></svg>
               ) : (
                 <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" stroke="currentColor"><path d="M4 7h16M4 12h16M4 17h16" strokeWidth="2" strokeLinecap="round" /></svg>
               )}
@@ -140,7 +152,7 @@ export default function Navbar({ locale }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => setIsLanguageOpen((value) => !value)}
-                className="group flex items-center gap-1 rounded-full px-2 py-2 text-[11px] font-semibold tracking-[0.08em] text-slate-700 transition duration-300 hover:bg-white/80 hover:text-[color:var(--accent-strong)] sm:gap-1.5 sm:px-3 sm:text-xs sm:tracking-[0.15em]"
+                className="group flex h-10 items-center gap-1 rounded-xl px-2 text-[11px] font-bold tracking-[0.08em] text-slate-700 transition duration-300 hover:bg-slate-50 hover:text-[color:var(--accent-strong)] sm:h-auto sm:gap-1.5 sm:rounded-full sm:px-3 sm:py-2 sm:text-xs sm:tracking-[0.15em]"
                 aria-expanded={isLanguageOpen}
                 aria-haspopup="menu"
               >
@@ -201,26 +213,32 @@ export default function Navbar({ locale }: NavbarProps) {
           </div>
         </div>
 
-        <div className={`overflow-hidden transition-all duration-300 lg:hidden ${isMobileMenuOpen ? "mt-2 max-h-[520px] opacity-100" : "max-h-0 opacity-0"}`}>
-          <nav className="rounded-2xl border border-white/60 bg-white/95 p-2 shadow-xl backdrop-blur-xl">
+        <div className={`absolute left-0 right-0 top-[calc(100%+8px)] origin-top overflow-hidden transition-all duration-200 lg:hidden ${
+          isMobileMenuOpen
+            ? "visible translate-y-0 scale-100 opacity-100"
+            : "invisible -translate-y-2 scale-[0.98] opacity-0"
+        }`}>
+          <nav className="rounded-2xl border border-white/80 bg-white/95 p-2 shadow-[0_24px_60px_rgba(15,23,42,0.22)] backdrop-blur-xl">
             {navigation.map((item) => {
               const isActive = item.href === `/${locale}` ? pathname === item.href : pathname.startsWith(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold transition-colors ${
+                  className={`flex min-h-11 items-center justify-between rounded-xl px-3.5 py-2.5 text-[13px] font-bold transition-colors ${
                     isActive ? "bg-cta/20 text-slate-950" : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
                   }`}
                 >
                   {item.label}
-                  <span aria-hidden="true">→</span>
+                  <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4 text-slate-400" stroke="currentColor">
+                    <path d="M4 10h12m-4-4 4 4-4 4" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </Link>
               );
             })}
             <Link
               href={`/${locale}/contact`}
-              className="mt-1 flex items-center justify-center rounded-xl bg-gradient-to-r from-cta to-[#fdd14a] px-4 py-3 text-sm font-black text-slate-900"
+              className="mt-1.5 flex min-h-11 items-center justify-center rounded-xl bg-gradient-to-r from-cta to-[#fdd14a] px-4 py-2.5 text-[13px] font-black text-slate-900 shadow-sm"
             >
               {t?.nav?.contact}
             </Link>
