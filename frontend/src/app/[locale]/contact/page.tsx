@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { isLocale, translations, localeDirections, type Locale } from "../../lib/site-content";
+import { isLocale, localeDirections, type Locale } from "../../lib/site-content";
 import ContactClient from "./components/contact-client";
 import { getSettings, getSiteDictionary } from "../../lib/api";
 import { buildPageSeoMetadata } from "../../lib/seo";
@@ -29,6 +29,16 @@ export default async function ContactPage({ params }: PageProps) {
 
   const settings = await getSettings();
   const baseT = await getSiteDictionary(locale);
+  const hasConfiguredLocations = Array.isArray(settings?.office_addresses?.items);
+  const configuredLocations = hasConfiguredLocations
+    ? settings.office_addresses.items.map((office: any) => ({
+        id: office.id,
+        title: office.title?.[locale] || office.title?.tr || "",
+        address: office.address?.[locale] || office.address?.tr || "",
+        tag: office.tag || "",
+        mapUrl: office.mapUrl || "",
+      })).filter((office: any) => office.title && office.address)
+    : undefined;
   
   // Contact coordinates remain separate settings; all page copy comes from site_content.
   const t = {
@@ -48,7 +58,7 @@ export default async function ContactPage({ params }: PageProps) {
     <main className="min-h-screen bg-[#f0f3f8] text-[#0f172a] -mt-24 pt-44 pb-0 overflow-hidden relative">
       {/* Subtle top gradient to blend with header */}
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-[#070b14]/5 to-transparent pointer-events-none" />
-      <ContactClient t={t} isRtl={isRtl} />
+      <ContactClient t={t} isRtl={isRtl} locations={configuredLocations} />
     </main>
   );
 }

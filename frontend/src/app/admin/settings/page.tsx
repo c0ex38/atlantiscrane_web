@@ -5,13 +5,33 @@ import { useAuth } from "../context/AuthContext";
 import { FileUpload } from "../components/FileUpload";
 import { AdminSectionTabs } from "../components/AdminSectionTabs";
 import { AdminLoadingState, AdminNotice, AdminPageHeader, AdminPageShell, AdminSaveBar } from "../components/AdminUI";
+import { MapPin, Plus, Trash2 } from "lucide-react";
 
 type SettingsSection = "identity" | "contact" | "addresses";
 const settingsTabs = [
   { id: "identity", label: "Genel Kimlik", description: "Sitenin marka adı, ana logosu ve tarayıcı ikonunu yönetin." },
   { id: "contact", label: "İletişim Kanalları", description: "Sitenin genelinde kullanılan e-posta ve telefon bilgisini düzenleyin." },
-  { id: "addresses", label: "Ofis Adresleri", description: "İstanbul ve Dubai ofis adreslerini üç dilde yönetin." },
+  { id: "addresses", label: "Ofis Adresleri", description: "Ofis ve şube adreslerini ekleyin, kaldırın ve üç dilde yönetin." },
 ] as const;
+
+type TranslatedText = { tr: string; en: string; ar: string };
+type OfficeAddress = {
+  id: string;
+  title: TranslatedText;
+  address: TranslatedText;
+  tag: string;
+  mapUrl: string;
+};
+
+const emptyTranslatedText = (): TranslatedText => ({ tr: "", en: "", ar: "" });
+
+const createOfficeAddress = (): OfficeAddress => ({
+  id: typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `office-${Date.now()}`,
+  title: emptyTranslatedText(),
+  address: emptyTranslatedText(),
+  tag: "",
+  mapUrl: "",
+});
 
 export default function SettingsAdminPage() {
   const { apiFetch } = useAuth();
@@ -27,8 +47,7 @@ export default function SettingsAdminPage() {
   const [favicon, setFavicon] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [istanbulAddress, setIstanbulAddress] = useState<Record<string, string>>({ tr: "", en: "", ar: "" });
-  const [dubaiAddress, setDubaiAddress] = useState<Record<string, string>>({ tr: "", en: "", ar: "" });
+  const [officeAddresses, setOfficeAddresses] = useState<OfficeAddress[]>([]);
 
   useEffect(() => {
     fetchSettings();
@@ -47,19 +66,37 @@ export default function SettingsAdminPage() {
       if (data.contact_email) setEmail(data.contact_email.email || "");
       if (data.contact_phone) setPhone(data.contact_phone.phone || "");
       
-      if (data.address_istanbul) {
-        setIstanbulAddress({
-          tr: data.address_istanbul.tr || "",
-          en: data.address_istanbul.en || "",
-          ar: data.address_istanbul.ar || "",
-        });
-      }
-      if (data.address_dubai) {
-        setDubaiAddress({
-          tr: data.address_dubai.tr || "",
-          en: data.address_dubai.en || "",
-          ar: data.address_dubai.ar || "",
-        });
+      if (Array.isArray(data.office_addresses?.items)) {
+        setOfficeAddresses(data.office_addresses.items);
+      } else {
+        const migratedAddresses: OfficeAddress[] = [];
+        if (data.address_istanbul) {
+          migratedAddresses.push({
+            id: "istanbul",
+            title: { tr: "İstanbul Genel Merkez", en: "Istanbul Headquarters", ar: "المقر الرئيسي في إسطنبول" },
+            address: {
+              tr: data.address_istanbul.tr || "",
+              en: data.address_istanbul.en || "",
+              ar: data.address_istanbul.ar || "",
+            },
+            tag: "TR",
+            mapUrl: "",
+          });
+        }
+        if (data.address_dubai) {
+          migratedAddresses.push({
+            id: "dubai",
+            title: { tr: "Dubai Bölge Ofisi", en: "Dubai Regional Office", ar: "المكتب الإقليمي في دبي" },
+            address: {
+              tr: data.address_dubai.tr || "",
+              en: data.address_dubai.en || "",
+              ar: data.address_dubai.ar || "",
+            },
+            tag: "UAE",
+            mapUrl: "",
+          });
+        }
+        setOfficeAddresses(migratedAddresses);
       }
     } catch (e: any) {
       setError(e.message || "Ayarlar yüklenirken bir hata oluştu.");
@@ -81,8 +118,10 @@ export default function SettingsAdminPage() {
         site_favicon: { icon: favicon },
         contact_email: { email },
         contact_phone: { phone },
-        address_istanbul: istanbulAddress,
-        address_dubai: dubaiAddress,
+        office_addresses: { items: officeAddresses },
+        // Eski frontend sürümleri için ilk iki adresi geçici olarak koru.
+        address_istanbul: officeAddresses[0]?.address || emptyTranslatedText(),
+        address_dubai: officeAddresses[1]?.address || emptyTranslatedText(),
       }
     };
 
@@ -100,6 +139,25 @@ export default function SettingsAdminPage() {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const updateOffice = (
+    id: string,
+    field: "title" | "address",
+    locale: keyof TranslatedText,
+    value: string,
+  ) => {
+    setOfficeAddresses((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, [field]: { ...item[field], [locale]: value } } : item,
+      ),
+    );
+  };
+
+  const updateOfficeMeta = (id: string, field: "tag" | "mapUrl", value: string) => {
+    setOfficeAddresses((items) =>
+      items.map((item) => (item.id === id ? { ...item, [field]: value } : item)),
+    );
   };
 
   if (isLoading) {
@@ -193,79 +251,89 @@ export default function SettingsAdminPage() {
         </div>}
 
         {/* Physical Addresses */}
-        {activeSection === "addresses" && <>
-        <div className="p-6 sm:p-8 space-y-5">
-          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40">3. İstanbul Genel Merkez Adresi</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {activeSection === "addresses" && <div className="p-6 sm:p-8 space-y-5">
+          <div className="flex flex-col gap-3 border-b border-border/40 pb-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Türkçe</label>
-              <textarea
-                rows={3}
-                required
-                value={istanbulAddress.tr}
-                onChange={(e) => setIstanbulAddress({ ...istanbulAddress, tr: e.target.value })}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
-              />
+              <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em]">3. Ofis Adresleri</h3>
+              <p className="mt-1 text-xs text-muted-foreground">Eklenen adresler iletişim sayfasında ve site alt bilgisinde gösterilir.</p>
             </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">ENGLISH</label>
-              <textarea
-                rows={3}
-                required
-                value={istanbulAddress.en}
-                onChange={(e) => setIstanbulAddress({ ...istanbulAddress, en: e.target.value })}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">العربية (Arabic)</label>
-              <textarea
-                rows={3}
-                required
-                value={istanbulAddress.ar}
-                onChange={(e) => setIstanbulAddress({ ...istanbulAddress, ar: e.target.value })}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
-              />
-            </div>
+            <button
+              type="button"
+              onClick={() => setOfficeAddresses((items) => [...items, createOfficeAddress()])}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            >
+              <Plus className="h-4 w-4" /> Yeni Adres Ekle
+            </button>
           </div>
-        </div>
 
-        <div className="border-t border-border/50 p-6 sm:p-8 space-y-5">
-          <h3 className="text-[11px] font-black text-muted-foreground uppercase tracking-[0.1em] pb-3 border-b border-border/40">4. Dubai Bölge Ofisi Adresi</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">Türkçe</label>
-              <textarea
-                rows={3}
-                required
-                value={dubaiAddress.tr}
-                onChange={(e) => setDubaiAddress({ ...dubaiAddress, tr: e.target.value })}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
-              />
+          {officeAddresses.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-border bg-muted/20 px-6 py-12 text-center">
+              <MapPin className="mx-auto h-7 w-7 text-muted-foreground/60" />
+              <p className="mt-3 text-sm font-bold text-card-foreground">Henüz ofis adresi eklenmedi.</p>
+              <p className="mt-1 text-xs text-muted-foreground">İlk adresi oluşturmak için “Yeni Adres Ekle” düğmesini kullanın.</p>
             </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">ENGLISH</label>
-              <textarea
-                rows={3}
-                required
-                value={dubaiAddress.en}
-                onChange={(e) => setDubaiAddress({ ...dubaiAddress, en: e.target.value })}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-semibold text-muted-foreground mb-1.5 uppercase tracking-wide">العربية (Arabic)</label>
-              <textarea
-                rows={3}
-                required
-                value={dubaiAddress.ar}
-                onChange={(e) => setDubaiAddress({ ...dubaiAddress, ar: e.target.value })}
-                className="w-full px-3 py-2 border border-border outline-none rounded-lg text-xs"
-              />
-            </div>
-          </div>
-        </div>
-        </>}
+          ) : officeAddresses.map((office, index) => (
+            <section key={office.id} className="overflow-hidden rounded-xl border border-border/70 bg-muted/10">
+              <div className="flex items-center justify-between border-b border-border/60 bg-muted/30 px-5 py-3">
+                <div className="flex items-center gap-2">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-xs font-black text-primary">{index + 1}</span>
+                  <span className="text-xs font-bold text-card-foreground">{office.title.tr || `Yeni Ofis ${index + 1}`}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setOfficeAddresses((items) => items.filter((item) => item.id !== office.id))}
+                  className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-bold text-destructive transition-colors hover:bg-destructive/10"
+                >
+                  <Trash2 className="h-3.5 w-3.5" /> Kaldır
+                </button>
+              </div>
+              <div className="space-y-5 p-5">
+                <div className="grid gap-4 md:grid-cols-3">
+                  {(["tr", "en", "ar"] as const).map((locale) => (
+                    <div key={`${office.id}-title-${locale}`}>
+                      <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
+                        Ofis Adı · {locale === "tr" ? "Türkçe" : locale === "en" ? "ENGLISH" : "العربية"}
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={office.title[locale]}
+                        onChange={(event) => updateOffice(office.id, "title", locale, event.target.value)}
+                        className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs outline-none focus:border-primary"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="grid gap-4 md:grid-cols-3">
+                  {(["tr", "en", "ar"] as const).map((locale) => (
+                    <div key={`${office.id}-address-${locale}`}>
+                      <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-wide text-muted-foreground">
+                        Açık Adres · {locale === "tr" ? "Türkçe" : locale === "en" ? "ENGLISH" : "العربية"}
+                      </label>
+                      <textarea
+                        rows={3}
+                        required
+                        value={office.address[locale]}
+                        onChange={(event) => updateOffice(office.id, "address", locale, event.target.value)}
+                        className="w-full resize-y rounded-lg border border-border bg-background px-3 py-2 text-xs outline-none focus:border-primary"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="grid gap-4 md:grid-cols-[160px_1fr]">
+                  <div>
+                    <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-wide text-muted-foreground">Kısa Kod</label>
+                    <input type="text" value={office.tag} onChange={(event) => updateOfficeMeta(office.id, "tag", event.target.value.toUpperCase())} placeholder="TR, UAE…" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs outline-none focus:border-primary" />
+                  </div>
+                  <div>
+                    <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-wide text-muted-foreground">Google Maps Embed URL (İsteğe Bağlı)</label>
+                    <input type="url" value={office.mapUrl} onChange={(event) => updateOfficeMeta(office.id, "mapUrl", event.target.value)} placeholder="https://www.google.com/maps/embed?pb=…" className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs outline-none focus:border-primary" />
+                  </div>
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>}
 
         <AdminSaveBar isSaving={isSaving} label="Ayarları Kaydet" />
       </form>

@@ -29,29 +29,48 @@ const ScaleIn = ({ children, delay = 0, className = "" }: any) => (
 type ContactClientProps = {
   t: any;
   isRtl: boolean;
+  locations?: ContactLocation[];
 };
 
-// Map configurations
-const LOCATIONS = [
+type ContactLocation = {
+  id: string;
+  title: string;
+  address: string;
+  mapUrl: string;
+  tag: string;
+};
+
+const DEFAULT_LOCATIONS: ContactLocation[] = [
   {
     id: "istanbul",
-    nameKey: "hqTitle",
-    addressKey: "addressIstanbul",
-    mapSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24147.28859942485!2d29.2801452!3d40.840742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad1ab8eb06cd1%3A0x7d6f555c4d0840!2sTuzla%20Tersaneler%20B%C3%B6lgesi!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str",
+    title: "",
+    address: "",
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24147.28859942485!2d29.2801452!3d40.840742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cad1ab8eb06cd1%3A0x7d6f555c4d0840!2sTuzla%20Tersaneler%20B%C3%B6lgesi!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str",
     tag: "TR"
   },
   {
     id: "dubai",
-    nameKey: "branchTitle",
-    addressKey: "addressDubai",
-    mapSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28867.747167683935!2d55.2505503!3d25.2716386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f431604a8b79b%3A0xc665795328baabdc!2sDubai%20Maritime%20City!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str",
+    title: "",
+    address: "",
+    mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28867.747167683935!2d55.2505503!3d25.2716386!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f431604a8b79b%3A0xc665795328baabdc!2sDubai%20Maritime%20City!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str",
     tag: "UAE"
   }
 ];
 
-export default function ContactClient({ t, isRtl }: ContactClientProps) {
+export default function ContactClient({ t, isRtl, locations }: ContactClientProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [activeTab, setActiveTab] = useState(LOCATIONS[0].id);
+  const fallbackLocations = DEFAULT_LOCATIONS.map((location, index) => ({
+    ...location,
+    title: index === 0 ? t.contact.hqTitle : t.contact.branchTitle,
+    address: index === 0 ? t.contact.addressIstanbul : t.contact.addressDubai,
+  }));
+  const visibleLocations = Array.isArray(locations)
+    ? locations.map((location, index) => ({
+        ...location,
+        mapUrl: location.mapUrl || DEFAULT_LOCATIONS[index]?.mapUrl || "",
+      }))
+    : fallbackLocations;
+  const [activeTab, setActiveTab] = useState(visibleLocations[0]?.id || "");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,7 +105,7 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
     }
   };
 
-  const activeLoc = LOCATIONS.find((loc) => loc.id === activeTab)!;
+  const activeLoc = visibleLocations.find((loc) => loc.id === activeTab) || visibleLocations[0];
 
   return (
     <div className="relative pb-24 lg:pb-32 min-h-screen">
@@ -133,25 +152,29 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
             
             {/* LARGE MAP CARD */}
             <ScaleIn delay={0.2} className="lg:col-span-8 relative h-[500px] md:h-[600px] rounded-[2.5rem] bg-slate-100 overflow-hidden shadow-2xl shadow-slate-200/50 border border-slate-200/80 group">
-              <AnimatePresence mode="wait">
+              {activeLoc?.mapUrl ? <AnimatePresence mode="wait">
                 <motion.iframe
                   key={activeTab}
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
-                  src={activeLoc.mapSrc}
+                  src={activeLoc.mapUrl}
                   className="absolute inset-0 w-full h-full border-0 filter grayscale-[20%] contrast-125 transition-all duration-700 group-hover:grayscale-0"
                   allowFullScreen={false}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title={`Map of ${t.contact[activeLoc.nameKey as keyof typeof t.contact]}`}
+                  title={`Map of ${activeLoc.title}`}
                 />
-              </AnimatePresence>
+              </AnimatePresence> : (
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-100 px-8 text-center text-sm font-semibold text-slate-500">
+                  Bu adres için harita bağlantısı henüz eklenmedi.
+                </div>
+              )}
 
               {/* FLOATING LOCATION SWITCHER */}
-              <div className={`absolute top-6 ${isRtl ? "right-6" : "left-6"} flex gap-2 bg-white/90 p-2 rounded-2xl backdrop-blur-md border border-white shadow-xl`}>
-                {LOCATIONS.map((loc) => (
+              {visibleLocations.length > 0 && <div className={`absolute top-6 ${isRtl ? "right-6" : "left-6"} flex max-w-[calc(100%-3rem)] gap-2 overflow-x-auto bg-white/90 p-2 rounded-2xl backdrop-blur-md border border-white shadow-xl`}>
+                {visibleLocations.map((loc) => (
                   <button
                     key={loc.id}
                     onClick={() => setActiveTab(loc.id)}
@@ -170,17 +193,17 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
                     )}
                     <span className="flex items-center gap-2">
                       <span className={`w-1.5 h-1.5 rounded-full ${activeTab === loc.id ? "bg-cta" : "bg-transparent"}`} />
-                      {loc.id}
+                      {loc.tag || loc.title}
                     </span>
                   </button>
                 ))}
-              </div>
+              </div>}
 
               {/* MAP OVERLAY GRADIENT */}
               <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
               
               {/* LOCATION PIN LABEL */}
-              <div className={`absolute bottom-6 ${isRtl ? "right-6" : "left-6"} bg-slate-900/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-2xl flex items-center gap-4`}>
+              {activeLoc && <div className={`absolute bottom-6 ${isRtl ? "right-6" : "left-6"} bg-slate-900/90 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 shadow-2xl flex items-center gap-4`}>
                 <div className="w-10 h-10 rounded-full bg-cta text-slate-900 flex items-center justify-center">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -188,10 +211,10 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
                   </svg>
                 </div>
                 <div className={`${isRtl ? "text-right" : "text-left"}`}>
-                  <span className="block text-[10px] font-mono tracking-widest text-cta uppercase mb-0.5">{t.contact[activeLoc.nameKey as keyof typeof t.contact]}</span>
-                  <span className="block text-sm font-bold text-white uppercase tracking-wider">{activeLoc.tag}</span>
+                  <span className="block text-[10px] font-mono tracking-widest text-cta uppercase mb-0.5">{activeLoc?.title}</span>
+                  <span className="block text-sm font-bold text-white uppercase tracking-wider">{activeLoc?.tag}</span>
                 </div>
-              </div>
+              </div>}
             </ScaleIn>
 
             {/* INFO & QUICK CONTACTS CARD */}
@@ -199,33 +222,21 @@ export default function ContactClient({ t, isRtl }: ContactClientProps) {
               <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] pointer-events-none" />
               
               <div className="p-8 md:p-10 flex-1 flex flex-col justify-center">
-                <div className="mb-10">
-                  <h2 className="text-2xl font-black mb-8 pb-4 border-b border-white/10 text-white">
-                    {t.contact.hqTitle}
-                  </h2>
-                  <div className={`flex items-start gap-4 mb-6 ${isRtl ? "flex-row-reverse" : ""}`}>
+                {visibleLocations.map((location) => (
+                  <div className="mb-8 last:mb-4" key={location.id}>
+                    <h2 className="text-xl font-black mb-5 pb-3 border-b border-white/10 text-white">
+                      {location.title}
+                    </h2>
+                    <div className={`flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
                     <div className="mt-1 opacity-50 shrink-0">
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                     </div>
                     <p className={`text-slate-300 font-medium leading-relaxed whitespace-pre-wrap ${isRtl ? "text-right" : "text-left"}`}>
-                      {t.contact.addressIstanbul}
+                      {location.address}
                     </p>
                   </div>
-                </div>
-
-                <div className="mb-4">
-                  <h2 className="text-2xl font-black mb-8 pb-4 border-b border-white/10 text-white">
-                    {t.contact.branchTitle}
-                  </h2>
-                  <div className={`flex items-start gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
-                    <div className="mt-1 opacity-50 shrink-0">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                    </div>
-                    <p className={`text-slate-300 font-medium leading-relaxed whitespace-pre-wrap ${isRtl ? "text-right" : "text-left"}`}>
-                      {t.contact.addressDubai}
-                    </p>
                   </div>
-                </div>
+                ))}
               </div>
 
               {/* Bottom Quick Contact Strip */}
