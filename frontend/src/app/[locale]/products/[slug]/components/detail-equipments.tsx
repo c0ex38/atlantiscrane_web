@@ -24,9 +24,9 @@ export default function DetailEquipments({
   classCertLabel,
 }: DetailEquipmentsProps) {
   return (
-    <section id="section-equipment" className="relative py-24 mb-8">
+    <section id="section-equipment" className="relative py-10 sm:py-16 lg:py-24 lg:mb-8">
       <FadeIn>
-        <div className="flex items-center gap-4 mb-20">
+        <div className="mb-8 flex items-center gap-4 sm:mb-12 lg:mb-20">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
           <span className="text-[8px] font-mono tracking-[0.4em] text-slate-700 uppercase">Section 05</span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
@@ -35,22 +35,22 @@ export default function DetailEquipments({
 
       <FadeUp delay={0.15}>
         <Tabs defaultValue="standard" className="w-full">
-          <div className="flex justify-center mb-8">
-            <TabsList className="bg-[#0c1220]/80 border border-white/10 p-1">
-              <TabsTrigger value="standard" className="px-8 py-2.5 text-xs font-bold uppercase tracking-wider data-[state=active]:bg-emerald-500/20 data-[state=active]:text-emerald-400">
+          <div className="mb-5 flex justify-center sm:mb-8">
+            <TabsList className="grid h-auto w-full grid-cols-2 border border-white/10 bg-[#0c1220]/80 p-1 sm:w-auto">
+              <TabsTrigger value="standard" className="px-3 py-2.5 text-[10px] font-bold uppercase tracking-wide data-[state=active]:bg-emerald-500/20 data-[state=active]:text-emerald-400 sm:px-8 sm:text-xs sm:tracking-wider">
                 {standardLabel}
               </TabsTrigger>
-              <TabsTrigger value="optional" className="px-8 py-2.5 text-xs font-bold uppercase tracking-wider data-[state=active]:bg-cta/20 data-[state=active]:text-cta">
+              <TabsTrigger value="optional" className="px-3 py-2.5 text-[10px] font-bold uppercase tracking-wide data-[state=active]:bg-cta/20 data-[state=active]:text-cta sm:px-8 sm:text-xs sm:tracking-wider">
                 {optionalLabel}
               </TabsTrigger>
             </TabsList>
           </div>
 
           <TabsContent value="standard" className="mt-0 outline-none">
-            <div className="group relative overflow-hidden rounded-3xl bg-[#0c1220]/80 border border-emerald-500/12 transition-all duration-500">
+            <div className="group relative overflow-hidden rounded-2xl border border-emerald-500/12 bg-[#0c1220]/80 transition-all duration-500 sm:rounded-3xl">
               <div className="h-1 bg-gradient-to-r from-emerald-600/80 via-emerald-400/60 to-transparent" />
-              <div className="p-8 md:p-10">
-                <div className="flex items-center gap-4 mb-8">
+              <div className="p-5 sm:p-8 md:p-10">
+                <div className="mb-5 flex items-center gap-3 sm:mb-8 sm:gap-4">
                   <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
                     <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -81,10 +81,10 @@ export default function DetailEquipments({
           </TabsContent>
 
           <TabsContent value="optional" className="mt-0 outline-none">
-            <div className="group relative overflow-hidden rounded-3xl bg-[#0c1220]/80 border border-cta/12 transition-all duration-500">
+            <div className="group relative overflow-hidden rounded-2xl border border-cta/12 bg-[#0c1220]/80 transition-all duration-500 sm:rounded-3xl">
               <div className="h-1 bg-gradient-to-r from-cta via-cta/60 to-transparent" />
-              <div className="p-8 md:p-10">
-                <div className="flex items-center gap-4 mb-8">
+              <div className="p-5 sm:p-8 md:p-10">
+                <div className="mb-5 flex items-center gap-3 sm:mb-8 sm:gap-4">
                   <div className="w-11 h-11 rounded-2xl bg-cta/8 border border-cta/20 flex items-center justify-center shrink-0">
                     <svg className="w-5 h-5 text-cta" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -118,7 +118,7 @@ export default function DetailEquipments({
 
       {/* Certification strip */}
       <FadeUp delay={0.3}>
-        <div className="mt-8 rounded-2xl border border-white/[0.05] bg-white/[0.015] px-8 py-5">
+        <div className="mt-5 rounded-2xl border border-white/[0.05] bg-white/[0.015] px-4 py-4 sm:mt-8 sm:px-8 sm:py-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <span className="text-[10px] font-mono text-slate-700 uppercase tracking-[0.3em]">{classCertLabel}</span>
             <div className="flex flex-wrap gap-3">

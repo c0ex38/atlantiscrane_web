@@ -26,9 +26,9 @@ export default function DetailOverview({
   const restText = sentences.slice(1).join(". ");
 
   return (
-    <section id="section-overview" className="relative py-24 mb-8">
+    <section id="section-overview" className="relative py-10 sm:py-16 lg:py-24 lg:mb-8">
       <FadeIn>
-        <div className="flex items-center gap-4 mb-20">
+        <div className="mb-8 flex items-center gap-4 sm:mb-12 lg:mb-20">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
           <span className="text-[8px] font-mono tracking-[0.4em] text-slate-400 uppercase">Section 01</span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
@@ -36,7 +36,7 @@ export default function DetailOverview({
       </FadeIn>
 
       <FadeUp delay={0.1}>
-        <div className={`flex items-center gap-3 mb-12 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
+        <div className={`mb-7 flex items-center gap-3 sm:mb-12 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
           <ScaleIn delay={0.15}>
             <div className="w-6 h-6 rounded-lg bg-cta/10 border border-cta/20 flex items-center justify-center shrink-0">
               <span className="text-[9px] font-mono text-cta">01</span>
@@ -48,12 +48,12 @@ export default function DetailOverview({
 
       <div className={`grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] gap-0 ${isRtl ? "direction-rtl" : ""}`}>
         {/* Left */}
-        <SlideLeft delay={0.2} className={`${isRtl ? "text-right pl-0 lg:pl-16" : "text-left pr-0 lg:pr-16"} pb-12 lg:pb-0`}>
-          <blockquote className={`relative mb-8 ${isRtl ? "pr-6 border-r-4 border-cta" : "pl-6 border-l-4 border-cta"}`}>
-            <p className="text-xl md:text-2xl font-bold text-slate-900 leading-snug">{pullQuote}</p>
+        <SlideLeft delay={0.2} className={`${isRtl ? "text-right pl-0 lg:pl-16" : "text-left pr-0 lg:pr-16"} pb-8 lg:pb-0`}>
+          <blockquote className={`relative mb-5 sm:mb-8 ${isRtl ? "border-r-4 border-cta pr-4 sm:pr-6" : "border-l-4 border-cta pl-4 sm:pl-6"}`}>
+            <p className="text-lg font-bold leading-snug text-slate-900 sm:text-xl md:text-2xl">{pullQuote}</p>
           </blockquote>
           {restText && (
-            <p className="text-slate-600 text-base leading-[1.9] whitespace-pre-wrap">{restText}</p>
+            <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-600 sm:text-base sm:leading-[1.9]">{restText}</p>
           )}
         </SlideLeft>
 
@@ -61,7 +61,7 @@ export default function DetailOverview({
         <div className="hidden lg:block w-[1px] bg-gradient-to-b from-transparent via-slate-300 to-transparent" />
 
         {/* Right */}
-        <SlideRight delay={0.25} className={`${isRtl ? "text-right pr-0 lg:pr-16" : "text-left pl-0 lg:pl-16"} pt-12 lg:pt-0`}>
+        <SlideRight delay={0.25} className={`${isRtl ? "text-right pr-0 lg:pr-16" : "text-left pl-0 lg:pl-16"} border-t border-slate-200 pt-8 lg:border-0 lg:pt-0`}>
           <div className={`flex items-center gap-3 mb-7 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
             <ScaleIn delay={0.3}>
               <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
@@ -74,7 +74,7 @@ export default function DetailOverview({
           </div>
 
           <div className={`relative ${isRtl ? "pr-5 border-r border-blue-500/20" : "pl-5 border-l border-blue-500/20"}`}>
-            <p className="text-slate-600 text-base leading-[1.9]">{usage}</p>
+            <p className="text-sm leading-relaxed text-slate-600 sm:text-base sm:leading-[1.9]">{usage}</p>
           </div>
 
           <div className={`flex flex-wrap gap-2 mt-8 ${isRtl ? "justify-end" : ""}`}>

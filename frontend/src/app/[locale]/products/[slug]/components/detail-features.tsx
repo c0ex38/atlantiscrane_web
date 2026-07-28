@@ -26,9 +26,9 @@ export default function DetailFeatures({
   if (!features || features.length === 0) return null;
 
   return (
-    <section id="section-features" className="relative py-24 mb-8">
+    <section id="section-features" className="relative py-10 sm:py-16 lg:py-24 lg:mb-8">
       <FadeIn>
-        <div className="flex items-center gap-4 mb-20">
+        <div className="mb-8 flex items-center gap-4 sm:mb-12 lg:mb-20">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
           <span className="text-[8px] font-mono tracking-[0.4em] text-slate-400 uppercase">Section 02</span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
@@ -36,7 +36,7 @@ export default function DetailFeatures({
       </FadeIn>
 
       <FadeUp delay={0.1}>
-        <div className={`flex items-center gap-3 mb-12 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
+        <div className={`mb-7 flex items-center gap-3 sm:mb-12 ${isRtl ? "justify-end flex-row-reverse" : ""}`}>
           <ScaleIn delay={0.15}>
             <div className="w-6 h-6 rounded-lg bg-cta/10 border border-cta/20 flex items-center justify-center shrink-0">
               <span className="text-[9px] font-mono text-cta">02</span>
@@ -52,12 +52,12 @@ export default function DetailFeatures({
           return (
             <StaggerItem key={index}>
               <div
-                className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 md:p-7 hover:-translate-y-1 hover:border-cta/40 hover:bg-slate-50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.05)] transition-all duration-400 flex gap-5 ${
+                className={`group relative flex gap-3.5 overflow-hidden rounded-xl border border-slate-200 bg-white p-4 transition-all duration-400 hover:-translate-y-1 hover:border-cta/40 hover:bg-slate-50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.05)] sm:gap-5 sm:rounded-2xl sm:p-6 md:p-7 ${
                   isRtl ? "flex-row-reverse text-right" : "text-left"
                 }`}
               >
                 <div className={`absolute top-0 left-6 right-6 h-[1px] bg-cta opacity-0 group-hover:opacity-60 transition-opacity duration-400`} />
-                <div className="shrink-0 w-11 h-11 rounded-2xl bg-cta/10 border border-cta/20 flex items-center justify-center text-cta/80 group-hover:bg-cta/15 group-hover:border-cta/40 group-hover:text-cta transition-all duration-400 mt-0.5">
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-cta/20 bg-cta/10 text-cta/80 transition-all duration-400 group-hover:border-cta/40 group-hover:bg-cta/15 group-hover:text-cta sm:h-11 sm:w-11 sm:rounded-2xl">
                   {icon}
                 </div>
                 <div className="flex-1 min-w-0">

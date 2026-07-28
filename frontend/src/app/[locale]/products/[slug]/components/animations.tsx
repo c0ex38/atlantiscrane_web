@@ -124,8 +124,8 @@ export function SlideLeft({
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, x: -50 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
@@ -149,8 +149,8 @@ export function SlideRight({
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, x: 50 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
@@ -182,5 +182,4 @@ export function ScaleIn({
     </motion.div>
   );
 }
-
 

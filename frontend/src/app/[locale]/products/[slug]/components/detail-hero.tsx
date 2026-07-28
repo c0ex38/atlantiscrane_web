@@ -35,7 +35,7 @@ export default function DetailHero({
   isRtl,
 }: DetailHeroProps) {
   return (
-    <section id="section-hero" className="relative min-h-[90vh] flex items-center mb-0">
+    <section id="section-hero" className="relative mb-0 flex min-h-0 items-center py-6 sm:min-h-[85vh] sm:py-10 lg:min-h-[90vh] lg:py-0">
       {/* Blueprint grid background */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -49,12 +49,12 @@ export default function DetailHero({
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#070b14] to-transparent" />
       </div>
 
-      <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-blue-600/8 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-cta/6 rounded-full blur-[100px] pointer-events-none" />
+      <div className="pointer-events-none absolute right-0 top-1/3 h-[90vw] max-h-[600px] w-[90vw] max-w-[600px] rounded-full bg-blue-600/8 blur-[80px] sm:right-1/4 sm:blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-1/4 left-0 h-[80vw] max-h-[400px] w-[80vw] max-w-[400px] rounded-full bg-cta/6 blur-[70px] sm:left-1/3 sm:blur-[100px]" />
 
       {/* Back link */}
       <motion.div
-        className="absolute top-0 left-0 z-20"
+        className="absolute left-0 top-0 z-20"
         initial={{ opacity: 0, x: -16 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -74,12 +74,12 @@ export default function DetailHero({
         </Link>
       </motion.div>
 
-      <div className={`relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0 items-center w-full pt-8 ${isRtl ? "direction-rtl" : ""}`}>
+      <div className={`relative z-10 grid w-full grid-cols-1 items-center gap-5 pt-9 sm:gap-8 lg:grid-cols-2 lg:gap-0 lg:pt-8 ${isRtl ? "direction-rtl" : ""}`}>
 
         {/* LEFT: Text */}
-        <div className={`${isRtl ? "order-1 lg:order-2 text-right" : "text-left"} flex flex-col pr-0 lg:pr-16 py-16`}>
+        <div className={`${isRtl ? "order-1 lg:order-2 text-right" : "text-left"} flex flex-col py-5 pr-0 sm:py-8 lg:py-16 lg:pr-16`}>
           <motion.div
-            className={`flex items-center gap-3 mb-6 ${isRtl ? "justify-end" : ""}`}
+            className={`mb-3 flex items-center gap-3 sm:mb-6 ${isRtl ? "justify-end" : ""}`}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -94,7 +94,7 @@ export default function DetailHero({
           </motion.div>
 
           <motion.h1
-            className="text-4xl md:text-5xl xl:text-[64px] font-black tracking-tight leading-[1.0] mb-7 text-white"
+            className="mb-4 text-3xl font-black leading-[1.02] tracking-tight text-white min-[390px]:text-4xl md:mb-7 md:text-5xl xl:text-[64px]"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -103,7 +103,7 @@ export default function DetailHero({
           </motion.h1>
 
           <motion.div
-            className={`flex items-center gap-3 mb-7 ${isRtl ? "justify-end" : ""}`}
+            className={`mb-4 flex items-center gap-3 sm:mb-7 ${isRtl ? "justify-end" : ""}`}
             initial={{ opacity: 0, scaleX: 0 }}
             animate={{ opacity: 1, scaleX: 1 }}
             transition={{ duration: 0.6, delay: 0.7, ease: "easeOut" }}
@@ -114,7 +114,7 @@ export default function DetailHero({
           </motion.div>
 
           <motion.p
-            className="text-slate-400 text-base md:text-[17px] leading-[1.85] mb-10 max-w-[500px]"
+            className="mb-6 max-w-[500px] text-sm leading-relaxed text-slate-400 sm:mb-10 sm:text-base sm:leading-[1.85] md:text-[17px]"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
@@ -123,7 +123,7 @@ export default function DetailHero({
           </motion.p>
 
           {/* Stat cards — staggered */}
-          <div className={`grid grid-cols-2 gap-3 mb-10 max-w-[380px] ${isRtl ? "ml-auto" : ""}`}>
+          <div className={`mb-6 grid max-w-[380px] grid-cols-2 gap-2.5 sm:mb-10 sm:gap-3 ${isRtl ? "ml-auto" : ""}`}>
             {[
               { label: capLabel, value: capacity, color: "cta" },
               { label: outLabel, value: outreach, color: "blue" },
@@ -145,21 +145,21 @@ export default function DetailHero({
                 <span className={`text-[9px] font-bold uppercase tracking-[0.25em] block mb-1.5 ${
                   stat.color === "cta" ? "text-cta/70" : "text-blue-400/70"
                 }`}>{stat.label}</span>
-                <p className="text-2xl md:text-3xl font-black text-white leading-none">{stat.value}</p>
+                <p className="break-words text-xl font-black leading-none text-white sm:text-2xl md:text-3xl">{stat.value}</p>
               </motion.div>
             ))}
           </div>
 
           {/* CTA */}
           <motion.div
-            className={`flex flex-wrap gap-4 ${isRtl ? "justify-end" : ""}`}
+            className={`flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:gap-4 ${isRtl ? "justify-end" : ""}`}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
           >
             <Link
               href={`/${locale}/#contact`}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-cta text-[#070b14] font-black text-[11px] uppercase tracking-[0.2em] rounded-full hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.35)] transition-all duration-300"
+              className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-xl bg-cta px-6 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-[#070b14] transition-all duration-300 hover:shadow-[0_0_30px_rgba(212,175,55,0.35)] sm:w-auto sm:rounded-full sm:px-8 sm:py-4 sm:text-[11px] sm:tracking-[0.2em] sm:hover:scale-105"
             >
               {quoteBtnText}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
@@ -189,12 +189,12 @@ export default function DetailHero({
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.0, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="relative aspect-[4/3] lg:aspect-[3/2.5] w-full">
+          <div className="relative aspect-[4/3] w-full lg:aspect-[3/2.5]">
             <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-cta/10 rounded-3xl" />
             <div className="absolute inset-1/4 bg-cta/8 rounded-full blur-3xl" />
 
             <motion.div
-              className="relative w-full h-full rounded-[2rem] bg-white shadow-[0_20px_80px_rgba(0,0,0,0.4)] overflow-hidden border border-slate-200"
+              className="relative h-full w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_20px_80px_rgba(0,0,0,0.4)] sm:rounded-[2rem]"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             >
@@ -204,7 +204,7 @@ export default function DetailHero({
                 alt={title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-contain p-6 md:p-12 relative z-10 mix-blend-multiply"
+                className="relative z-10 object-contain p-4 mix-blend-multiply sm:p-6 md:p-12"
                 priority
               />
             </motion.div>

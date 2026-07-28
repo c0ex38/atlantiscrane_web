@@ -104,7 +104,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const isRtl = locale === "ar";
 
   // Use the same fallback images as the list page
-  const productImage = "/about-facility.png";
+  const productImage = dbProduct.image || "/about-facility.png";
 
   const capLabel = t?.common?.capacity;
   const outLabel = t?.common?.outreach;
@@ -130,10 +130,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
   ];
 
   return (
-    <main className="min-h-screen bg-[#070b14] text-white -mt-24 pt-32 pb-0 overflow-hidden relative">
+    <main className="relative -mt-24 min-h-screen overflow-hidden bg-[#070b14] pb-0 pt-28 text-white sm:pt-32">
       {/* Page-level background glows */}
-      <div className="fixed top-0 right-0 w-[800px] h-[800px] bg-blue-900/8 rounded-full blur-[200px] pointer-events-none -z-0" />
-      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-cta/4 rounded-full blur-[180px] pointer-events-none -z-0" />
+      <div className="pointer-events-none fixed right-0 top-0 -z-0 h-[100vw] max-h-[800px] w-[100vw] max-w-[800px] rounded-full bg-blue-900/8 blur-[120px] sm:blur-[200px]" />
+      <div className="pointer-events-none fixed bottom-0 left-0 -z-0 h-[100vw] max-h-[600px] w-[100vw] max-w-[600px] rounded-full bg-cta/4 blur-[100px] sm:blur-[180px]" />
 
       {/* Schema.org Product Structured Data */}
       <script
@@ -154,7 +154,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         }}
       />
 
-      <div className="container-shell relative z-10 px-4 md:px-8">
+      <div className="container-shell relative z-10 px-3 sm:px-6 md:px-8">
         {/* 1. Hero */}
         <DetailHero
           modelNumber={modelIdentifier}
@@ -172,8 +172,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
         />
       </div>
 
-      <div className="w-full bg-[#f0f3f8] text-slate-900 relative z-10 py-12">
-        <div className="container-shell px-4 md:px-8">
+      <div className="relative z-10 w-full bg-[#f0f3f8] py-4 text-slate-900 sm:py-8 lg:py-12">
+        <div className="container-shell px-3 sm:px-6 md:px-8">
           {/* 2. Overview */}
           {(product.description || product.usage) && (
             <DetailOverview
@@ -197,7 +197,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="container-shell relative z-10 px-4 md:px-8 py-12">
+      <div className="container-shell relative z-10 px-3 py-4 sm:px-6 sm:py-8 md:px-8 lg:py-12">
 
         {/* 4. Load Chart */}
         {product.loadChart && product.loadChart.length > 0 && (

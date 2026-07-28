@@ -277,10 +277,10 @@ export default function DetailLoadChart({
   const maxCap = Math.max(...caps);
 
   return (
-    <section id="section-capacity" className="relative py-24 mb-8">
+    <section id="section-capacity" className="relative py-10 sm:py-16 lg:py-24 lg:mb-8">
       {/* Section separator */}
       <FadeIn>
-        <div className="flex items-center gap-4 mb-20">
+        <div className="mb-8 flex items-center gap-4 sm:mb-12 lg:mb-20">
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
           <span className="text-[10px] font-mono tracking-widest text-cta uppercase">{loadEnvelope}</span>
           <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-white/8 to-transparent" />
@@ -297,14 +297,14 @@ export default function DetailLoadChart({
           </ScaleIn>
           <span className="text-[10px] font-mono tracking-[0.35em] text-blue-400/70 uppercase">{loadChartTitle}</span>
         </div>
-        <p className={`text-slate-500 text-sm mb-12 max-w-xl ${isRtl ? "text-right ml-auto" : ""}`}>{loadChartDesc}</p>
+        <p className={`mb-7 max-w-xl text-sm leading-relaxed text-slate-500 sm:mb-12 ${isRtl ? "text-right ml-auto" : ""}`}>{loadChartDesc}</p>
       </FadeUp>
 
       {/* Main panel */}
-      <div className="rounded-3xl border border-white/[0.06] bg-[#0c1220]/80 backdrop-blur-sm overflow-hidden">
+      <div className="overflow-hidden rounded-2xl border border-white/[0.06] bg-[#0c1220]/80 backdrop-blur-sm sm:rounded-3xl">
 
         {/* Panel header */}
-        <div className="flex items-center justify-between px-6 py-3.5 bg-white/[0.02] border-b border-white/[0.05]">
+        <div className="flex items-center justify-between border-b border-white/[0.05] bg-white/[0.02] px-4 py-3 sm:px-6 sm:py-3.5">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
               <div className="w-2 h-2 rounded-full bg-red-500/40" />
@@ -313,7 +313,7 @@ export default function DetailLoadChart({
             </div>
             <span className="ml-3 text-[10px] font-mono text-slate-600 uppercase tracking-widest">load_chart.json</span>
           </div>
-          <span className="text-[9px] font-mono text-slate-700 uppercase tracking-widest">FEM 1.001 · EN 13001</span>
+          <span className="hidden text-[9px] font-mono uppercase tracking-widest text-slate-700 sm:inline">FEM 1.001 · EN 13001</span>
         </div>
 
         {/* Two columns */}
@@ -334,13 +334,13 @@ export default function DetailLoadChart({
                   const pct = maxCap > 0 ? (capVal / maxCap) * 100 : 0;
                   return (
                     <TableRow key={index} className="border-white/5 hover:bg-white/[0.02] transition-colors relative group">
-                      <TableCell className="font-mono text-sm text-slate-400 group-hover:text-slate-200 transition-colors py-4 px-2">
+                      <TableCell className="px-2 py-3 font-mono text-xs text-slate-400 transition-colors group-hover:text-slate-200 sm:py-4 sm:text-sm">
                         <span className="text-[9px] font-mono text-slate-700 w-4 inline-block mr-3">{String(index + 1).padStart(2, "0")}</span>
                         {row.outreach}
                       </TableCell>
                       <TableCell className="py-4">
                         <div className="relative flex flex-col gap-1.5">
-                          <span className="font-black text-xl text-cta group-hover:text-white transition-colors leading-none">
+                          <span className="text-lg font-black leading-none text-cta transition-colors group-hover:text-white sm:text-xl">
                             {row.capacity}
                           </span>
                           <div className="h-[2px] w-full max-w-[120px] bg-white/5 rounded-full overflow-hidden">
@@ -370,7 +370,7 @@ export default function DetailLoadChart({
 
           {/* RIGHT: Load curve chart */}
           <SlideRight delay={0.25}>
-            <div className="p-6 flex flex-col h-full min-h-[300px]">
+            <div className="flex h-full min-h-[250px] flex-col p-3 sm:min-h-[300px] sm:p-6">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-[9px] font-mono text-slate-700 uppercase tracking-wider">Load Envelope Curve</span>
                 <div className="flex items-center gap-3">
