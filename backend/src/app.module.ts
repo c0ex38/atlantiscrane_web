@@ -9,6 +9,7 @@ import { SettingsModule } from './modules/settings/settings.module';
 import { UploadsModule } from './modules/uploads/uploads.module';
 import { AnalyticsModule } from './modules/analytics/analytics.module';
 import { EnquiriesModule } from './modules/enquiries/enquiries.module';
+import { HealthController } from './health.controller';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -24,7 +25,7 @@ import { EnquiriesModule } from './modules/enquiries/enquiries.module';
     AnalyticsModule,
     EnquiriesModule,
   ],
-  controllers: [],
+  controllers: [HealthController],
   providers: [],
 })
 export class AppModule {}
