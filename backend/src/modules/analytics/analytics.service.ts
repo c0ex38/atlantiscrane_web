@@ -19,20 +19,56 @@ export class AnalyticsService {
   }
 
   async getStats() {
-    const totalVisits = await this.prisma.visit.count();
-    const mobileVisits = await this.prisma.visit.count({
-      where: { isMobile: true },
-    });
+    const [
+      totalVisits,
+      mobileVisits,
+      recentVisits,
+      totalProducts,
+      totalProjects,
+      totalReferences,
+      pageGroups,
+      mobilePageGroups,
+    ] = await Promise.all([
+      this.prisma.visit.count(),
+      this.prisma.visit.count({ where: { isMobile: true } }),
+      this.prisma.visit.findMany({
+        orderBy: { createdAt: 'desc' },
+        take: 50,
+      }),
+      this.prisma.product.count(),
+      this.prisma.project.count(),
+      this.prisma.reference.count(),
+      this.prisma.visit.groupBy({
+        by: ['path'],
+        _count: { _all: true },
+        _max: { createdAt: true },
+        orderBy: { _count: { path: 'desc' } },
+      }),
+      this.prisma.visit.groupBy({
+        by: ['path'],
+        where: { isMobile: true },
+        _count: { _all: true },
+      }),
+    ]);
     const desktopVisits = totalVisits - mobileVisits;
 
-    const recentVisits = await this.prisma.visit.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 50,
-    });
+    const mobileByPath = new Map(
+      mobilePageGroups.map((group) => [group.path || '/', group._count._all]),
+    );
+    const pageStats = pageGroups.map((group) => {
+      const path = group.path || '/';
+      const visits = group._count._all;
+      const mobile = mobileByPath.get(path) || 0;
 
-    const totalProducts = await this.prisma.product.count();
-    const totalProjects = await this.prisma.project.count();
-    const totalReferences = await this.prisma.reference.count();
+      return {
+        path,
+        visits,
+        mobile,
+        desktop: visits - mobile,
+        percentage: totalVisits > 0 ? Math.round((visits / totalVisits) * 1000) / 10 : 0,
+        lastVisit: group._max.createdAt,
+      };
+    });
 
     // Generate chart data for the last 30 days
     const thirtyDaysAgo = new Date();
@@ -69,6 +105,7 @@ export class AnalyticsService {
       mobile: mobileVisits,
       desktop: desktopVisits,
       recent: recentVisits,
+      pageStats,
       chartData,
       totalProducts,
       totalProjects,
