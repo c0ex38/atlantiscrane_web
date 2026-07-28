@@ -41,6 +41,8 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS}
     ports:
       - "3001:3001"
+    labels:
+      - "traefik.http.services.atlantis-backend.loadbalancer.server.port=3001"
     volumes:
       - backend_uploads:/workspace/backend/uploads
     networks:
