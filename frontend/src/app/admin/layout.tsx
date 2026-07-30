@@ -89,6 +89,16 @@ type AdminBranding = {
   favicon: string;
 };
 
+function AdminFontHead() {
+  return (
+    <head>
+      <link rel="preconnect" href="https://use.typekit.net" />
+      <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
+      <link rel="stylesheet" href="https://use.typekit.net/waa1nqn.css" />
+    </head>
+  );
+}
+
 function SidebarContent({ 
   user, 
   pathname, 
@@ -346,6 +356,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   if (isLoading) {
     return (
       <html lang="tr">
+        <AdminFontHead />
         <body className="antialiased admin-theme">
           <div className="flex h-screen w-screen items-center justify-center bg-background">
             <div className="flex flex-col items-center gap-3">
@@ -365,6 +376,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   if (isLoginPage) {
     return (
       <html lang="tr">
+        <AdminFontHead />
         <body className="antialiased min-h-screen bg-background admin-theme">
           {children}
         </body>
@@ -376,6 +388,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <html lang="tr" className="h-full">
+      <AdminFontHead />
       <body className="antialiased min-h-full min-w-0 overflow-x-hidden bg-background text-foreground flex admin-theme">
         {/* Desktop Sidebar */}
         <aside className="hidden lg:flex flex-col w-[220px] bg-sidebar-bg text-sidebar-text h-screen fixed left-0 top-0 z-20 border-r border-sidebar-border-custom">

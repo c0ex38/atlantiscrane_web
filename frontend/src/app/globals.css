@@ -54,6 +54,7 @@
 }
 
 .admin-theme {
+  --font-admin: "bicyclette", ui-sans-serif, system-ui, sans-serif;
   --bg: #F2F0EF;
   --bg-alt: #E9E6E4;
   --surface: #FFFFFF;
@@ -88,6 +89,7 @@
   --sidebar-text: #24201F;
   --sidebar-border: #DEDAD8;
   --sidebar-hover-bg: rgba(255, 39, 0, 0.06);
+  font-family: var(--font-admin);
 }
 
 .admin-theme[data-theme='dark'] {
