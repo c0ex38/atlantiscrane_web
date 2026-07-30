@@ -10,7 +10,32 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [logos, setLogos] = useState({
+    light: "/atlantis-logo.svg",
+    dark: "/atlantis-logo.svg",
+  });
   const router = useRouter();
+
+  useEffect(() => {
+    const light = localStorage.getItem("admin-company-logo") || "/atlantis-logo.svg";
+    const dark = localStorage.getItem("admin-company-logo-dark") || light;
+    setLogos({ light, dark });
+
+    const handleBrandingUpdate = (event: Event) => {
+      const detail = (event as CustomEvent<{
+        companyLogo?: string;
+        companyLogoDark?: string;
+      }>).detail;
+      const nextLight = detail?.companyLogo || "/atlantis-logo.svg";
+      setLogos({
+        light: nextLight,
+        dark: detail?.companyLogoDark || nextLight,
+      });
+    };
+
+    window.addEventListener("admin-branding-updated", handleBrandingUpdate);
+    return () => window.removeEventListener("admin-branding-updated", handleBrandingUpdate);
+  }, []);
 
   // If already logged in, redirect straight to dashboard
   useEffect(() => {
@@ -54,8 +79,23 @@ export default function AdminLoginPage() {
         
         {/* Header */}
         <div className="flex flex-col items-center mb-8 text-center">
-          <div className="h-12 w-12 bg-primary rounded-xl flex items-center justify-center text-white font-black text-xl mb-4">
-            AC
+          <div className="mb-5 flex h-16 w-full max-w-[220px] items-center justify-center">
+            <img
+              src={logos.light}
+              alt="Atlantis Crane logosu"
+              className="admin-login-logo-light max-h-16 max-w-full object-contain"
+              onError={(event) => {
+                event.currentTarget.src = "/atlantis-logo.svg";
+              }}
+            />
+            <img
+              src={logos.dark}
+              alt="Atlantis Crane logosu"
+              className="admin-login-logo-dark hidden max-h-16 max-w-full object-contain"
+              onError={(event) => {
+                event.currentTarget.src = logos.light;
+              }}
+            />
           </div>
           <h2 className="text-2xl font-bold tracking-tight text-card-foreground">Giriş Yapın</h2>
           <p className="text-sm text-muted-foreground mt-1">Atlantis Crane Yönetim Paneli</p>

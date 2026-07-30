@@ -9,7 +9,7 @@ import { MapPin, Plus, Trash2 } from "lucide-react";
 
 type SettingsSection = "identity" | "contact" | "addresses";
 const settingsTabs = [
-  { id: "identity", label: "Genel Kimlik", description: "Sitenin marka adı, ana logosu ve tarayıcı ikonunu yönetin." },
+  { id: "identity", label: "Genel Kimlik", description: "Sitenin marka adı, açık/koyu tema logoları ve tarayıcı ikonunu yönetin." },
   { id: "contact", label: "İletişim Kanalları", description: "Sitenin genelinde kullanılan e-posta ve telefon bilgisini düzenleyin." },
   { id: "addresses", label: "Ofis Adresleri", description: "Ofis ve şube adreslerini ekleyin, kaldırın ve üç dilde yönetin." },
 ] as const;
@@ -44,6 +44,7 @@ export default function SettingsAdminPage() {
   // Form inputs
   const [siteTitle, setSiteTitle] = useState("");
   const [companyLogo, setCompanyLogo] = useState("");
+  const [companyLogoDark, setCompanyLogoDark] = useState("");
   const [favicon, setFavicon] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -62,6 +63,7 @@ export default function SettingsAdminPage() {
       
       if (data.site_title) setSiteTitle(data.site_title.title || "");
       if (data.company_logo) setCompanyLogo(data.company_logo.logo || "");
+      if (data.company_logo) setCompanyLogoDark(data.company_logo.darkLogo || "");
       if (data.site_favicon) setFavicon(data.site_favicon.icon || "");
       if (data.contact_email) setEmail(data.contact_email.email || "");
       if (data.contact_phone) setPhone(data.contact_phone.phone || "");
@@ -114,7 +116,7 @@ export default function SettingsAdminPage() {
     const payload = {
       settings: {
         site_title: { title: siteTitle },
-        company_logo: { logo: companyLogo },
+        company_logo: { logo: companyLogo, darkLogo: companyLogoDark },
         site_favicon: { icon: favicon },
         contact_email: { email },
         contact_phone: { phone },
@@ -131,7 +133,7 @@ export default function SettingsAdminPage() {
         body: JSON.stringify(payload),
       });
       window.dispatchEvent(new CustomEvent("admin-branding-updated", {
-        detail: { siteTitle, companyLogo, favicon },
+        detail: { siteTitle, companyLogo, companyLogoDark, favicon },
       }));
       setSuccess("Sistem ayarları başarıyla güncellendi.");
     } catch (e: any) {
@@ -196,17 +198,29 @@ export default function SettingsAdminPage() {
             </div>
             <div>
               <FileUpload
-                label="Firma Logosu"
+                label="Açık Tema Logosu"
                 value={companyLogo}
                 onChange={setCompanyLogo}
                 accept="image/*"
-                placeholder="/logo.png"
+                placeholder="/logo-light.png"
               />
               <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
-                Web sitesinde ve admin panelinin sol üst marka alanında kullanılır.
+                Açık zeminlerde, admin girişinde ve açık tema sidebar alanında kullanılır.
               </p>
             </div>
             <div>
+              <FileUpload
+                label="Koyu Tema Logosu"
+                value={companyLogoDark}
+                onChange={setCompanyLogoDark}
+                accept="image/*"
+                placeholder="/logo-dark.png"
+              />
+              <p className="mt-1.5 text-[10px] leading-relaxed text-muted-foreground">
+                Koyu zeminlerde kullanılır. Boş bırakılırsa açık tema logosu gösterilir.
+              </p>
+            </div>
+            <div className="md:col-span-2">
               <FileUpload
                 label="Favicon / Tarayıcı İkonu"
                 value={favicon}

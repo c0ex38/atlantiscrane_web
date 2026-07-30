@@ -153,6 +153,14 @@ body.admin-theme {
     linear-gradient(180deg, var(--bg), var(--bg-alt));
 }
 
+body.admin-theme[data-theme='dark'] .admin-login-logo-light {
+  display: none;
+}
+
+body.admin-theme[data-theme='dark'] .admin-login-logo-dark {
+  display: block;
+}
+
 body.admin-theme,
 body.admin-theme * {
   transition-property: background-color, border-color, color, fill, stroke, box-shadow;

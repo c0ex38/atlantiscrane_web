@@ -129,12 +129,19 @@ export function AdminLoadingState({ label = "İçerik yükleniyor..." }: { label
   const [logo, setLogo] = useState("/atlantis-logo.svg");
 
   useEffect(() => {
-    const savedLogo = localStorage.getItem("admin-company-logo");
+    const isDark = document.body.getAttribute("data-theme") === "dark";
+    const savedLogo = isDark
+      ? localStorage.getItem("admin-company-logo-dark") || localStorage.getItem("admin-company-logo")
+      : localStorage.getItem("admin-company-logo");
     if (savedLogo) setLogo(savedLogo);
 
     const handleBrandingUpdate = (event: Event) => {
-      const detail = (event as CustomEvent<{ companyLogo?: string }>).detail;
-      setLogo(detail?.companyLogo || "/atlantis-logo.svg");
+      const detail = (event as CustomEvent<{ companyLogo?: string; companyLogoDark?: string }>).detail;
+      const darkTheme = document.body.getAttribute("data-theme") === "dark";
+      setLogo(
+        (darkTheme ? detail?.companyLogoDark || detail?.companyLogo : detail?.companyLogo)
+        || "/atlantis-logo.svg",
+      );
     };
 
     window.addEventListener("admin-branding-updated", handleBrandingUpdate);

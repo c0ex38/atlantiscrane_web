@@ -20,7 +20,7 @@ export default function Footer({ locale, settings }: FooterProps) {
 
   const email = settings?.contact_email?.email || t?.contact?.email || "";
   const phone = settings?.contact_phone?.phone || t?.contact?.phone || "";
-  const companyLogo = settings?.company_logo?.logo || "/atlantis-logo.svg";
+  const companyLogo = settings?.company_logo?.darkLogo || settings?.company_logo?.logo || "/atlantis-logo.svg";
   const hasConfiguredLocations = Array.isArray(settings?.office_addresses?.items);
   const configuredLocations = hasConfiguredLocations
     ? settings.office_addresses.items

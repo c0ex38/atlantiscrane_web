@@ -86,6 +86,7 @@ const pageTitle: Record<string, string> = {
 type AdminBranding = {
   siteTitle: string;
   companyLogo: string;
+  companyLogoDark: string;
   favicon: string;
 };
 
@@ -105,20 +106,26 @@ function SidebarContent({
   onLinkClick, 
   onLogout,
   branding,
+  resolvedTheme,
 }: { 
   user: any; 
   pathname: string; 
   onLinkClick?: () => void; 
   onLogout: () => void;
   branding: AdminBranding;
+  resolvedTheme: "light" | "dark";
 }) {
+  const activeLogo = resolvedTheme === "dark"
+    ? branding.companyLogoDark || branding.companyLogo
+    : branding.companyLogo;
+
   return (
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="flex h-[68px] shrink-0 items-center border-b border-sidebar-border-custom px-5">
-        <div className="flex h-11 w-full max-w-[170px] items-center justify-start overflow-hidden rounded-lg bg-white px-2">
+        <div className="flex h-11 w-full max-w-[170px] items-center justify-start overflow-hidden rounded-lg bg-white px-2 dark:bg-white/5">
           <img
-            src={branding.companyLogo || "/atlantis-logo.svg"}
+            src={activeLogo || "/atlantis-logo.svg"}
             alt={`${branding.siteTitle} logosu`}
             className="max-h-10 w-auto max-w-full object-contain object-left"
             onError={(event) => {
@@ -199,6 +206,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [branding, setBranding] = useState<AdminBranding>({
     siteTitle: "Atlantis Crane",
     companyLogo: "",
+    companyLogoDark: "",
     favicon: "",
   });
 
@@ -216,6 +224,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         setBranding({
           siteTitle: data.site_title?.title || "Atlantis Crane",
           companyLogo: data.company_logo?.logo || "",
+          companyLogoDark: data.company_logo?.darkLogo || "",
           favicon: data.site_favicon?.icon || "",
         });
       })
@@ -251,7 +260,14 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       "admin-company-logo",
       branding.companyLogo || "/atlantis-logo.svg",
     );
-  }, [branding.companyLogo]);
+    localStorage.setItem(
+      "admin-company-logo-dark",
+      branding.companyLogoDark || branding.companyLogo || "/atlantis-logo.svg",
+    );
+    window.dispatchEvent(new CustomEvent("admin-branding-updated", {
+      detail: branding,
+    }));
+  }, [branding]);
 
   useEffect(() => {
     const handleAdminNavigation = (event: MouseEvent) => {
@@ -397,6 +413,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             pathname={pathname}
             onLogout={() => void logout()}
             branding={branding}
+            resolvedTheme={resolvedTheme}
           />
         </aside>
 
@@ -426,6 +443,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             onLinkClick={() => setIsSidebarOpen(false)}
             onLogout={() => { setIsSidebarOpen(false); void logout(); }}
             branding={branding}
+            resolvedTheme={resolvedTheme}
           />
         </aside>
 
