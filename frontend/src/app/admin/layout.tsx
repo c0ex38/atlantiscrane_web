@@ -246,13 +246,21 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!branding.favicon) return;
 
-    let faviconLink = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
-    if (!faviconLink) {
-      faviconLink = document.createElement("link");
-      faviconLink.rel = "icon";
-      document.head.appendChild(faviconLink);
-    }
+    document
+      .querySelectorAll<HTMLLinkElement>(
+        'link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]',
+      )
+      .forEach((link) => link.remove());
+
+    const faviconLink = document.createElement("link");
+    faviconLink.rel = "icon";
     faviconLink.href = branding.favicon;
+    document.head.appendChild(faviconLink);
+
+    const shortcutLink = document.createElement("link");
+    shortcutLink.rel = "shortcut icon";
+    shortcutLink.href = branding.favicon;
+    document.head.appendChild(shortcutLink);
   }, [branding.favicon]);
 
   useEffect(() => {
