@@ -146,11 +146,21 @@ body {
 }
 
 body.admin-theme {
+  min-height: 100dvh;
+  background-color: var(--bg);
   background:
     radial-gradient(circle at top, rgba(27, 27, 54, 0.05), transparent 28%),
     radial-gradient(circle at 20% 20%, rgba(27, 27, 54, 0.03), transparent 20%),
-    radial-gradient(circle at bottom right, rgba(255, 39, 0, 0.12), transparent 24%),
+    radial-gradient(circle at 100% 78%, rgba(255, 39, 0, 0.12), transparent 34%),
     linear-gradient(180deg, var(--bg), var(--bg-alt));
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+html:has(body.admin-theme) {
+  min-height: 100%;
+  background-color: var(--bg);
 }
 
 body.admin-theme[data-theme='dark'] .admin-login-logo-light {
